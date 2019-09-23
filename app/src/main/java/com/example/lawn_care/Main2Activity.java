@@ -7,17 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class Main2Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button btn = (Button) findViewById(R.id.button);
+        setContentView(R.layout.activity_main2);
     }
-        public void abc(View view) {
-            Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-            startActivity(intent);
 
-        }
+    public void temp(View view) {
+        Intent intent = new Intent(Main2Activity.this, MainActivity.class);
+        startActivity(intent);
+    }
 }
