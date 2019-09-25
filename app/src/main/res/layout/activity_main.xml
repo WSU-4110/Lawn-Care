@@ -7,12 +7,13 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonEnterDash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="buttonPress"
         android:text="Button"
-        tools:layout_editor_absoluteX="156dp"
-        tools:layout_editor_absoluteY="412dp" />
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="389dp" />
 
     <TextView
         android:layout_width="wrap_content"
