@@ -3,6 +3,7 @@ package com.example.lawn_care;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.EditText;
 
 public class SignUp extends AppCompatActivity {
 

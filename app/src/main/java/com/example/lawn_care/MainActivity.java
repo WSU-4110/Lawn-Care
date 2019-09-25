@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         Button btn = (Button) findViewById(R.id.button);
     }
         public void abc(View view) {
-            Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+            Intent intent = new Intent(MainActivity.this, SignUp.class);
             startActivity(intent);
 
         }
