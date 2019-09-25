@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">lawn-care</string>
+    <string name="title_activity_dash">dash</string>
+    <string name="title_jobList">Job List</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_map">Map</string>
+    <string name="jobTest">This is the Job Listing Screen</string>
 </resources>
