@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     }
         public void abc(View view) {
             Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+            Intent intent1 = new Intent(MainActivity.this, PropertyOwner.class);
+            startActivity(intent1);
             startActivity(intent);
 
         }
