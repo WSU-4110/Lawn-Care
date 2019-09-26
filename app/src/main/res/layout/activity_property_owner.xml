@@ -1,126 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    android:orientation="vertical"
-    tools:context=".SignUp">
+    tools:context=".PropertyOwner">
 
     <EditText
-        android:id="@+id/ET_firstName"
-        android:hint="@string/Enter_First_Name"
-        android:inputType="text"
-        android:layout_width="match_parent"
+        android:id="@+id/ET_address"
+        android:hint="@string/Address"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:background="@drawable/back_with_border"
         android:ems="10"
         android:padding="10dp" />
 
     <EditText
-        android:id="@+id/ET_lastName"
-        android:hint="@string/Enter_Last_Name"
-        android:inputType="text"
-        android:layout_width="match_parent"
+        android:id="@+id/ET_city"
+        android:hint="@string/City"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
+
+
+    <EditText
+        android:id="@+id/ET_state"
+        android:hint="@string/State"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:background="@drawable/back_with_border"
         android:ems="10"
         android:padding="10dp" />
 
     <EditText
-        android:id="@+id/ET_email"
-        android:hint="@string/Enter_Email"
-        android:inputType="textEmailAddress"
-        android:layout_width="match_parent"
+        android:id="@+id/ET_zipCode"
+        android:hint="@string/Zipcode"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:background="@drawable/back_with_border"
         android:ems="10"
         android:padding="10dp" />
 
     <EditText
-        android:id="@+id/ET_password"
-        android:hint="@string/Enter_Password"
-        android:inputType="textPassword"
-        android:layout_width="match_parent"
+        android:id="@+id/ET_PropertySize"
+        android:hint="@string/Property_Size"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:background="@drawable/back_with_border"
         android:ems="10"
         android:padding="10dp" />
 
     <EditText
-        android:id="@+id/ET_mathPassword"
-        android:hint="@string/Please_Confirm_Password"
-        android:inputType="textPassword"
-        android:layout_width="match_parent"
+        android:id="@+id/ET_JobType"
+        android:hint="@string/Job_Type"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:background="@drawable/back_with_border"
         android:ems="10"
         android:padding="10dp" />
 
-    <RadioGroup
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/ET_Tools"
+        android:hint="@string/Tools_Availability"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_margin="10dp"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <RadioButton
-            android:id="@+id/jobSeekerRB"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Job_Seeker" />
-
-        <RadioButton
-            android:id="@+id/clientRB"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Service" />
-    </RadioGroup>
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="3"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="3">
 
         <Button
-            android:id="@+id/btn_Cancel"
+            android:id="@+id/btn_cancel"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:onClick="ActivitySignIn"
             android:padding="10dp"
             android:text="@string/Cancel" />
 
         <Button
-            android:id="@+id/btn_Reset"
+            android:id="@+id/btn_reset"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:onClick="ResetAll"
             android:padding="10dp"
+            android:onClick="ResetAll"
             android:text="@string/Reset" />
 
         <Button
-            android:id="@+id/btn_Summit"
+            android:id="@+id/btn_submit"
+
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:padding="10dp"
+            android:onClick="PostJob"
             android:text="@string/Submit" />
     </LinearLayout>
 

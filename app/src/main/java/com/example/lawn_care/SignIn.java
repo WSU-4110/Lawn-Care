@@ -13,10 +13,10 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        Button btn = (Button) findViewById(R.id.button);
     }
-        public void abc(View view) {
-            Intent intent = new Intent(SignIn.this, SignUp.class);
-            startActivity(intent);
-        }
+
+    public void ActivitySignUp(View view) {
+        Intent intent = new Intent(SignIn.this, SignUp.class);
+        startActivity(intent);
+    }
 }
