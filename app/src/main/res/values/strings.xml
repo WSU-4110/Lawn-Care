@@ -21,4 +21,7 @@
     <string name="Property_Size">Property Size</string>
     <string name="Tools_Availability">Tools Availability</string>
     <string name="jobTest">This is job test?</string>
+    <string name="title_jobList">This is the job list?</string>
+    <string name="title_dashboard">This is the dashboard?</string>
+    <string name="title_map">This is the map?</string>
 </resources>
