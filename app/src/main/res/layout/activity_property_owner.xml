@@ -1,189 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp"
+    android:padding="20dp"
     tools:context=".PropertyOwner">
 
-    <TableRow
+    <EditText
+        android:id="@+id/ET_address"
+        android:hint="@string/Address"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/Table1"
-        >
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
 
-        <TextView
-            android:id="@+id/StreetAddress"
+    <EditText
+        android:id="@+id/ET_city"
+        android:hint="@string/City"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <Spinner
+            android:id="@+id/spinner2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Street Address" />
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="start"
+            android:background="@drawable/back_with_border"
+            android:ems="10"
+            android:layout_weight="2"
+            android:entries="@array/USA_State"
+            android:padding="10dp" />
 
         <EditText
-            android:id="@+id/Address"
-            android:layout_width="match_parent"
+            android:id="@+id/ET_zipCode"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/back_with_border"
             android:ems="10"
-            android:layout_marginLeft="10dp"/>
-    </TableRow>
+            android:layout_weight="3"
+            android:hint="@string/Zipcode"
+            android:padding="10dp" />
+    </LinearLayout>
 
-    <TableRow
-
+    <EditText
+        android:id="@+id/ET_PropertySize"
+        android:hint="@string/Property_Size"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
 
-        <TextView
-            android:id="@+id/City"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="City" />
-
-        <EditText
-            android:id="@+id/City1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginLeft="10dp"
-            />
-    </TableRow>
-
-    <TableRow
+    <EditText
+        android:id="@+id/ET_JobType"
+        android:hint="@string/Job_Type"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
 
-        <TextView
-            android:id="@+id/Zipcode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Zipcode" />
-
-        <EditText
-            android:id="@+id/Zipcode1"
-            android:layout_width="25dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginLeft="10dp"
-            />
-
-    </TableRow>
-
-    <TableRow
+    <EditText
+        android:id="@+id/ET_Tools"
+        android:hint="@string/Tools_Availability"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
 
-        <TextView
-            android:id="@+id/State"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="State"
-            />
-
-        <EditText
-            android:id="@+id/State1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:layout_marginLeft="10dp"/>
-    </TableRow>
-
-    <TableRow
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/PropertySize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Property Size" />
-
-        <EditText
-            android:id="@+id/PropertySize1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:layout_marginLeft="10dp"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/JobType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Job Type" />
-
-        <EditText
-            android:id="@+id/JobType1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:layout_marginLeft="10dp"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/Tools"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tools" />
-
-        <EditText
-            android:id="@+id/Tools1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:layout_marginLeft="10dp"/>
-
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginVertical="50dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
 
         <Button
-            android:id="@+id/Reset"
-            android:layout_width="92dp"
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:text="Reset" />
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="@string/Cancel" />
 
         <Button
-            android:id="@+id/Submit"
+            android:id="@+id/btn_reset"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="130dp"
-            android:clickable="true"
-            android:text="Submit"
-            />
-
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:onClick="ResetAll"
+            android:text="@string/Reset" />
 
         <Button
-            android:id="@+id/Return"
+            android:id="@+id/btn_submit"
+
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Return"
-            android:layout_marginRight="90dp"/>
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:onClick="PostJob"
+            android:text="@string/Submit" />
+    </LinearLayout>
 
-    </TableRow>
-
-</TableLayout>
+</LinearLayout>

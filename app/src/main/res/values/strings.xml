@@ -1,8 +1,23 @@
 <resources>
     <string name="app_name">lawn-care</string>
-    <string name="title_activity_dash">dash</string>
-    <string name="title_jobList">Job List</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_map">Map</string>
-    <string name="jobTest">This is the Job Listing Screen</string>
+    <string name="Enter_First_Name">Enter First Name</string>
+    <string name="Enter_Last_Name">Enter Last Name</string>
+    <string name="Do_not_have_an_Account">Don\'t have an Account</string>
+    <string name="Login">Login</string>
+    <string name="Enter_Password">Enter Password</string>
+    <string name="Enter_Email">Enter Email</string>
+    <string name="Submit">Submit</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Reset">Reset</string>
+    <string name="Service">Service</string>
+    <string name="Job_Seeker">Job Seeker</string>
+    <string name="Please_Confirm_Password">Please Confirm Password</string>
+    <string name="Show_Password">Show Password</string>
+    <string name="Address">Address</string>
+    <string name="City">City</string>
+    <string name="State">State</string>
+    <string name="Zipcode">Zipcode</string>
+    <string name="Job_Type">Job Type</string>
+    <string name="Property_Size">Property Size</string>
+    <string name="Tools_Availability">Tools Availability</string>
 </resources>
