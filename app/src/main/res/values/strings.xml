@@ -20,4 +20,5 @@
     <string name="Job_Type">Job Type</string>
     <string name="Property_Size">Property Size</string>
     <string name="Tools_Availability">Tools Availability</string>
+    <string name="jobTest">This is job test?</string>
 </resources>
