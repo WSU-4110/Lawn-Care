@@ -81,4 +81,8 @@ public class PropertyOwner extends AppCompatActivity {
 
     public void Dashboard(View view) {
      }
+
+    public void Cancel(View view) {
+        setContentView(R.layout.activity_dash);
+    }
 }

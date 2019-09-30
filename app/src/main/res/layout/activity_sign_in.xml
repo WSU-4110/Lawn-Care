@@ -39,12 +39,13 @@
         android:text="@string/Show_Password" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/BTN_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:padding="10dp"
         android:layout_gravity="center_horizontal"
+        android:onClick="LoginAttempt"
         android:text="@string/Login" />
 
     <TextView
