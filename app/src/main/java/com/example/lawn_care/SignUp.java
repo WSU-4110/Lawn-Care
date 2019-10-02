@@ -93,10 +93,25 @@ public class SignUp extends AppCompatActivity {
     }
 
     public void signupSubmit(View view) {
+        //IMPORTANT
+        //FORGOT TO INCLUDE PHONE NUMBER
+        //We can include it in the new ui, but don't forget to add it to the parameters.
+        //ALSO NEED TO PASS USER STATE
+        //again, a UI issue, but dont forget
         final String email= ET_email.getText().toString();
         final String password= ET_password.getText().toString();
         final String firstName= ET_firstName.getText().toString();
         final String lastName= ET_lastName.getText().toString();
+        //Log.d("BOOLEAN",String.valueOf(email.length()));
+        if((email.length()==0)||(password.length()==0)||(firstName.length()==0)||(lastName.length()==0)){
+            AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
+            builder.setMessage("No field can be blank")
+                    .setNegativeButton("Enter info",null)
+                    .create()
+                    .show();
+            return;
+        }
+        //we also should check for valid email input, phone, etc.
 
         final String signup_url="http://lawn-care.us-east-1.elasticbeanstalk.com/signup.php";
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
