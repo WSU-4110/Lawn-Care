@@ -1,24 +1,31 @@
 package com.example.lawn_care;
 
-import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
     private EditText ET_password;
@@ -26,7 +33,7 @@ public class SignUp extends AppCompatActivity {
     private EditText ET_firstName;
     private EditText ET_lastName;
     private EditText ET_email;
-    private Button btn_Summit;
+    private Button btn_Submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,7 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        btn_Summit = findViewById(R.id.btn_Summit);
+        btn_Submit = findViewById(R.id.btn_Submit);
         ET_firstName = findViewById(R.id.ET_firstName);
         ET_lastName = findViewById(R.id.ET_lastName);
         ET_email = findViewById(R.id.ET_email);
@@ -84,4 +91,71 @@ public class SignUp extends AppCompatActivity {
         ET_password.setText("");
         ET_mathPassword.setText("");
     }
+
+    public void signupSubmit(View view) {
+        final String email= ET_email.getText().toString();
+        final String password= ET_password.getText().toString();
+        final String firstName= ET_firstName.getText().toString();
+        final String lastName= ET_lastName.getText().toString();
+
+        final String signup_url="http://lawn-care.us-east-1.elasticbeanstalk.com/signup.php";
+        //stringRequest is an object that contains the request method, the url, and the parameters and the response
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, signup_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonResponse;
+                        try {
+                            jsonResponse=new JSONObject(response);
+                            if(jsonResponse.getString("success")!="false"){
+
+
+                                //switch to login
+                                Intent intent = new Intent(SignUp.this, SignIn.class);
+
+                                SignUp.this.startActivity(intent);
+                            }
+                            else{
+                                //message for incorrect password
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
+                                builder.setMessage("Invalid Input")
+                                        .setNegativeButton("Try Again",null)
+                                        .create()
+                                        .show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
+                        builder.setMessage("Connection Failed")
+                                .setNegativeButton("Try Again",null)
+                                .create()
+                                .show();
+                        error.printStackTrace();
+                        Log.e("VOLLEY", error.getMessage());
+                        //requestQueue.stop();
+                    }
+                }){
+            @Override
+            //this function is written to get the parameters for posting
+            protected Map<String,String> getParams(){
+                Map<String,String> params= new HashMap<String, String>();
+                params.put("email", email);
+                params.put("password", password);
+                params.put("firstName", firstName);
+                params.put("lastName", lastName);
+                return params;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(SignUp.this);
+        requestQueue.add(stringRequest);
+
+    }
+
 }

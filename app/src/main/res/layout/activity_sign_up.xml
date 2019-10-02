@@ -114,13 +114,14 @@
             android:text="@string/Reset" />
 
         <Button
-            android:id="@+id/btn_Summit"
+            android:id="@+id/btn_Submit"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:padding="10dp"
+            android:onClick="signupSubmit"
             android:text="@string/Submit" />
     </LinearLayout>
 
