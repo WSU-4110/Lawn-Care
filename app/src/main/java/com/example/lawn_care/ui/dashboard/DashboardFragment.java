@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,10 +14,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.lawn_care.R;
+import com.example.lawn_care.localUserInfo;
 
 public class DashboardFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
+
+    TextView text_welcome;
+    Button btn_addYourData,btn_viewYourData;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,6 +35,23 @@ public class DashboardFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        //welcomes the user into the app
+        text_welcome=root.findViewById(R.id.text_welcome);
+        text_welcome.setText("Welcome "+ localUserInfo.getFirstName()+" "+localUserInfo.getLastName());
+        
+        btn_addYourData=root.findViewById(R.id.btn_addYourData);
+        btn_viewYourData=root.findViewById(R.id.btn_viewYourData);
+        //set button text accordingly
+        if(localUserInfo.getUserType().equals("owner")){
+            btn_addYourData.setText("Add a property");
+            btn_viewYourData.setText("View your properties");
+        }
+        else if(localUserInfo.getUserType().equals("worker")){
+            btn_addYourData.setText("Add your worker profile");
+            btn_viewYourData.setText("View your worker profile");
+        }
+        
         return root;
     }
 }
