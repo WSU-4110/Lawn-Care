@@ -67,13 +67,13 @@ public class SignIn extends AppCompatActivity {
                                 //the php gets the first and last name, can be changed
                                 String firstName=jsonResponse.getString("firstName");
                                 String lastName=jsonResponse.getString("lastName");
+                                String phoneNumber=jsonResponse.getString("phone");
+                                String userType=jsonResponse.getString("userType");
+
+                                localUserInfo.setUserInfo(email,password,firstName,lastName,phoneNumber,userType);
 
                                 //switch to dashboard
                                 Intent intent = new Intent(SignIn.this, dash.class);
-                                //pass the info to the dash, can be removed if not needed
-                                intent.putExtra("email",email);
-                                intent.putExtra("firstName",firstName);
-                                intent.putExtra("lastName",lastName);
                                 SignIn.this.startActivity(intent);
                             }
                             else{
