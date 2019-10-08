@@ -26,4 +26,12 @@
     <string name="title_map">This is the map?</string>
     <string name="enter_phone_number">Enter Phone Number</string>
     <string name="property_owner">Property Owner</string>
+    <string name="name">Name:</string>
+    <string name="email">Email:</string>
+    <string name="phone">Phone:</string>
+    <string name="description">Description:</string>
+    <string name="work_offer">Work Offer:</string>
+    <string name="days_available">Days available:</string>
+    <string name="time">Time:</string>
+    <string name="website">Website:</string>
 </resources>
