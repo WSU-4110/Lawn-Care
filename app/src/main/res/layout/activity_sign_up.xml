@@ -42,6 +42,17 @@
         android:padding="10dp" />
 
     <EditText
+        android:id="@+id/ET_phoneNumber"
+        android:hint="@string/enter_phone_number"
+        android:inputType="phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp"/>
+
+    <EditText
         android:id="@+id/ET_password"
         android:hint="@string/Enter_Password"
         android:inputType="textPassword"
@@ -64,6 +75,7 @@
         android:padding="10dp" />
 
     <RadioGroup
+        android:id="@+id/WorkerOwnerRG"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -82,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/Service" />
+            android:text="@string/property_owner" />
     </RadioGroup>
 
     <LinearLayout
