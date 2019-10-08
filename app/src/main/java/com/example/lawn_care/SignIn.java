@@ -53,6 +53,7 @@ public class SignIn extends AppCompatActivity {
 
     public void LoginAttempt(View view) {
         final String email= ET_email.getText().toString();
+
         final String password= ET_password.getText().toString();
         final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/login.php";
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
