@@ -9,65 +9,90 @@
 
     <TextView
         android:id="@+id/TV_workerName"
-        android:layout_width="316dp"
-        android:layout_height="64dp"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
         android:text="@string/name"
-        tools:layout_editor_absoluteX="171dp"
-        tools:layout_editor_absoluteY="48dp" />
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:padding="5dp"
+         />
 
     <TextView
         android:id="@+id/TV_email"
-        android:layout_width="316dp"
-        android:layout_height="71dp"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
         android:text="@string/email"
-        tools:layout_editor_absoluteX="171dp"
-        tools:layout_editor_absoluteY="89dp" />
+        android:textSize="17dp"
+        android:padding="5dp"
+        />
 
     <TextView
         android:id="@+id/TV_description"
-        android:layout_width="319dp"
-        android:layout_height="65dp"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
         android:text="@string/phone"
-        tools:layout_editor_absoluteX="171dp"
-        tools:layout_editor_absoluteY="163dp" />
+        android:textSize="17dp"
+        android:padding="5dp"
+        />
 
     <TextView
         android:id="@+id/TV_phoneNum"
-        android:layout_width="324dp"
-        android:layout_height="62dp"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
         android:text="@string/description"
-        tools:layout_editor_absoluteX="173dp"
-        tools:layout_editor_absoluteY="122dp" />
+        android:textSize="17dp"
+        android:padding="5dp"
+        />
 
     <TextView
         android:id="@+id/TV_workOffer"
-        android:layout_width="322dp"
-        android:layout_height="70dp"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
         android:text="@string/work_offer"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="198dp" />
+        android:textSize="17dp"
+        android:padding="5dp"
+        />
 
     <TextView
         android:id="@+id/TV_daysAvailable"
-        android:layout_width="322dp"
-        android:layout_height="72dp"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
         android:text="@string/days_available"
-        tools:layout_editor_absoluteX="174dp"
-        tools:layout_editor_absoluteY="232dp" />
+        android:textSize="17dp"
+        android:padding="5dp"
+         />
 
     <TextView
         android:id="@+id/TV_startEndTime"
-        android:layout_width="327dp"
-        android:layout_height="78dp"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
         android:text="@string/time"
-        tools:layout_editor_absoluteX="174dp"
-        tools:layout_editor_absoluteY="275dp" />
+        android:textSize="17dp"
+        android:padding="5dp"
+        />
 
     <TextView
         android:id="@+id/TV_website"
-        android:layout_width="329dp"
-        android:layout_height="72dp"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
         android:text="@string/website"
-        tools:layout_editor_absoluteX="174dp"
-        tools:layout_editor_absoluteY="320dp" />
+        android:textSize="17dp"
+        android:padding="5dp"
+         />
 </LinearLayout>
