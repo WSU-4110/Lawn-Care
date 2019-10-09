@@ -118,7 +118,7 @@ public class SignIn extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(SignIn.this);
-                        builder.setMessage("Sign In Failed")
+                        builder.setMessage("Server Connection Failed")
                                 .setNegativeButton("Try Again",null)
                                 .create()
                                 .show();
