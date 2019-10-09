@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -53,8 +54,22 @@ public class SignIn extends AppCompatActivity {
 
     public void LoginAttempt(View view) {
         final String email= ET_email.getText().toString();
-
         final String password= ET_password.getText().toString();
+
+        String invalidFieldMessage="";
+        String emailRegex="^(.+)@(.+)$";
+        if(!email.matches(emailRegex)){
+            invalidFieldMessage="Email is not formatted properly";
+        }
+        if(!invalidFieldMessage.equals("")){
+            AlertDialog.Builder builder = new AlertDialog.Builder(SignIn.this);
+            builder.setMessage(invalidFieldMessage)
+                    .setNegativeButton("Re-enter info",null)
+                    .create()
+                    .show();
+            return;
+        }
+
         final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/login.php";
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
         StringRequest stringRequest=new StringRequest(Request.Method.POST, signin_url,
@@ -65,12 +80,15 @@ public class SignIn extends AppCompatActivity {
                         try {
                             jsonResponse=new JSONObject(response);
                             if(jsonResponse.getString("success")!="false"){
-                                //the php gets the first and last name, can be changed
+                                //login success toast
+                                Toast.makeText(getApplicationContext(),"Login Successful!",Toast.LENGTH_LONG).show();
+
+                                //save the data from the json into local variables
                                 String firstName=jsonResponse.getString("firstName");
                                 String lastName=jsonResponse.getString("lastName");
                                 String phoneNumber=jsonResponse.getString("phone");
                                 String userType=jsonResponse.getString("userType");
-
+                                //set them up in a class with static attributes
                                 localUserInfo.setUserInfo(email,password,firstName,lastName,phoneNumber,userType);
 
                                 //switch to dashboard
