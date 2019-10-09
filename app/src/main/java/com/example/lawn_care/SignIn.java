@@ -66,6 +66,9 @@ public class SignIn extends AppCompatActivity {
         if(!email.matches(emailRegex)){
             invalidFieldMessage="Email is not formatted properly";
         }
+        if(email.length()==0||password.length()==0){
+            invalidFieldMessage="Fields cannot be blank";
+        }
         if(!invalidFieldMessage.equals("")){
             AlertDialog.Builder builder = new AlertDialog.Builder(SignIn.this);
             builder.setMessage(invalidFieldMessage)
@@ -118,7 +121,7 @@ public class SignIn extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(SignIn.this);
-                        builder.setMessage("Server Connection Failed")
+                        builder.setMessage("Connection Failed")
                                 .setNegativeButton("Try Again",null)
                                 .create()
                                 .show();
