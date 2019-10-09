@@ -6,4 +6,8 @@
     <color name="BLACK">#000000</color>
     <color name="RED">#FF0000</color>
     <color name="GREEN">#008000</color>
+    <color name="btn_color">#00E87C</color>
+    <color name="login_color">#2C430E</color>
+    <color name="WHITE">#FFFFFF</color>
+    <color name="btnDisableText">#2C430E</color>
 </resources>
