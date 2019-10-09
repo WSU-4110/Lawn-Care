@@ -31,11 +31,12 @@
         android:padding="10dp" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/CB_showPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_gravity="end"
+        android:onClick="showPasswordCheck"
         android:text="@string/Show_Password" />
 
     <Button

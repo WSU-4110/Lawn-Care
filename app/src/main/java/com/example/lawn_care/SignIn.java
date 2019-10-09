@@ -3,6 +3,8 @@ package com.example.lawn_care;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -36,6 +39,7 @@ public class SignIn extends AppCompatActivity {
 
     EditText ET_email,ET_password;
     Button BTN_login;
+    CheckBox CB_showPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class SignIn extends AppCompatActivity {
          ET_email=findViewById(R.id.ET_email);
          ET_password=findViewById(R.id.ET_password);
          BTN_login=findViewById(R.id.BTN_login);
+         CB_showPassword=findViewById(R.id.CB_showPassword);
     }
 
     public void ActivitySignUp(View view) {
@@ -134,5 +139,14 @@ public class SignIn extends AppCompatActivity {
         RequestQueue requestQueue=Volley.newRequestQueue(SignIn.this);
         requestQueue.add(stringRequest);
 
+    }
+
+    public void showPasswordCheck(View view) {
+        if(!CB_showPassword.isChecked()){
+            ET_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
+        else{
+            ET_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        }
     }
 }
