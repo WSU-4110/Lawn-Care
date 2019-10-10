@@ -1,5 +1,6 @@
 package com.example.lawn_care;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -30,6 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonParser;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,6 +62,25 @@ public class viewYourProperties extends AppCompatActivity {
                             if (jsonResponse.getString("success") != "false") {
                                 //success toast
                                 Toast.makeText(getApplicationContext(), "Successfully Retrieved Data", Toast.LENGTH_LONG).show();
+
+
+                                LinearLayout linearLayout=findViewById(R.id.LL_yourProperties);
+
+                                String res=jsonResponse.toString(); //Only way to get the JSON to display at all. Need to change it from string to array for JSONArray but it seems to always catch an exception if done.
+
+                                //jsonResponse.length() gets the proper array size however it Cannot access any information inside it.
+                                for(int x = 1; x < jsonResponse.length(); x++){
+                                    LinearLayout listingItem = new LinearLayout(viewYourProperties.this);
+                                    listingItem.setOrientation(LinearLayout.VERTICAL);
+                                    TextView address=new TextView(viewYourProperties.this);
+                                    TextView workNeeded=new TextView(viewYourProperties.this);
+                                    address.setText(res);
+                                    //workNeeded.setText(jsonResponse.getString("workNeeded")); //if you uncomment this line and the other below it will catch an error and not do anything, this is not the correct way of doing things
+                                    listingItem.addView(address);
+                                    //listingItem.addView(workNeeded);
+                                    linearLayout.addView(listingItem);
+                                }
+
 
                                 //DO SOMETHING HERE!!!!!
                                 //your page will be blank if there is nothing here!
