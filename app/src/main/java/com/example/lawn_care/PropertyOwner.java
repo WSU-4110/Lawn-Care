@@ -23,7 +23,6 @@ public class PropertyOwner extends AppCompatActivity {
     private EditText ET_Tools;
     private Button btn_submit;
 
-
     private Boolean isValid;
 
 

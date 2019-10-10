@@ -58,7 +58,6 @@ public class SignUp extends AppCompatActivity {
 
         ET_mathPassword.addTextChangedListener(passwordWatcher);
 
-
     }
 
     private final TextWatcher passwordWatcher = new TextWatcher() {

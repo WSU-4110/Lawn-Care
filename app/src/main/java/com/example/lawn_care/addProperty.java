@@ -26,7 +26,6 @@ import java.util.Map;
 
 public class addProperty extends AppCompatActivity {
 
-
         private Spinner spinnerState;
         private EditText ET_address;
         private EditText ET_city;
@@ -185,4 +184,3 @@ public class addProperty extends AppCompatActivity {
             startActivity(intent);
         }
     }
-

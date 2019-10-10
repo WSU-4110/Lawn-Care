@@ -141,7 +141,6 @@ public class SignIn extends AppCompatActivity {
         };
         RequestQueue requestQueue=Volley.newRequestQueue(SignIn.this);
         requestQueue.add(stringRequest);
-
     }
 
     public void showPasswordCheck(View view) {

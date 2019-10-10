@@ -5,32 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
-    tools:context=".addWorkerProfile">
+    tools:context=".addWorkerProfile" >
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/IV_Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/ic_goBack"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintBottom_toTopOf="@+id/IV_User_Image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/button3"
+        app:layout_constraintStart_toStartOf="@+id/BTN_Review"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/IV_Edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contextClickable="true"
+        android:onClick="editDetails"
         android:contentDescription="@string/ic_edit"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/button4"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/IV_Back"
+        app:layout_constraintEnd_toEndOf="@+id/BTN_Details"
+        app:layout_constraintTop_toTopOf="@+id/IV_Back"
         app:srcCompat="@drawable/ic_edit" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/IV_User_Image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/ic_default_user_image"
@@ -44,21 +46,21 @@
         app:srcCompat="@drawable/ic_user_color" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/BTN_Review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Review"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textColor="@color/btnDisableText"
         android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button4"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/BTN_Details"
+        app:layout_constraintEnd_toStartOf="@+id/IV_User_Image"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button4"
+        app:layout_constraintTop_toTopOf="@+id/BTN_Details"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/BTN_Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Details"
@@ -67,21 +69,21 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/IV_User_Image"
+        app:layout_constraintTop_toTopOf="@+id/IV_User_Image"
         app:layout_constraintVertical_bias="0.20" />
 
     <ScrollView
         android:id="@+id/SV_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
         android:padding="20dp"
-        android:scrollbarStyle="insideInset"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/BTN_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/BTN_Review"
+        app:layout_constraintVertical_bias="0.32"
         tools:visibility="visible">
 
         <LinearLayout
@@ -94,19 +96,18 @@
                 android:id="@+id/TI_firstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ET_firstName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_txt_layout"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:padding="10dp"
                     android:paddingStart="25dp"
-                    android:paddingLeft="25dp"
                     android:paddingEnd="0dp"
-                    android:paddingRight="0dp"
                     android:text="@string/Enter_First_Name"
                     android:textColor="@color/BLACK" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -115,7 +116,8 @@
                 android:id="@+id/TI_lastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ET_lastName"
@@ -125,9 +127,7 @@
                     android:enabled="false"
                     android:padding="@dimen/dp10"
                     android:paddingStart="25dp"
-                    android:paddingLeft="25dp"
                     android:paddingEnd="0dp"
-                    android:paddingRight="0dp"
                     android:text="@string/Enter_Last_Name"
                     android:textColor="@color/BLACK" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -136,7 +136,8 @@
                 android:id="@+id/TI_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ET_email"
@@ -146,15 +147,310 @@
                     android:enabled="false"
                     android:padding="10dp"
                     android:paddingStart="25dp"
-                    android:paddingLeft="25dp"
                     android:paddingEnd="0dp"
-                    android:paddingRight="0dp"
                     android:text="@string/Enter_Email"
                     android:textColor="@color/BLACK" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TI_Phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ET_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_txt_layout"
+                    android:enabled="false"
+                    android:padding="10dp"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/enter_phone_number"
+                    android:textColor="@color/BLACK" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TI_Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ET_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_txt_layout"
+                    android:clickable="true"
+                    android:enabled="false"
+                    android:focusable="true"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="25dp"
+                    android:text="@string/description"
+                    android:textColor="@color/BLACK" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TI_Website"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ET_website"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_txt_layout"
+                    android:clickable="true"
+                    android:enabled="false"
+                    android:focusable="true"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="25dp"
+                    android:text="@string/website"
+                    android:textColor="@color/BLACK" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TI_Tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"
+                app:endIconDrawable="@drawable/ic_add"
+                app:endIconMode="custom"
+                tools:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ET_Tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_txt_layout"
+                    android:hint="Tools"
+                    android:padding="10dp"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="0dp"
+                    android:textColor="@color/BLACK"
+                    tools:visibility="gone" />
+            </com.google.android.material.textfield.TextInputLayout>
+            -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="4"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/CB_sunday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Sunday" />
+
+                <CheckBox
+                    android:id="@+id/CB_monday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Monday" />
+
+                <CheckBox
+                    android:id="@+id/CB_tuesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Tuesday" />
+
+                <CheckBox
+                    android:id="@+id/CB_wednesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Wednesday" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/CB_thursday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Thursday" />
+
+                <CheckBox
+                    android:id="@+id/CB_friday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Friday" />
+
+                <CheckBox
+                    android:id="@+id/CB_saturday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Saturday" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/BTN_timeStart"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:onClick="startTime"
+                    android:text="@string/startTime"
+                    android:background="@drawable/time_layout"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textColor="@color/WHITE"
+                    android:textSize="20sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/BTN_timeEnd"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/endTime"
+                    android:onClick="endTime"
+                    android:background="@drawable/time_layout"
+                    android:textColor="@color/WHITE"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+
+                android:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_txt_layout"
+                    android:enabled="true"
+                    android:textAlignment="center"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/Job_Type"
+                    android:textColor="@color/BLACK" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_txt_layout"
+                android:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/CB_clippings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/BLACK"
+                    android:text="@string/Clippings"
+                    android:gravity="center" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/CB_trimming"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/BLACK"
+                    android:text="@string/Trimming"
+                    android:gravity="center" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/CB_mowing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/BLACK"
+                    android:text="@string/Mowing"
+                    android:gravity="center" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/CB_fertilization"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/BLACK"
+                    android:text="@string/Fertilization"
+                    android:gravity="center" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/CB_weed_Control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/BLACK"
+                    android:text="@string/Weed_Control"
+                    android:gravity="center" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/CB_pest_Control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/BLACK"
+                    android:text="@string/Pest_Control"
+                    android:gravity="center" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/CB_irrigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/BLACK"
+                    android:text="@string/Irrigation"
+                    android:gravity="center" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/CB_aeration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/BLACK"
+                    android:text="@string/Aeration"
+                    android:gravity="center" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </ScrollView>
 
+    <Button
+        android:id="@+id/BTN_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="submitWorker"
+        android:text="@string/Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

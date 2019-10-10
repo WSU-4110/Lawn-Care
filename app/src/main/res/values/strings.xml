@@ -2,6 +2,10 @@
     <string name="app_name">lawn-care</string>
     <string name="Enter_First_Name">Enter First Name</string>
     <string name="Enter_Last_Name">Enter Last Name</string>
+    <string name="Enter_Description">Enter Description</string>
+    <string name="Enter_Phone">Enter Phone Number</string>
+    <string name="Enter_Website">Enter Website</string>
+    <string name="Types_of_Work_Offered">Types of Work Offered</string>
     <string name="Do_not_have_an_Account">Don\'t have an Account</string>
     <string name="Login">Login</string>
     <string name="Enter_Password">Enter Password</string>
@@ -28,11 +32,13 @@
     <string name="name">Name:</string>
     <string name="email">Email:</string>
     <string name="phone">Phone:</string>
-    <string name="description">Description:</string>
+    <string name="description">Description</string>
     <string name="work_offer">Work Offer:</string>
     <string name="days_available">Days available:</string>
     <string name="time">Time:</string>
-    <string name="website">Website:</string>
+    <string name="website">Website</string>
+    <string name="endTime">End Time</string>
+    <string name="startTime">Start Time</string>
 
     <string name="Tools_Availability">Do you have tools?</string>
     <string name="Required">Required*</string>
