@@ -58,7 +58,14 @@ public class viewYourWorkerProfile extends AppCompatActivity {
                             jsonResponse=new JSONObject(response);
                             if(jsonResponse.getString("success")!="false"){
                                 TV_description.setText("Description: "+jsonResponse.getString("description"));
-                                TV_workOffer.setText("Work offer: "+jsonResponse.getString("workOffered"));
+
+                                String workOffered=jsonResponse.getString("workOffered");
+                                workOffered=workOffered.replace("[","");
+                                workOffered=workOffered.replace("]","");
+                                workOffered=workOffered.replace("\"","");
+
+
+                                TV_workOffer.setText("Work offer: "+workOffered);
                                 TV_daysAvailable.setText("Days available: "+jsonResponse.getString("daysAvailable"));
                                 TV_startEndTime.setText("Start end time: "+jsonResponse.getString("startTime")+"-"+jsonResponse.getString("endTime"));
                                 TV_website.setText("Website: "+jsonResponse.getString("website"));
