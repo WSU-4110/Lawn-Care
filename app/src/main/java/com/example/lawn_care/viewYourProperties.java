@@ -30,6 +30,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.json.JSONArray;
@@ -60,49 +61,45 @@ public class viewYourProperties extends AppCompatActivity {
                         try {
                             jsonResponse = new JSONObject(response);
                             if (jsonResponse.getString("success") != "false") {
-                                //success toast
+                                //success toast, inform the user that the connection was successful
                                 Toast.makeText(getApplicationContext(), "Successfully Retrieved Data", Toast.LENGTH_LONG).show();
-
-
+                                //find the linear layout from the screen
                                 LinearLayout linearLayout=findViewById(R.id.LL_yourProperties);
 
-                                String res=jsonResponse.toString(); //Only way to get the JSON to display at all. Need to change it from string to array for JSONArray but it seems to always catch an exception if done.
-
-                                //jsonResponse.length() gets the proper array size however it Cannot access any information inside it.
-                                for(int x = 1; x < jsonResponse.length(); x++){
+                                //0 to len-1, the first index is the success check, the rest are listings, but the first address starts at 0, so listings go from 0 to n-1
+                                for(int x = 0; x < jsonResponse.length()-1; x++){
+                                    //create a new linear layout so each listing can be in a view, easier to do stuff with
                                     LinearLayout listingItem = new LinearLayout(viewYourProperties.this);
                                     listingItem.setOrientation(LinearLayout.VERTICAL);
-                                    TextView address=new TextView(viewYourProperties.this);
-                                    TextView workNeeded=new TextView(viewYourProperties.this);
-                                    address.setText(res);
-                                    //workNeeded.setText(jsonResponse.getString("workNeeded")); //if you uncomment this line and the other below it will catch an error and not do anything, this is not the correct way of doing things
-                                    listingItem.addView(address);
-                                    //listingItem.addView(workNeeded);
+                                    //creates two views, one for address the other for work needed
+                                    TextView TV_address=new TextView(viewYourProperties.this);
+                                    TextView TV_workNeeded=new TextView(viewYourProperties.this);
+                                    //IDEA: feel free to add more fields that are available from the database, these are just some you can. or not. whatever works.
+
+
+                                    //how to get data from current address in json
+                                    //index the json based on the value in x. all the stuff in the json is technically a string, so you have to convert the integer to string to get the xth object
+                                    //everything from 0 to n-1 can be stored as a jsonobject
+                                    JSONObject currentListing=jsonResponse.getJSONObject(String.valueOf(x));
+
+                                    //get the fields i want to show in the views and format the strings how i want them to appear
+                                    String address = currentListing.getString("street")+", "+currentListing.getString("city")+", "+currentListing.getString("state");
+                                    String workNeeded = currentListing.getString("workNeeded");
+                                    //IDEA: it would be a good idea to remove the [] and "" from the workNeeded string... just an idea
+
+                                    //set the view texts
+                                    TV_address.setText(address);
+                                    TV_workNeeded.setText(workNeeded);
+                                    //you can change the textview settings, for example
+                                    TV_address.setTextSize(20);
+                                    //IDEA: try changing some other attributes to make it look better
+
+                                    //add the views to the current linear layout
+                                    listingItem.addView(TV_address);
+                                    listingItem.addView(TV_workNeeded);
+                                    //add the current linear layout to the main linear layout
                                     linearLayout.addView(listingItem);
                                 }
-
-
-                                //DO SOMETHING HERE!!!!!
-                                //your page will be blank if there is nothing here!
-                                /*
-                                //Just an idea...
-                                //see this for some details https://stackoverflow.com/questions/4576848/creating-linear-layout-with-textviews-using-a-for-loop
-                                //gets the linear layout from the already existing one in the view
-                                LinearLayout linearLayout=findViewById(R.id.LL_yourProperties);
-                                for each item from 0 to n in the json{
-                                    LinearLayout listingItem= new LinearLayout(this);
-                                    listingItem.setOrientation(vertical);
-                                    TextView address=new TextView(this);
-                                    TextView workNeeded=new TextView(this);
-                                    address.setText(stuff from json);
-                                    workNeeded.setText(stuff from json);
-                                    listingItem.addView(address);
-                                    listingItem.addView(workNeeded);
-                                    linearLayout.addView(listingItem);
-                                }
-
-
-                                 */
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
