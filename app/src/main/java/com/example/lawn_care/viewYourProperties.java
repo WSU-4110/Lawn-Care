@@ -86,6 +86,10 @@ public class viewYourProperties extends AppCompatActivity {
                                     String address = currentListing.getString("street")+", "+currentListing.getString("city")+", "+currentListing.getString("state");
                                     String workNeeded = currentListing.getString("workNeeded");
                                     //IDEA: it would be a good idea to remove the [] and "" from the workNeeded string... just an idea
+                                    workNeeded=workNeeded.replace("[","");
+                                    workNeeded=workNeeded.replace("]","");
+                                    workNeeded=workNeeded.replace("\"","");
+
 
                                     //set the view texts
                                     TV_address.setText(address);
