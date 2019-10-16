@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Clippings"> Remove and take clipping </string>
+    <string name="Trimming"> Prune or trim trees</string>
+    <string name="Mowing">Mowing the lawn </string>
+    <string name="Fertilization">Fertilize Lawn</string>
+    <string name="Weed_Control"> Weed Control </string>
+    <string name="Pest_Control"> Pest Control </string>
+    <string name="Irrigation">Irrigation and sprinklers </string>
+    <string name="Aeration">Lawn Aeration </string>
+</resources>

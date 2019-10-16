@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".viewYourWorkerProfile"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/TV_workerName"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/name"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:padding="5dp"
+         />
+
+    <TextView
+        android:id="@+id/TV_email"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/email"
+        android:textSize="17dp"
+        android:padding="5dp"
+        />
+
+    <TextView
+        android:id="@+id/TV_description"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/phone"
+        android:textSize="17dp"
+        android:padding="5dp"
+        />
+
+    <TextView
+        android:id="@+id/TV_phoneNum"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/description"
+        android:textSize="17dp"
+        android:padding="5dp"
+        />
+
+    <TextView
+        android:id="@+id/TV_workOffer"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/work_offer"
+        android:textSize="17dp"
+        android:padding="5dp"
+        />
+
+    <TextView
+        android:id="@+id/TV_daysAvailable"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/days_available"
+        android:textSize="17dp"
+        android:padding="5dp"
+         />
+
+    <TextView
+        android:id="@+id/TV_startEndTime"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/time"
+        android:textSize="17dp"
+        android:padding="5dp"
+        />
+
+    <TextView
+        android:id="@+id/TV_website"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/website"
+        android:textSize="17dp"
+        android:padding="5dp"
+         />
+</LinearLayout>

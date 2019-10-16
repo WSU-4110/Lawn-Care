@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".SignIn">
+
+    <EditText
+        android:id="@+id/ET_email"
+        android:hint="@string/Enter_Email"
+        android:inputType="textEmailAddress"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/ET_password"
+        android:hint="@string/Enter_Password"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:padding="10dp" />
+
+    <CheckBox
+        android:id="@+id/CB_showPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="end"
+        android:onClick="showPasswordCheck"
+        android:text="@string/Show_Password" />
+
+    <Button
+        android:id="@+id/BTN_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal"
+        android:onClick="LoginAttempt"
+        android:text="@string/Login" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:text="@string/Do_not_have_an_Account"
+        android:textColor="#0000FF"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:onClick="ActivitySignUp"
+        android:focusable="true"
+        android:clickable="true"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:ems="10"
+        android:padding="10dp" />
+
+</LinearLayout>
