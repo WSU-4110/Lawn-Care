@@ -22,14 +22,28 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_jobList);
+        String userType=com.example.lawn_care.localUserInfo.getUserType();
+        View root;
+        if(userType.equals("worker")){
+            root = inflater.inflate(R.layout.fragment_search_jobs, container, false);
+        }
+        else if(userType.equals("owner")){
+            root = inflater.inflate(R.layout.fragment_search_workers, container, false);
+        }
+        else{
+            //change when admin stuff is added
+            root = inflater.inflate(R.layout.fragment_search_workers, container, false);
+        }
+        //final TextView textView = root.findViewById(R.id.text_jobList);
+        /*
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
+
+         */
         return root;
     }
 }

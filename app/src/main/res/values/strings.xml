@@ -23,7 +23,7 @@
     <string name="Zipcode">Zipcode</string>
     <string name="Job_Type">Job Type</string>
     <string name="Property_Size">Property Size</string>
-    <string name="jobTest">This is job test?</string>
+    <string name="jobTest">Listings</string>
     <string name="title_jobList">This is the job list?</string>
     <string name="title_dashboard">This is the dashboard?</string>
     <string name="title_map">This is the map?</string>
@@ -54,4 +54,6 @@
     <string name="ic_star3">Third Star</string>
     <string name="ic_star4">Fourth Star</string>
     <string name="ic_star5">Fifth Star</string>
+    <string name="search_jobs">Search Jobs</string>
+    <string name="search_workers">Search Workers</string>
 </resources>
