@@ -1,36 +1,45 @@
 package com.example.lawn_care;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.TimePickerDialog;
-import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class addWorkerProfile extends AppCompatActivity {
 
-    RequestQueue requestQueue;
 
     EditText ET_firstName;
     EditText ET_lastName;
@@ -59,9 +68,15 @@ public class addWorkerProfile extends AppCompatActivity {
     Button BTN_submit;
     Button BTN_timeStart;
     Button BTN_timeEnd;
+
+    LinearLayout detailsLinear;
     TimePickerDialog picker;
     Calendar calendar = Calendar.getInstance();
+    AutoCompleteTextView AC_WorkOffered;
+    TextInputLayout TI_WorkOffered;
 
+    ArrayList<String> workOfferedList;
+    List<String> workOfferedbyWorkerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +110,52 @@ public class addWorkerProfile extends AppCompatActivity {
         BTN_submit = findViewById(R.id.BTN_submit);
         BTN_timeStart = findViewById(R.id.BTN_timeStart);
         BTN_timeEnd = findViewById(R.id.BTN_timeEnd);
+
+        detailsLinear = findViewById(R.id.detailsLinear);
+        TI_WorkOffered = findViewById(R.id.TI_WorkOffered);
+        AC_WorkOffered = findViewById(R.id.AC_WorkOffered);
+
+        TI_WorkOffered.setEndIconVisible(false);
+        workOfferedList = new ArrayList<>();
+
+        loadWorkOffered();
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>
+                (this, android.R.layout.select_dialog_item, workOfferedList);
+        AC_WorkOffered.setThreshold(1);
+        AC_WorkOffered.setAdapter(adapter);
+
+        Log.d("List",String.valueOf( workOfferedList.size()));
+
+
+        TI_WorkOffered.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addWorkOffered(AC_WorkOffered.getText().toString());
+            }
+        });
+
+        AC_WorkOffered.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().equals("")){
+                    TI_WorkOffered.setEndIconVisible(false);
+                }
+                else
+                    TI_WorkOffered.setEndIconVisible(true);
+            }
+        });
     }
 
     public void startTime(View view) {
@@ -268,75 +329,87 @@ public class addWorkerProfile extends AppCompatActivity {
 
                 // Adding All values to Params.
                 // The firs argument should be same sa your MySQL database table columns.
-                params.put("email",tempEmail);
-                params.put("description",tempDescription);
-                params.put("website",tempWebsite);
-                params.put("daysAvailable",tempWorkDays);
-                params.put("startTime",tempStartTime);
-                params.put("endTime",tempEndTime);
-                params.put("workOffered",tempTypesOfWorkOffered);
+                params.put("email", tempEmail);
+                params.put("description", tempDescription);
+                params.put("website", tempWebsite);
+                params.put("daysAvailable", tempWorkDays);
+                params.put("startTime", tempStartTime);
+                params.put("endTime", tempEndTime);
+                params.put("workOffered", tempTypesOfWorkOffered);
 
                 return params;
             }
 
         };
+    }
 
-        // Creating RequestQueue.
-        RequestQueue requestQueue = Volley.newRequestQueue(addWorkerProfile.this);
+    public void loadWorkOffered() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, ApiDB.URL_READ_OFFREDWORK, new Response.Listener<String>() {
 
-        // Adding the StringRequest object into requestQueue.
-        requestQueue.add(stringRequest);
-        /*
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONArray workArray = obj.getJSONArray("work");
 
+                    //now looping through all the elements of the json array
+                    for (int i = 0; i < workArray.length(); i++) {
+                        //getting the json object of the particular index inside the array
+                        JSONObject workObject = workArray.getJSONObject(i);
 
+                        String x = workObject.getString("workOffered");
+                        Log.d("Response", x);
 
-        final String addWorkerProfile_url="http://lawn-care.us-east-1.elasticbeanstalk.com/addWorkerProfile.php";
-            //stringRequest is an object that contains the request method, the url, and the parameters and the response
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, addWorkerProfile_url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            JSONObject jsonResponse;
-                            try {
-                                jsonResponse=new JSONObject(response);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(addWorkerProfile.this);
-                            builder.setMessage("Connection Failed")
-                                    .setNegativeButton("Try Again",null)
-                                    .create()
-                                    .show();
-                            error.printStackTrace();
-                            Log.e("VOLLEY", error.getMessage());
-                            //requestQueue.stop();
-                        }
-
-                    })
-        {
-                @Override
-                //this function is written to get the parameters for posting
-                protected Map<String,String> getParams(){
-                    Map<String,String> params= new HashMap<String, String>();
-                    params.put("email",tempEmail);
-                    params.put("description",tempDescription);
-                    params.put("website",tempWebsite);
-                    params.put("daysAvailable",tempWorkDays);
-                    params.put("startTime",tempStartTime);
-                    params.put("endTime",tempEndTime);
-                    params.put("workOffered",tempTypesOfWorkOffered);
-
-                    return params;
+                        workOfferedList.add(x);
+                    }
+              } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            };
-            RequestQueue requestQueue= Volley.newRequestQueue(addWorkerProfile.this);
-            requestQueue.add(stringRequest);
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //displaying the error in toast if occurrs
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+    }
 
-         */
-        }
+    private void addWorkOffered(String temp){
+        final TextInputLayout inputLayout = new TextInputLayout(this);
+        TextInputEditText editText = new TextInputEditText(this);
+        Resources r = this.getResources();
+        int px = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                10,
+                r.getDisplayMetrics()
+        );
+        TextInputLayout.LayoutParams layoutParams = new TextInputLayout.LayoutParams(
+                TextInputLayout.LayoutParams.MATCH_PARENT, TextInputLayout.LayoutParams.MATCH_PARENT
+        );
+
+        layoutParams.setMargins(0,0,10,px);
+        editText.setBackground(ContextCompat.getDrawable(this,R.drawable.edit_txt_layout));
+        editText.setPadding(px,px,px,px);
+        editText.setEnabled(false);
+        editText.setTextColor(ContextCompat.getColor(this, R.color.BLACK));
+        editText.setText(temp);
+
+        inputLayout.addView(editText);
+
+        inputLayout.setEndIconDrawable(R.drawable.ic_clear);
+        inputLayout.setEndIconVisible(true);
+
+        inputLayout.setLayoutParams(layoutParams);
+        inputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detailsLinear.removeView(inputLayout);
+            }
+        });
+
+        detailsLinear.addView(inputLayout,5);
+    }
 }

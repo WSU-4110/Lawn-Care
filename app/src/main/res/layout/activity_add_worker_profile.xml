@@ -173,6 +173,30 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TI_WorkOffered"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:endIconDrawable="@drawable/ic_add"
+                app:endIconMode="custom"
+                android:visibility="visible">
+
+                <AutoCompleteTextView
+                    android:id="@+id/AC_WorkOffered"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_txt_layout"
+                    android:focusable="true"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:hint="@string/Job_Type"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="25dp"
+                    android:textColor="@color/BLACK" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/TI_Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -312,7 +336,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/BTN_timeStart"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="match_parent"
@@ -328,7 +352,7 @@
                     android:textColor="@color/WHITE"
                     android:textSize="20sp" />
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/BTN_timeEnd"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="match_parent"
