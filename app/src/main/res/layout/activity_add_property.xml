@@ -9,54 +9,28 @@
     android:background="@drawable/bg_gradient"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TI_Address"
-        android:layout_width="match_parent"
+
+
+    <EditText
+        android:id="@+id/ET_address"
+        android:hint="@string/Address"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:visibility="visible">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ET_address"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_txt_layout"
-            android:clickable="true"
-            android:enabled="true"
-            android:focusable="true"
-            android:inputType="text"
-            android:padding="10dp"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
-            android:text="@string/Address"
-            android:textColor="@color/BLACK" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TI_City"
         android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_txt_layout"
+        android:ems="10"
+        android:padding="10dp"
+        android:textColorHint="@color/BLACK"/>
+    <EditText
+        android:id="@+id/ET_city"
+        android:hint="@string/City"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:visibility="visible">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ET_city"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_txt_layout"
-            android:clickable="true"
-            android:enabled="true"
-            android:focusable="true"
-            android:inputType="text"
-            android:padding="10dp"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
-            android:text="@string/City"
-            android:textColor="@color/BLACK" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_txt_layout"
+        android:ems="10"
+        android:padding="10dp"
+        android:textColorHint="@color/BLACK"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,7 +48,8 @@
             android:ems="10"
             android:layout_weight="2"
             android:entries="@array/USA_State"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:textColorHint="@color/BLACK"/>
 
         <EditText
             android:id="@+id/ET_zipCode"
@@ -102,28 +77,7 @@
         android:padding="10dp"
         android:textColorHint="@color/BLACK"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TI_WorkOffered"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        app:endIconDrawable="@drawable/ic_add"
-        app:endIconMode="custom"
-        android:visibility="visible">
 
-        <AutoCompleteTextView
-            android:id="@+id/AC_WorkOffered"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_txt_layout"
-            android:focusable="true"
-            android:inputType="textMultiLine"
-            android:padding="10dp"
-            android:hint="@string/Job_Type"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
-            android:textColor="@color/BLACK" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
         android:id="@+id/ET_JobType"
