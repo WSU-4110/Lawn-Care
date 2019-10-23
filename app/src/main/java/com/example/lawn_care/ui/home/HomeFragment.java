@@ -26,24 +26,40 @@ public class HomeFragment extends Fragment {
         View root;
         if(userType.equals("worker")){
             root = inflater.inflate(R.layout.fragment_search_jobs, container, false);
+            showListings();
         }
         else if(userType.equals("owner")){
             root = inflater.inflate(R.layout.fragment_search_workers, container, false);
+            showWorkers();
         }
         else{
             //change when admin stuff is added
             root = inflater.inflate(R.layout.fragment_search_workers, container, false);
         }
-        //final TextView textView = root.findViewById(R.id.text_jobList);
-        /*
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-
-         */
         return root;
+    }
+
+    private void showWorkers() {
+        //get list of workers from database
+        //programmatically add to list
+        /*
+        for each item in the json
+            create frame
+            place name, days, time in frame
+            add button which is linked to their worker number (button will lead to profile page)
+            add frame to list
+         */
+    }
+
+    private void showListings() {
+        //get list of properties from database
+        //programmatically add to list
+        /*
+        for each item in json
+            create frame
+                place address, work needed in frame
+                add button which is linked to property number (button will lead to property page)
+                add frame to list
+         */
     }
 }

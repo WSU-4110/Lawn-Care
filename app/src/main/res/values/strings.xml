@@ -56,4 +56,5 @@
     <string name="ic_star5">Fifth Star</string>
     <string name="search_jobs">Search Jobs</string>
     <string name="search_workers">Search Workers</string>
+    <string name="this_is_the_scroll_area">This is the Scroll Area</string>
 </resources>
