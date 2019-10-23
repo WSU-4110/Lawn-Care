@@ -15,13 +15,14 @@
         <activity android:name=".viewYourWorkerProfile"></activity>
         <activity android:name=".viewYourProperties" />
         <activity android:name=".addWorkerProfile">
+        </activity>
+        <activity android:name=".addProperty" />
+        <activity android:name=".SignIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>        </activity>
-        <activity android:name=".addProperty" />
-        <activity android:name=".SignIn">
+            </intent-filter>
 
         </activity>
         <activity android:name=".SignUp" />

@@ -40,7 +40,6 @@ import java.util.Map;
 
 public class addWorkerProfile extends AppCompatActivity {
 
-
     EditText ET_firstName;
     EditText ET_lastName;
     EditText ET_email;
@@ -75,8 +74,10 @@ public class addWorkerProfile extends AppCompatActivity {
     AutoCompleteTextView AC_WorkOffered;
     TextInputLayout TI_WorkOffered;
 
+    List<String> theWorkOfferedList;
     ArrayList<String> workOfferedList;
-    List<String> workOfferedbyWorkerList;
+    List<String > tempWorkOfferedList;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,17 +117,16 @@ public class addWorkerProfile extends AppCompatActivity {
         AC_WorkOffered = findViewById(R.id.AC_WorkOffered);
 
         TI_WorkOffered.setEndIconVisible(false);
+        tempWorkOfferedList = new ArrayList<>();
         workOfferedList = new ArrayList<>();
-
+        theWorkOfferedList = workOfferedList;
         loadWorkOffered();
 
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>
-                (this, android.R.layout.select_dialog_item, workOfferedList);
+        adapter = new ArrayAdapter<>
+                (this, android.R.layout.select_dialog_item, theWorkOfferedList);
         AC_WorkOffered.setThreshold(1);
         AC_WorkOffered.setAdapter(adapter);
 
-        Log.d("List",String.valueOf( workOfferedList.size()));
 
 
         TI_WorkOffered.setEndIconOnClickListener(new View.OnClickListener() {
@@ -154,7 +154,13 @@ public class addWorkerProfile extends AppCompatActivity {
                 }
                 else
                     TI_WorkOffered.setEndIconVisible(true);
+
+                for (int i = 0; i < tempWorkOfferedList.size(); i++) {
+                    theWorkOfferedList.remove(tempWorkOfferedList.get(i));
+
+                }
             }
+
         });
     }
 
@@ -269,36 +275,8 @@ public class addWorkerProfile extends AppCompatActivity {
 
         final String tempWorkDays = stringBufferWorkDays.toString();
 
-
-        if (CB_clippings.isChecked())
-            stringBufferTypesOfWorkOffered.append("Clippings,");
-
-        if (CB_trimming.isChecked())
-            stringBufferTypesOfWorkOffered.append("Trimming,");
-
-        if (CB_mowing.isChecked())
-            stringBufferTypesOfWorkOffered.append("Mowing,");
-
-        if (CB_fertilization.isChecked())
-            stringBufferTypesOfWorkOffered.append("Fertilization,");
-
-        if (CB_weed_Control.isChecked())
-            stringBufferTypesOfWorkOffered.append("Weed_Control,");
-
-        if (CB_pest_Control.isChecked())
-            stringBufferTypesOfWorkOffered.append("Pest_Control,");
-
-        if (CB_irrigation.isChecked())
-            stringBufferTypesOfWorkOffered.append("Irrigation,");
-
-        if (CB_aeration.isChecked())
-            stringBufferTypesOfWorkOffered.append("Aeration");
-
         final String tempTypesOfWorkOffered = stringBufferTypesOfWorkOffered.toString();
 
-        /*
-
-         */
         String HttpUrl = "http://lawn-care.us-east-1.elasticbeanstalk.com/addWorkerProfile.php";
 
         // Creating string request with post method.
@@ -306,8 +284,6 @@ public class addWorkerProfile extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String ServerResponse) {
-
-
                         // Showing Echo Response Message Coming From Server.
                         Toast.makeText(addWorkerProfile.this, ServerResponse, Toast.LENGTH_LONG).show();
                     }
@@ -341,6 +317,7 @@ public class addWorkerProfile extends AppCompatActivity {
             }
 
         };
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
     public void loadWorkOffered() {
@@ -358,7 +335,6 @@ public class addWorkerProfile extends AppCompatActivity {
                         JSONObject workObject = workArray.getJSONObject(i);
 
                         String x = workObject.getString("workOffered");
-                        Log.d("Response", x);
 
                         workOfferedList.add(x);
                     }
@@ -367,17 +343,14 @@ public class addWorkerProfile extends AppCompatActivity {
                 }
             }
         },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //displaying the error in toast if occurrs
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                error -> {
+                    //displaying the error in toast if occurrs
+                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
-    private void addWorkOffered(String temp){
+    public void addWorkOffered(String temp){
         final TextInputLayout inputLayout = new TextInputLayout(this);
         TextInputEditText editText = new TextInputEditText(this);
         Resources r = this.getResources();
@@ -403,13 +376,27 @@ public class addWorkerProfile extends AppCompatActivity {
         inputLayout.setEndIconVisible(true);
 
         inputLayout.setLayoutParams(layoutParams);
-        inputLayout.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                detailsLinear.removeView(inputLayout);
-            }
+        inputLayout.setEndIconOnClickListener(v -> {
+            detailsLinear.removeView(inputLayout);
+            tempWorkOfferedList.remove(temp);
+            theWorkOfferedList.add(temp);
+            updatedData(theWorkOfferedList);
         });
 
         detailsLinear.addView(inputLayout,5);
+        tempWorkOfferedList.add(temp);
+        theWorkOfferedList.remove(temp);
+        updatedData(theWorkOfferedList);
+
+        Log.d("Add", theWorkOfferedList.toString());
+    }
+
+    public void updatedData(List itemsWorkOffered) {
+        adapter.clear();
+        if (itemsWorkOffered != null){
+            for (String object : theWorkOfferedList)
+                adapter.add(object);
+        }
+        adapter.notifyDataSetChanged();
     }
 }
