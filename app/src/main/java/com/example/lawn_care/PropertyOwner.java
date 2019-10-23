@@ -11,4 +11,5 @@ public class PropertyOwner extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_property_owner);
     }
+
 }

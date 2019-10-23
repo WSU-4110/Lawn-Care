@@ -4,185 +4,151 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp"
+    android:padding="20dp"
     tools:context=".PropertyOwner">
 
     <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/Table1"
-        >
-
-        <TextView
-            android:id="@+id/StreetAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Street Address" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/Address"
+            android:layout_weight="1"
+            android:hint="Address"
+            android:id="@+id/ET_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_marginLeft="10dp"/>
-    </TableRow>
-
-    <TableRow
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/City"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="City" />
-
-        <EditText
-            android:id="@+id/City1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
             android:layout_marginLeft="10dp"
-            />
+            android:ems="10" />
+    </TableRow>
+
+    <TableRow
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_weight="1"
+            android:hint="City"
+            android:id="@+id/ET_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ems="10" />
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/Zipcode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Zipcode" />
+        android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/Zipcode1"
+            android:layout_weight="1"
+            android:hint="Zip Code"
+            android:id="@+id/ET_zipCode"
             android:layout_width="25dp"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:layout_marginLeft="10dp"
-            />
+            android:ems="10" />
 
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/State"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="State"
-            />
+        android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/State1"
+            android:layout_weight="1"
+            android:hint="State"
+            android:id="@+id/ET_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:layout_marginLeft="10dp"/>
+            android:inputType="textPersonName" />
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/PropertySize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Property Size" />
+        android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/PropertySize1"
+            android:layout_weight="1"
+            android:hint="Property Size"
+            android:id="@+id/ET_PropertySize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:layout_marginLeft="10dp"/>
+            android:inputType="textPersonName" />
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/JobType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Job Type" />
+        android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/JobType1"
+            android:layout_weight="1"
+            android:hint="Job Type"
+            android:id="@+id/ET_JobType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:layout_marginLeft="10dp"/>
+             />
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/Tools"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tools" />
+        android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/Tools1"
+            android:layout_weight="1"
+            android:hint="Tools Availibility"
+            android:id="@+id/ET_Tools"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:layout_marginLeft="10dp"/>
+            android:inputType="textPersonName" />
 
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="50dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/Reset"
-            android:layout_width="92dp"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:text="Reset" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:weightSum="3">
 
-        <Button
-            android:id="@+id/Submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="130dp"
-            android:clickable="true"
-            android:text="Submit"
-            />
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Button" />
 
-    </TableRow>
+            <Button
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+                android:id="@+id/Reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:text="Reset" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/Return"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Return"
-            android:layout_marginRight="90dp"/>
+            <Button
+                android:id="@+id/Submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:text="Submit" />
+        </LinearLayout>
 
     </TableRow>
 

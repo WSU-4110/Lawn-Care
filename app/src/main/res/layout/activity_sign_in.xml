@@ -5,22 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context=".MainActivity">
+    tools:context=".SignIn">
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="E-Mail" />
-
         <EditText
-            android:id="@+id/editText2"
-            android:layout_width="wrap_content"
+            android:id="@+id/ET_email"
+            android:hint="Enter Email"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:ems="10"
@@ -32,20 +26,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Password" />
-
         <EditText
-            android:id="@+id/editText"
-            android:layout_width="wrap_content"
+            android:id="@+id/ET_password"
+            android:hint="Enter Password"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:ems="10"
-            android:inputType="textEmailAddress" />
+            android:ems="10"/>
     </TableRow>
 
     <TableRow
