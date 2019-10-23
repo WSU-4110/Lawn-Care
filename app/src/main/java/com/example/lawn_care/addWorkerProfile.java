@@ -14,16 +14,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -37,6 +33,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 public class addWorkerProfile extends AppCompatActivity {
 
@@ -99,15 +96,6 @@ public class addWorkerProfile extends AppCompatActivity {
         CB_friday = findViewById(R.id.CB_friday);
         CB_saturday = findViewById(R.id.CB_saturday);
 
-        CB_clippings = findViewById(R.id.CB_clippings);
-        CB_trimming = findViewById(R.id.CB_trimming);
-        CB_mowing = findViewById(R.id.CB_mowing);
-        CB_fertilization = findViewById(R.id.CB_fertilization);
-        CB_weed_Control = findViewById(R.id.CB_weed_Control);
-        CB_pest_Control = findViewById(R.id.CB_pest_Control);
-        CB_irrigation = findViewById(R.id.CB_irrigation);
-        CB_aeration = findViewById(R.id.CB_aeration);
-
         BTN_submit = findViewById(R.id.BTN_submit);
         BTN_timeStart = findViewById(R.id.BTN_timeStart);
         BTN_timeEnd = findViewById(R.id.BTN_timeEnd);
@@ -120,6 +108,7 @@ public class addWorkerProfile extends AppCompatActivity {
         tempWorkOfferedList = new ArrayList<>();
         workOfferedList = new ArrayList<>();
         theWorkOfferedList = workOfferedList;
+
         loadWorkOffered();
 
         adapter = new ArrayAdapter<>
@@ -127,14 +116,12 @@ public class addWorkerProfile extends AppCompatActivity {
         AC_WorkOffered.setThreshold(1);
         AC_WorkOffered.setAdapter(adapter);
 
-
-
-        TI_WorkOffered.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addWorkOffered(AC_WorkOffered.getText().toString());
-            }
+        AC_WorkOffered.setOnItemClickListener((parent, view, position, id) -> {
+            AC_WorkOffered.setText(adapter.getItem(position));
+            endIconClicked();
         });
+
+        TI_WorkOffered.setEndIconOnClickListener(v -> endIconClicked());
 
         AC_WorkOffered.addTextChangedListener(new TextWatcher() {
             @Override
@@ -155,43 +142,47 @@ public class addWorkerProfile extends AppCompatActivity {
                 else
                     TI_WorkOffered.setEndIconVisible(true);
 
-                for (int i = 0; i < tempWorkOfferedList.size(); i++) {
+                for (int i = 0; i < tempWorkOfferedList.size(); i++)
                     theWorkOfferedList.remove(tempWorkOfferedList.get(i));
-
-                }
             }
-
         });
     }
 
+    //On Click event for End Icon of JobType
+    public void endIconClicked(){
+        addWorkOffered(AC_WorkOffered.getText().toString());
+        AC_WorkOffered.setText("");
+    }
+
+    //Setting Up Starting Time
     public void startTime(View view) {
         getTime(BTN_timeStart);
     }
 
+    //Setting Up Ending Time
     public void endTime(View view) {
         getTime(BTN_timeEnd);
     }
 
-    public void getTime(final Button btn){
+    //Getting time from Time Picker
+    public void getTime(Button btn){
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minutes = calendar.get(Calendar.MINUTE);
-        picker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                String resultTime = "";
-                if (sHour < 10)
-                    resultTime = resultTime + "0";
-                resultTime = resultTime + sHour + " : ";
-                if (sMinute < 10)
-                    resultTime = resultTime + "0";
-                resultTime = resultTime + sMinute;
+        picker = new TimePickerDialog(this, (tp, sHour, sMinute) -> {
+            String resultTime = "";
+            if (sHour < 10)
+                resultTime = resultTime + "0";
+            resultTime = resultTime + sHour + " : ";
+            if (sMinute < 10)
+                resultTime = resultTime + "0";
+            resultTime = resultTime + sMinute;
 
-                btn.setText(resultTime);
-            }
+            btn.setText(resultTime);
         }, hour, minutes, true);
         picker.show();
     }
 
+    //Enabling the edit Text
     public void editDetails(View view) {
 
         ET_firstName.setEnabled(true);
@@ -240,14 +231,14 @@ public class addWorkerProfile extends AppCompatActivity {
         CB_aeration.setChecked(false);
     }
 
+    //onClick event for Submit button
     public void submitWorker(View view) {
         final String tempEmail = ET_email.getText().toString();
-        final String tempPhone = ET_phone.getText().toString();
         final String tempDescription = ET_description.getText().toString();
         final String tempWebsite = ET_website.getText().toString();
 
-        StringBuffer stringBufferWorkDays = new StringBuffer();
-        StringBuffer stringBufferTypesOfWorkOffered = new StringBuffer();
+        StringBuilder stringBufferWorkDays = new StringBuilder();
+        StringJoiner stringBufferTypesOfWorkOffered = new StringJoiner(",");
 
         final String tempStartTime = BTN_timeStart.getText().toString();
         final String tempEndTime = BTN_timeEnd.getText().toString();
@@ -275,33 +266,30 @@ public class addWorkerProfile extends AppCompatActivity {
 
         final String tempWorkDays = stringBufferWorkDays.toString();
 
+        for (int i = 0; i < tempWorkOfferedList.size(); i++)
+            stringBufferTypesOfWorkOffered.add(tempWorkOfferedList.get(i));
+
         final String tempTypesOfWorkOffered = stringBufferTypesOfWorkOffered.toString();
 
         String HttpUrl = "http://lawn-care.us-east-1.elasticbeanstalk.com/addWorkerProfile.php";
 
         // Creating string request with post method.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpUrl,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String ServerResponse) {
-                        // Showing Echo Response Message Coming From Server.
-                        Toast.makeText(addWorkerProfile.this, ServerResponse, Toast.LENGTH_LONG).show();
-                    }
+                ServerResponse -> {
+                    // Showing Echo Response Message Coming From Server.
+                    Toast.makeText(addWorkerProfile.this, ServerResponse, Toast.LENGTH_LONG).show();
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
+                volleyError -> {
 
 
-                        // Showing error message if something goes wrong.
-                        Toast.makeText(addWorkerProfile.this, volleyError.toString(), Toast.LENGTH_LONG).show();
-                    }
+                    // Showing error message if something goes wrong.
+                    Toast.makeText(addWorkerProfile.this, volleyError.toString(), Toast.LENGTH_LONG).show();
                 }) {
             @Override
             protected Map<String, String> getParams() {
 
                 // Creating Map String Params.
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
 
                 // Adding All values to Params.
                 // The firs argument should be same sa your MySQL database table columns.
@@ -320,27 +308,24 @@ public class addWorkerProfile extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //Loading available types of work from DB
     public void loadWorkOffered() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, ApiDB.URL_READ_OFFREDWORK, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, ApiDB.URL_READ_OFFREDWORK, response -> {
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray workArray = obj.getJSONArray("work");
 
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject obj = new JSONObject(response);
-                    JSONArray workArray = obj.getJSONArray("work");
+                //now looping through all the elements of the json array
+                for (int i = 0; i < workArray.length(); i++) {
+                    //getting the json object of the particular index inside the array
+                    JSONObject workObject = workArray.getJSONObject(i);
 
-                    //now looping through all the elements of the json array
-                    for (int i = 0; i < workArray.length(); i++) {
-                        //getting the json object of the particular index inside the array
-                        JSONObject workObject = workArray.getJSONObject(i);
+                    String x = workObject.getString("workOffered");
 
-                        String x = workObject.getString("workOffered");
-
-                        workOfferedList.add(x);
-                    }
-              } catch (JSONException e) {
-                    e.printStackTrace();
+                    workOfferedList.add(x);
                 }
+          } catch (JSONException e) {
+                e.printStackTrace();
             }
         },
                 error -> {
@@ -350,6 +335,7 @@ public class addWorkerProfile extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //Worker can pick up types of job they are providing
     public void addWorkOffered(String temp){
         final TextInputLayout inputLayout = new TextInputLayout(this);
         TextInputEditText editText = new TextInputEditText(this);
@@ -391,6 +377,7 @@ public class addWorkerProfile extends AppCompatActivity {
         Log.d("Add", theWorkOfferedList.toString());
     }
 
+    //Updating Job type in AC
     public void updatedData(List itemsWorkOffered) {
         adapter.clear();
         if (itemsWorkOffered != null){
