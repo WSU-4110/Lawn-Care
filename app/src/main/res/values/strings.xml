@@ -39,7 +39,8 @@
     <string name="website">Website</string>
     <string name="endTime">End Time</string>
     <string name="startTime">Start Time</string>
-
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
     <string name="Tools_Availability">Do you have tools?</string>
     <string name="Required">Required*</string>
     <string name="ic_user">User Icon</string>
