@@ -65,11 +65,14 @@ public class viewYourProperties extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Successfully Retrieved Data", Toast.LENGTH_LONG).show();
                                 //find the linear layout from the screen
                                 LinearLayout linearLayout=findViewById(R.id.LL_yourProperties);
+                                Button deleteButton=(Button) findViewById(R.id.deleteBut);
+                                Button editButton=(Button) findViewById(R.id.editBut);
 
                                 //0 to len-1, the first index is the success check, the rest are listings, but the first address starts at 0, so listings go from 0 to n-1
                                 for(int x = 0; x < jsonResponse.length()-1; x++){
                                     //create a new linear layout so each listing can be in a view, easier to do stuff with
                                     LinearLayout listingItem = new LinearLayout(viewYourProperties.this);
+
                                     listingItem.setOrientation(LinearLayout.VERTICAL);
                                     //creates two views, one for address the other for work needed
                                     TextView TV_address=new TextView(viewYourProperties.this);
@@ -101,6 +104,8 @@ public class viewYourProperties extends AppCompatActivity {
                                     //add the views to the current linear layout
                                     listingItem.addView(TV_address);
                                     listingItem.addView(TV_workNeeded);
+                                    linearLayout.addView(deleteButton);
+                                    //linearLayout.addView(editButton);
                                     //add the current linear layout to the main linear layout
                                     linearLayout.addView(listingItem);
                                 }
