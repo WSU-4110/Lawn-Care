@@ -1,12 +1,18 @@
 package com.example.lawn_care;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ActionProvider;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -14,9 +20,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.MenuPopupWindow;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
@@ -112,16 +122,25 @@ public class addWorkerProfile extends AppCompatActivity {
         loadWorkOffered();
 
         adapter = new ArrayAdapter<>
-                (this, android.R.layout.select_dialog_item, theWorkOfferedList);
-        AC_WorkOffered.setThreshold(1);
+                (this, android.R.layout.simple_dropdown_item_1line, theWorkOfferedList);
+        AC_WorkOffered.setThreshold(0);
         AC_WorkOffered.setAdapter(adapter);
 
-        AC_WorkOffered.setOnItemClickListener((parent, view, position, id) -> {
-            AC_WorkOffered.setText(adapter.getItem(position));
-            endIconClicked();
+        TI_WorkOffered.setEndIconOnClickListener(v -> endIconClicked());
+
+        AC_WorkOffered.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                PopupWindow
+            }
         });
 
-        TI_WorkOffered.setEndIconOnClickListener(v -> endIconClicked());
+        AC_WorkOffered.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ET_description.setText("clicked");
+            }
+        });
 
         AC_WorkOffered.addTextChangedListener(new TextWatcher() {
             @Override
@@ -349,7 +368,7 @@ public class addWorkerProfile extends AppCompatActivity {
                 TextInputLayout.LayoutParams.MATCH_PARENT, TextInputLayout.LayoutParams.MATCH_PARENT
         );
 
-        layoutParams.setMargins(0,0,10,px);
+        layoutParams.setMargins(0,0,px,px);
         editText.setBackground(ContextCompat.getDrawable(this,R.drawable.edit_txt_layout));
         editText.setPadding(px,px,px,px);
         editText.setEnabled(false);
