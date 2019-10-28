@@ -128,19 +128,6 @@ public class addWorkerProfile extends AppCompatActivity {
 
         TI_WorkOffered.setEndIconOnClickListener(v -> endIconClicked());
 
-        AC_WorkOffered.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                PopupWindow
-            }
-        });
-
-        AC_WorkOffered.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ET_description.setText("clicked");
-            }
-        });
 
         AC_WorkOffered.addTextChangedListener(new TextWatcher() {
             @Override
@@ -329,7 +316,7 @@ public class addWorkerProfile extends AppCompatActivity {
 
     //Loading available types of work from DB
     public void loadWorkOffered() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, ApiDB.URL_READ_OFFREDWORK, response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, ApiDB.URL_READ_OFFRED_WORK, response -> {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray workArray = obj.getJSONArray("work");
