@@ -17,6 +17,44 @@
         android:visibility="visible"
         tools:visibility="visible" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TI_searchWorkerQuery"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:endIconMode="clear_text"
+            android:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ET_searchWorkerQuery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_txt_layout"
+                android:clickable="true"
+                android:enabled="true"
+                android:focusable="true"
+                android:inputType="text"
+                android:padding="10dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:hint="@string/enter_query"
+                android:textColor="@color/BLACK" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/Submit"/>
+
+    </LinearLayout>
+
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
