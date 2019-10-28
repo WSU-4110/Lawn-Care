@@ -77,8 +77,8 @@ public class viewYourProperties extends AppCompatActivity {
                                     TextView TV_address=new TextView(viewYourProperties.this);
                                     TextView TV_workNeeded=new TextView(viewYourProperties.this);
                                     //Place down the buttons for edit and delete
-                                    Button deleteButton=new Button (viewYourProperties.this);
-                                    Button editButton=new Button (viewYourProperties.this);
+                                    Button BTN_deleteButton=new Button (viewYourProperties.this);
+                                    Button BTN_editButton=new Button (viewYourProperties.this);
 
                                     //IDEA: feel free to add more fields that are available from the database, these are just some you can. or not. whatever works.
 
@@ -106,17 +106,17 @@ public class viewYourProperties extends AppCompatActivity {
                                     //you can change the textview settings, for example
                                     TV_address.setTextSize(20);
                                     //IDEA: try changing some other attributes to make it look better
-                                    deleteButton.setText("Delete");
-                                    editButton.setText("Edit");
+                                    BTN_deleteButton.setText("Delete");
+                                    BTN_editButton.setText("Edit");
                                     // Set click listener for delete listing function
-                                    deleteButton.setOnClickListener(new View.OnClickListener() {
+                                    BTN_deleteButton.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             deleteEntry(propertyNum);
                                         }
                                     });
                                     // Set click listener for edit listing function
-                                    editButton.setOnClickListener(new View.OnClickListener() {
+                                    BTN_editButton.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             editEntry(propertyNum);
@@ -126,8 +126,8 @@ public class viewYourProperties extends AppCompatActivity {
                                     //add the views to the current linear layout
                                     listingItem.addView(TV_address);
                                     listingItem.addView(TV_workNeeded);
-                                    linearLayout.addView(deleteButton);
-                                    linearLayout.addView(editButton);
+                                    linearLayout.addView(BTN_deleteButton);
+                                    linearLayout.addView(BTN_editButton);
                                     //add the current linear layout to the main linear layout
                                     linearLayout.addView(listingItem);
                                 }
