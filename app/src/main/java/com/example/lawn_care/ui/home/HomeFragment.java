@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Finding Workers....");
         progressDialog.show();
 
-        final String signin_url="http://10.0.2.2:80/scripts/viewAllWorkerProfiles.php";
+        final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/viewAllWorkerProfiles.php";
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
         StringRequest stringRequest=new StringRequest(Request.Method.POST, signin_url,
                 new Response.Listener<String>() {
@@ -167,17 +167,15 @@ public class HomeFragment extends Fragment {
                                     V_line.setMinimumHeight(2);
                                     linearLayout.addView(V_line);
                                 }
-                                progressDialog.dismiss();
-                                //programmatically add to list
-                                /*
-                                for each item in the json
-                                    create frame
-                                    place name, days, time in frame
-                                    add button which is linked to their worker number (button will lead to profile page)
-                                    add frame to list
-                                 */
+                                //padding at the bottom
+                                //TODO: figure out why it shows behind the navar
+                                View padding = new View(getActivity());
+                                padding.setMinimumHeight(150);
+                                linearLayout.addView(padding);
 
-                                //save the data from the json into local variables
+                                //get rid of loading dialog
+                                progressDialog.dismiss();
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
