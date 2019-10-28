@@ -59,8 +59,8 @@ public class HomeFragment extends Fragment {
         }
         else if(userType.equals("owner")){
             root = inflater.inflate(R.layout.fragment_search_workers, container, false);
-            ET_searchWorkerQuery = getActivity().findViewById(R.id.ET_searchWorkerQuery);
-            BTN_submitSearchWorkerQuery=getActivity().findViewById(R.id.BTN_submitSearchWorkerQuery);
+            ET_searchWorkerQuery = root.findViewById(R.id.ET_searchWorkerQuery);
+            BTN_submitSearchWorkerQuery=root.findViewById(R.id.BTN_submitSearchWorkerQuery);
             BTN_submitSearchWorkerQuery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -98,6 +98,7 @@ public class HomeFragment extends Fragment {
                             if(jsonResponse.getString("success")!="false"){
                                 //gets linear layout from screen
                                 LinearLayout linearLayout=getActivity().findViewById(R.id.LL_searchWorkersList);
+                                linearLayout.removeAllViews();
                                 //line between items
                                 View V_line=new View(getActivity());
                                 V_line.setBackgroundResource(R.color.BLACK);
@@ -151,7 +152,7 @@ public class HomeFragment extends Fragment {
                                         @Override
                                         public void onClick(View v) {
                                             //PLACEHOLDER
-                                            //SEND THEM TO THE PROFILE PAGE
+                                            //TODO: SEND THEM TO THE PROFILE PAGE
                                             Intent intent= new Intent(getActivity(),dash.class);
                                             getActivity().startActivity(intent);
                                         }
