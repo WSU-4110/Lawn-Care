@@ -65,8 +65,7 @@ public class viewYourProperties extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Successfully Retrieved Data", Toast.LENGTH_LONG).show();
                                 //find the linear layout from the screen
                                 LinearLayout linearLayout=findViewById(R.id.LL_yourProperties);
-                                Button deleteButton=(Button) findViewById(R.id.deleteBut);
-                                Button editButton=(Button) findViewById(R.id.editBut);
+
 
                                 //0 to len-1, the first index is the success check, the rest are listings, but the first address starts at 0, so listings go from 0 to n-1
                                 for(int x = 0; x < jsonResponse.length()-1; x++){
@@ -77,6 +76,10 @@ public class viewYourProperties extends AppCompatActivity {
                                     //creates two views, one for address the other for work needed
                                     TextView TV_address=new TextView(viewYourProperties.this);
                                     TextView TV_workNeeded=new TextView(viewYourProperties.this);
+                                    //Place down the buttons for edit and delete
+                                    Button deleteButton=new Button (viewYourProperties.this);
+                                    Button editButton=new Button (viewYourProperties.this);
+
                                     //IDEA: feel free to add more fields that are available from the database, these are just some you can. or not. whatever works.
 
 
@@ -88,6 +91,9 @@ public class viewYourProperties extends AppCompatActivity {
                                     //get the fields i want to show in the views and format the strings how i want them to appear
                                     String address = currentListing.getString("street")+", "+currentListing.getString("city")+", "+currentListing.getString("state");
                                     String workNeeded = currentListing.getString("workNeeded");
+                                    String propertyNumString = currentListing.getString("propertyNumber");
+                                    final int propertyNum = Integer.parseInt(propertyNumString);
+
                                     //IDEA: it would be a good idea to remove the [] and "" from the workNeeded string... just an idea
                                     workNeeded=workNeeded.replace("[","");
                                     workNeeded=workNeeded.replace("]","");
@@ -100,12 +106,28 @@ public class viewYourProperties extends AppCompatActivity {
                                     //you can change the textview settings, for example
                                     TV_address.setTextSize(20);
                                     //IDEA: try changing some other attributes to make it look better
+                                    deleteButton.setText("Delete");
+                                    editButton.setText("Edit");
+                                    // Set click listener for delete listing function
+                                    deleteButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            deleteEntry(propertyNum);
+                                        }
+                                    });
+                                    // Set click listener for edit listing function
+                                    editButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            editEntry(propertyNum);
+                                        }
+                                    });
 
                                     //add the views to the current linear layout
                                     listingItem.addView(TV_address);
                                     listingItem.addView(TV_workNeeded);
                                     linearLayout.addView(deleteButton);
-                                    //linearLayout.addView(editButton);
+                                    linearLayout.addView(editButton);
                                     //add the current linear layout to the main linear layout
                                     linearLayout.addView(listingItem);
                                 }
@@ -138,11 +160,16 @@ public class viewYourProperties extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    //this function is never called from anywhere, the button on the dash calls a function with this name on the dash, not on this page
-    /*
-    public void viewYourData(View view)
+    //Add in code below for deleting an entry
+    void deleteEntry(int propertyNumber)
     {
 
     }
-     */
+
+    //Add in code below for editing an entry
+    void editEntry(int propertyNumber)
+    {
+
+    }
+
 }
