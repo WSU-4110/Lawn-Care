@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +45,8 @@ import java.util.Map;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-
+    EditText ET_searchWorkerQuery;
+    Button BTN_submitSearchWorkerQuery;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -56,6 +59,15 @@ public class HomeFragment extends Fragment {
         }
         else if(userType.equals("owner")){
             root = inflater.inflate(R.layout.fragment_search_workers, container, false);
+            ET_searchWorkerQuery = getActivity().findViewById(R.id.ET_searchWorkerQuery);
+            BTN_submitSearchWorkerQuery=getActivity().findViewById(R.id.BTN_submitSearchWorkerQuery);
+            BTN_submitSearchWorkerQuery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    searchWorkers();
+                }
+            });
+
             showWorkers();
         }
         else{
@@ -65,7 +77,9 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void showWorkers() {
+    private void searchWorkers() {
+        final String query=ET_searchWorkerQuery.getText().toString();
+
         //get list of workers from database
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
@@ -186,11 +200,16 @@ public class HomeFragment extends Fragment {
             //this function is written to get the parameters for posting
             protected Map<String,String> getParams(){
                 Map<String,String> params= new HashMap<String, String>();
+                params.put("query",query);
                 return params;
             }
         };
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
+
+    }
+
+    private void showWorkers() {
     }
 
     private void showListings() {

@@ -47,6 +47,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/BTN_submitSearchWorkerQuery"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/Submit"/>
