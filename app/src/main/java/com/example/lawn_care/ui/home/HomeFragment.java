@@ -1,5 +1,6 @@
 package com.example.lawn_care.ui.home;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -66,6 +67,11 @@ public class HomeFragment extends Fragment {
 
     private void showWorkers() {
         //get list of workers from database
+
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Finding Workers....");
+        progressDialog.show();
+
         final String signin_url="http://10.0.2.2:80/scripts/viewAllWorkerProfiles.php";
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
         StringRequest stringRequest=new StringRequest(Request.Method.POST, signin_url,
@@ -146,6 +152,7 @@ public class HomeFragment extends Fragment {
                                     V_line.setMinimumHeight(2);
                                     linearLayout.addView(V_line);
                                 }
+                                progressDialog.dismiss();
                                 //programmatically add to list
                                 /*
                                 for each item in the json
