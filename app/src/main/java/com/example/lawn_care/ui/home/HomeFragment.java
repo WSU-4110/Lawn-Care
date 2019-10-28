@@ -125,6 +125,18 @@ public class HomeFragment extends Fragment {
                                     listingItem.addView(TV_email);
                                     listingItem.addView(TV_workOffered);
 
+                                    //add clickable listing to go to their profile
+                                    linearLayout.setClickable(true);
+                                    linearLayout.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            //PLACEHOLDER
+                                            //SEND THEM TO THE PROFILE PAGE
+                                            Intent intent= new Intent(getActivity(),dash.class);
+                                            getActivity().startActivity(intent);
+                                        }
+                                    });
+
                                     //add the current linear layout to the main linear layout
                                     linearLayout.addView(listingItem);
 
