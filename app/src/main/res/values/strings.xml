@@ -24,9 +24,9 @@
     <string name="Job_Type">Job Type</string>
     <string name="Property_Size">Property Size</string>
     <string name="jobTest">This is job test?</string>
-    <string name="title_jobList">This is the job list?</string>
-    <string name="title_dashboard">This is the dashboard?</string>
-    <string name="title_map">This is the map?</string>
+    <string name="title_jobList">Search</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_map">Map</string>
     <string name="enter_phone_number">Enter Phone Number</string>
     <string name="property_owner">Property Owner</string>
     <string name="name">Name:</string>
