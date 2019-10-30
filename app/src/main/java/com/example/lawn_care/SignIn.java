@@ -37,19 +37,19 @@ import java.util.Map;
 
 public class SignIn extends AppCompatActivity {
 
-    EditText ET_email,ET_password;
+    EditText ET_loginEmail,ET_loginPassword;
     Button BTN_login;
-    CheckBox CB_showPassword;
+    //CheckBox CB_showPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-         ET_email=findViewById(R.id.ET_email);
-         ET_password=findViewById(R.id.ET_password);
+        ET_loginEmail=findViewById(R.id.ET_loginEmail);
+        ET_loginPassword=findViewById(R.id.ET_loginPassword);
          BTN_login=findViewById(R.id.BTN_login);
-         CB_showPassword=findViewById(R.id.CB_showPassword);
+         //CB_showPassword=findViewById(R.id.CB_showPassword);
     }
 
     public void ActivitySignUp(View view) {
@@ -58,8 +58,8 @@ public class SignIn extends AppCompatActivity {
     }
 
     public void LoginAttempt(View view) {
-        final String email= ET_email.getText().toString();
-        final String password= ET_password.getText().toString();
+        final String email= ET_loginEmail.getText().toString();
+        final String password= ET_loginPassword.getText().toString();
 
         String invalidFieldMessage="";
         String emailRegex="^(.+)@(.+)$";
@@ -143,6 +143,7 @@ public class SignIn extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    /*
     public void showPasswordCheck(View view) {
         if(!CB_showPassword.isChecked()){
             ET_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
@@ -151,4 +152,6 @@ public class SignIn extends AppCompatActivity {
             ET_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         }
     }
+
+     */
 }
