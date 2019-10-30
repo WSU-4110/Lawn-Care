@@ -222,8 +222,7 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Finding Properties....");
         progressDialog.show();
 
-        //final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/viewAllWorkerProfiles.php";
-        final String signin_url="http://10.0.2.2/scripts/viewAllProperties.php";
+        final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/viewAllProperties.php";
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
         StringRequest stringRequest=new StringRequest(Request.Method.POST, signin_url,
                 new Response.Listener<String>() {
