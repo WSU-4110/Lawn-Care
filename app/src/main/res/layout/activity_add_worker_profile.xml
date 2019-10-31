@@ -193,7 +193,6 @@
                     android:enabled="false"
                     android:focusable="true"
                     android:hint="@string/Job_Type"
-                    android:inputType="textMultiLine"
                     android:padding="10dp"
                     android:paddingStart="25dp"
                     android:paddingEnd="25dp"
