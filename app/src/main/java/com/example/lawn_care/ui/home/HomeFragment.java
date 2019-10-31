@@ -43,7 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
-
+    //test
     private HomeViewModel homeViewModel;
     EditText ET_searchWorkerQuery, ET_searchPropertiesQuery;
     Button BTN_submitSearchWorkerQuery, BTN_submitSearchPropertiesQuery;
