@@ -63,6 +63,7 @@
         android:id="@+id/BTN_Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="Testing"
         android:text="@string/Details"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textColor="@color/WHITE"
@@ -97,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ET_firstName"
@@ -117,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ET_lastName"
@@ -137,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ET_email"
@@ -157,7 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ET_phone"
@@ -181,8 +182,10 @@
                 app:endIconDrawable="@drawable/ic_add"
                 app:endIconMode="custom">
 
-                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                    android:id="@+id/AC_WorkOffered"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ET_WorkOffered"
+                    android:enabled="false"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_txt_layout"
@@ -379,26 +382,6 @@
                     android:textSize="20sp" />
 
             </LinearLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp10"
-
-                android:visibility="visible">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edit_txt_layout"
-                    android:enabled="true"
-                    android:textAlignment="center"
-                    android:paddingStart="25dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/Job_Type"
-                    android:textColor="@color/BLACK" />
-            </com.google.android.material.textfield.TextInputLayout>
-
         </LinearLayout>
     </ScrollView>
 

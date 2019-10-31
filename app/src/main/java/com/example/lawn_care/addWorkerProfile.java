@@ -47,12 +47,16 @@ import java.util.StringJoiner;
 
 public class addWorkerProfile extends AppCompatActivity {
 
+    TextInputLayout TI_firstName,
+            TI_lastName, TI_email, TI_Phone;
+
     EditText ET_firstName;
     EditText ET_lastName;
     EditText ET_email;
     EditText ET_phone;
     EditText ET_description;
     EditText ET_website;
+    EditText ET_WorkOffered;
 
     CheckBox CB_sunday;
     CheckBox CB_monday;
@@ -62,29 +66,21 @@ public class addWorkerProfile extends AppCompatActivity {
     CheckBox CB_friday;
     CheckBox CB_saturday;
 
-    CheckBox CB_clippings;
-    CheckBox CB_trimming;
-    CheckBox CB_mowing;
-    CheckBox CB_fertilization;
-    CheckBox CB_weed_Control;
-    CheckBox CB_pest_Control;
-    CheckBox CB_irrigation;
-    CheckBox CB_aeration;
-
     Button BTN_submit;
     Button BTN_timeStart;
     Button BTN_timeEnd;
 
-    LinearLayout detailsLinear;
+    StringRequest stringRequest;
     TimePickerDialog picker;
     Calendar calendar = Calendar.getInstance();
-    AutoCompleteTextView AC_WorkOffered;
     TextInputLayout TI_WorkOffered;
 
+    /*
     List<String> theWorkOfferedList;
     ArrayList<String> workOfferedList;
     List<String > tempWorkOfferedList;
-    ArrayAdapter<String> adapter;
+*/
+    ArrayList<String> userWork;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +93,7 @@ public class addWorkerProfile extends AppCompatActivity {
         ET_phone = findViewById(R.id.ET_phone);
         ET_description = findViewById(R.id.ET_description);
         ET_website = findViewById(R.id.ET_website);
+        ET_WorkOffered = findViewById(R.id.ET_WorkOffered);
 
         CB_sunday = findViewById(R.id.CB_sunday);
         CB_monday= findViewById(R.id.CB_monday);
@@ -110,54 +107,35 @@ public class addWorkerProfile extends AppCompatActivity {
         BTN_timeStart = findViewById(R.id.BTN_timeStart);
         BTN_timeEnd = findViewById(R.id.BTN_timeEnd);
 
-        detailsLinear = findViewById(R.id.detailsLinear);
         TI_WorkOffered = findViewById(R.id.TI_WorkOffered);
-        AC_WorkOffered = findViewById(R.id.AC_WorkOffered);
+        TI_firstName = findViewById(R.id.TI_firstName);
+        TI_lastName = findViewById(R.id.TI_lastName);
+        TI_email = findViewById(R.id.TI_email);
+        TI_Phone = findViewById(R.id.TI_Phone);
 
-        TI_WorkOffered.setEndIconVisible(false);
-        tempWorkOfferedList = new ArrayList<>();
-        workOfferedList = new ArrayList<>();
-        theWorkOfferedList = workOfferedList;
+        ET_WorkOffered= findViewById(R.id.ET_WorkOffered);
 
-        loadWorkOffered();
+//        loadWorkOffered();
 
-        adapter = new ArrayAdapter<>
-                (this, android.R.layout.simple_dropdown_item_1line, theWorkOfferedList);
-        AC_WorkOffered.setThreshold(0);
-        AC_WorkOffered.setAdapter(adapter);
+        userWork = new ArrayList<>();
+        getUserWork();
 
         TI_WorkOffered.setEndIconOnClickListener(v -> endIconClicked());
-
-
-        AC_WorkOffered.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().equals("")){
-                    TI_WorkOffered.setEndIconVisible(false);
-                }
-                else
-                    TI_WorkOffered.setEndIconVisible(true);
-
-                for (int i = 0; i < tempWorkOfferedList.size(); i++)
-                    theWorkOfferedList.remove(tempWorkOfferedList.get(i));
-            }
-        });
+/*
+        ET_firstName.setText(localUserInfo.getFirstName());
+        ET_lastName.setText(localUserInfo.getLastName());
+        ET_email.setText(localUserInfo.getEmail());
+        ET_phone.setText(localUserInfo.getPhoneNumber());
+*/
+        ET_WorkOffered.setText(userWork.toString());
     }
+
 
     //On Click event for End Icon of JobType
     public void endIconClicked(){
-        addWorkOffered(AC_WorkOffered.getText().toString());
-        AC_WorkOffered.setText("");
+        Intent intent = new Intent(addWorkerProfile.this, TempActivity.class);
+        intent.putExtra("user_work", userWork.toString());
+        this.startActivity(intent);
     }
 
     //Setting Up Starting Time
@@ -191,6 +169,11 @@ public class addWorkerProfile extends AppCompatActivity {
     //Enabling the edit Text
     public void editDetails(View view) {
 
+        TI_firstName.setVisibility(View.GONE);
+        TI_lastName.setVisibility(View.GONE);
+        TI_email.setVisibility(View.GONE);
+        TI_Phone.setVisibility(View.GONE);
+        /*
         ET_firstName.setEnabled(true);
         ET_lastName.setEnabled(true);
         ET_website.setEnabled(true);
@@ -216,6 +199,8 @@ public class addWorkerProfile extends AppCompatActivity {
         ET_email.setText(localUserInfo.getEmail());
         ET_email.setHint(R.string.Enter_Email);
 
+         */
+
         BTN_timeStart.setText(R.string.startTime);
         BTN_timeEnd.setText(R.string.endTime);
 
@@ -226,15 +211,6 @@ public class addWorkerProfile extends AppCompatActivity {
         CB_thursday.setChecked(false);
         CB_friday.setChecked(false);
         CB_saturday.setChecked(false);
-
-        CB_clippings.setChecked(false);
-        CB_trimming.setChecked(false);
-        CB_mowing.setChecked(false);
-        CB_fertilization.setChecked(false);
-        CB_weed_Control.setChecked(false);
-        CB_pest_Control.setChecked(false);
-        CB_irrigation.setChecked(false);
-        CB_aeration.setChecked(false);
     }
 
     //onClick event for Submit button
@@ -244,7 +220,6 @@ public class addWorkerProfile extends AppCompatActivity {
         final String tempWebsite = ET_website.getText().toString();
 
         StringBuilder stringBufferWorkDays = new StringBuilder();
-        StringJoiner stringBufferTypesOfWorkOffered = new StringJoiner(",");
 
         final String tempStartTime = BTN_timeStart.getText().toString();
         final String tempEndTime = BTN_timeEnd.getText().toString();
@@ -272,12 +247,7 @@ public class addWorkerProfile extends AppCompatActivity {
 
         final String tempWorkDays = stringBufferWorkDays.toString();
 
-        for (int i = 0; i < tempWorkOfferedList.size(); i++)
-            stringBufferTypesOfWorkOffered.add(tempWorkOfferedList.get(i));
-
-        final String tempTypesOfWorkOffered = stringBufferTypesOfWorkOffered.toString();
-
-        String HttpUrl = "http://lawn-care.us-east-1.elasticbeanstalk.com/addWorkerProfile.php";
+        String HttpUrl = ApiDB.URL_UPDATE_WORKER_PROFILE;
 
         // Creating string request with post method.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpUrl,
@@ -305,7 +275,6 @@ public class addWorkerProfile extends AppCompatActivity {
                 params.put("daysAvailable", tempWorkDays);
                 params.put("startTime", tempStartTime);
                 params.put("endTime", tempEndTime);
-                params.put("workOffered", tempTypesOfWorkOffered);
 
                 return params;
             }
@@ -314,33 +283,7 @@ public class addWorkerProfile extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
-    //Loading available types of work from DB
-    public void loadWorkOffered() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, ApiDB.URL_READ_OFFRED_WORK, response -> {
-            try {
-                JSONObject obj = new JSONObject(response);
-                JSONArray workArray = obj.getJSONArray("work");
-
-                //now looping through all the elements of the json array
-                for (int i = 0; i < workArray.length(); i++) {
-                    //getting the json object of the particular index inside the array
-                    JSONObject workObject = workArray.getJSONObject(i);
-
-                    String x = workObject.getString("workOffered");
-
-                    workOfferedList.add(x);
-                }
-          } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        },
-                error -> {
-                    //displaying the error in toast if occurrs
-                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                });
-        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
-    }
-
+/*
     //Worker can pick up types of job they are providing
     public void addWorkOffered(String temp){
         final TextInputLayout inputLayout = new TextInputLayout(this);
@@ -383,6 +326,8 @@ public class addWorkerProfile extends AppCompatActivity {
         Log.d("Add", theWorkOfferedList.toString());
     }
 
+
+
     //Updating Job type in AC
     public void updatedData(List itemsWorkOffered) {
         adapter.clear();
@@ -391,5 +336,41 @@ public class addWorkerProfile extends AppCompatActivity {
                 adapter.add(object);
         }
         adapter.notifyDataSetChanged();
+    }
+
+ */
+    public void getUserWork(){
+        stringRequest = new StringRequest(Request.Method.GET, ApiDB.URL_GET_WORKER_LIST, response -> {
+            String temp = "";
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray workArray = obj.getJSONArray("work");
+
+                //now looping through all the elements of the json array
+                for (int i = 0; i < workArray.length(); i++) {
+                    //getting the json object of the particular index inside the array
+                    JSONObject workObject = workArray.getJSONObject(i);
+                    try {
+                        temp = workObject.getString("workOffered");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    userWork.add(temp);
+                    Log.d("TestingTRY",userWork.toString());
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        },
+                error -> {
+                    //displaying the error in toast if occurrs
+                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    public void Testing(View view) {
+
     }
 }
