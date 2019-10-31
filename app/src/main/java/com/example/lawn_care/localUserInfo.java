@@ -7,14 +7,16 @@ public class localUserInfo {
     private static String lastName;
     private static String phoneNumber;
     private static String userType;
+    private static String webSite;
 
-    public static void setUserInfo(String uemail, String upassword, String ufirstName, String ulastName, String uphoneNumber, String uuserType){
+    public static void setUserInfo(String uemail, String upassword, String ufirstName, String ulastName, String uphoneNumber, String uuserType, String uwebSite){
         email=uemail;
         password=upassword;
         firstName=ufirstName;
         lastName=ulastName;
         phoneNumber=uphoneNumber;
         userType=uuserType;
+        webSite=uwebSite;
     }
 
     public static String getEmail(){
@@ -40,4 +42,6 @@ public class localUserInfo {
     public static String getUserType(){
         return userType;
     }
+
+    public static String getWebSite() {return webSite}
 }

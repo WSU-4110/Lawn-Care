@@ -146,6 +146,15 @@ public class addWorkerProfile extends AppCompatActivity {
                     theWorkOfferedList.remove(tempWorkOfferedList.get(i));
             }
         });
+        showDetails();
+    }
+
+    public void showDetails(){
+        ET_firstName.setText(localUserInfo.getFirstName());
+        ET_lastName.setText(localUserInfo.getLastName());
+        ET_email.setText(localUserInfo.getEmail());
+        ET_phone.setText(localUserInfo.getPhoneNumber());
+        ET_website.setText(localUserInfo.getWebSite());
     }
 
     //On Click event for End Icon of JobType
