@@ -2,16 +2,19 @@ package com.example.lawn_care;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +33,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -43,11 +48,14 @@ import java.util.Map;
 
 public class viewYourProperties extends AppCompatActivity {
 
+    LinearLayout LL_yourProperties;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_your_properties);
 
+        LL_yourProperties = findViewById(R.id.LL_yourProperties);
 
         //your code needs to be here because it should fill the screen on creation, aka when they open this view
         final String email = localUserInfo.getEmail();
@@ -64,15 +72,11 @@ public class viewYourProperties extends AppCompatActivity {
                                 //success toast, inform the user that the connection was successful
                                 Toast.makeText(getApplicationContext(), "Successfully Retrieved Data", Toast.LENGTH_LONG).show();
                                 //find the linear layout from the screen
-                                LinearLayout linearLayout=findViewById(R.id.LL_yourProperties);
-
 
                                 //0 to len-1, the first index is the success check, the rest are listings, but the first address starts at 0, so listings go from 0 to n-1
                                 for(int x = 0; x < jsonResponse.length()-1; x++){
                                     //create a new linear layout so each listing can be in a view, easier to do stuff with
-                                    LinearLayout listingItem = new LinearLayout(viewYourProperties.this);
 
-                                    listingItem.setOrientation(LinearLayout.VERTICAL);
                                     //creates two views, one for address the other for work needed
                                     TextView TV_address=new TextView(viewYourProperties.this);
                                     TextView TV_workNeeded=new TextView(viewYourProperties.this);
@@ -88,8 +92,11 @@ public class viewYourProperties extends AppCompatActivity {
                                     //everything from 0 to n-1 can be stored as a jsonobject
                                     JSONObject currentListing=jsonResponse.getJSONObject(String.valueOf(x));
 
+
+
                                     //get the fields i want to show in the views and format the strings how i want them to appear
                                     String address = currentListing.getString("street")+", "+currentListing.getString("city")+", "+currentListing.getString("state");
+                                    addWorkOffered(address);
                                     String workNeeded = currentListing.getString("workNeeded");
                                     String propertyNumString = currentListing.getString("propertyNumber");
                                     final int propertyNum = Integer.parseInt(propertyNumString);
@@ -98,14 +105,17 @@ public class viewYourProperties extends AppCompatActivity {
                                     workNeeded=workNeeded.replace("[","");
                                     workNeeded=workNeeded.replace("]","");
                                     workNeeded=workNeeded.replace("\"","");
+                                    addWorkOffered(workNeeded);
 
 
                                     //set the view texts
+/*
                                     TV_address.setText(address);
                                     TV_workNeeded.setText(workNeeded);
                                     //you can change the textview settings, for example
                                     TV_address.setTextSize(20);
                                     //IDEA: try changing some other attributes to make it look better
+ */
                                     BTN_deleteButton.setText("Delete");
                                     BTN_editButton.setText("Edit");
                                     // Set click listener for delete listing function
@@ -124,12 +134,12 @@ public class viewYourProperties extends AppCompatActivity {
                                     });
 
                                     //add the views to the current linear layout
-                                    listingItem.addView(TV_address);
-                                    listingItem.addView(TV_workNeeded);
-                                    linearLayout.addView(BTN_deleteButton);
-                                    linearLayout.addView(BTN_editButton);
+                                    //listingItem.addView(TV_address);
+                                    //listingItem.addView(TV_workNeeded);
+                                    LL_yourProperties.addView(BTN_deleteButton);
+                                    LL_yourProperties.addView(BTN_editButton);
                                     //add the current linear layout to the main linear layout
-                                    linearLayout.addView(listingItem);
+                                    //linearLayout.addView(listingItem);
                                 }
                             }
                         } catch (JSONException e) {
@@ -221,6 +231,30 @@ public class viewYourProperties extends AppCompatActivity {
 
     }
 
+    public void addWorkOffered(String temp){
+        final TextInputLayout inputLayout = new TextInputLayout(this);
+        TextInputEditText editText = new TextInputEditText(this);
+        Resources r = this.getResources();
+        int px = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                10,
+                r.getDisplayMetrics()
+        );
+        TextInputLayout.LayoutParams layoutParams = new TextInputLayout.LayoutParams(
+                TextInputLayout.LayoutParams.MATCH_PARENT, TextInputLayout.LayoutParams.MATCH_PARENT
+        );
+
+        layoutParams.setMargins(0,0,px,px);
+        editText.setPadding(px,px,px,px);
+        editText.setEnabled(false);
+        editText.setTextColor(ContextCompat.getColor(this, R.color.BLACK));
+        editText.setText(temp);
+
+        inputLayout.addView(editText);
+        inputLayout.setLayoutParams(layoutParams);
+
+        LL_yourProperties.addView(inputLayout);
+    }
 
     //Add in code below for editing an entry
     void editEntry(int propertyNumber)
