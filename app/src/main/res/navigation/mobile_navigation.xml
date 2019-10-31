@@ -9,7 +9,7 @@
         android:id="@+id/navigation_jobList"
         android:name="com.example.lawn_care.ui.home.HomeFragment"
         android:label="@string/title_jobList"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_search_jobs" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
