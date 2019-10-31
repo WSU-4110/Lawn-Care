@@ -24,7 +24,7 @@
     <string name="Job_Type">Job Type</string>
     <string name="Property_Size">Property Size</string>
     <string name="jobTest">Listings</string>
-    <string name="title_jobList">Listings</string>
+    <string name="title_jobList">Search</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_map">Map</string>
     <string name="enter_phone_number">Enter Phone Number</string>
@@ -39,7 +39,8 @@
     <string name="website">Website</string>
     <string name="endTime">End Time</string>
     <string name="startTime">Start Time</string>
-
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
     <string name="Tools_Availability">Do you have tools?</string>
     <string name="Required">Required*</string>
     <string name="ic_user">User Icon</string>
@@ -58,4 +59,5 @@
     <string name="search_workers">Search Workers</string>
     <string name="this_is_the_scroll_area">This is the Scroll Area</string>
     <string name="enter_query">Enter Query</string>
+    <string name="lawn_care">Lawn-Care</string>
 </resources>
