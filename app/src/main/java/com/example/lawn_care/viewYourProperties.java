@@ -1,11 +1,7 @@
 package com.example.lawn_care;
 
 import android.content.Intent;
-<<<<<<< HEAD
-=======
 import android.content.res.Resources;
-import android.os.AsyncTask;
->>>>>>> c7a2fee714feccbe1ecb5bb9ace0d77556205557
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -26,13 +22,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-<<<<<<< HEAD
-=======
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
->>>>>>> c7a2fee714feccbe1ecb5bb9ace0d77556205557
 
 import org.json.JSONException;
 import org.json.JSONObject;
