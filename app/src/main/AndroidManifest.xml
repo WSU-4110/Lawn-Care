@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".viewYourWorkerProfile"></activity>
+        <activity android:name=".TempActivity"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
+        <activity android:name=".viewYourWorkerProfile" />
         <activity android:name=".viewYourProperties" />
         <activity android:name=".addWorkerProfile">
         </activity>
