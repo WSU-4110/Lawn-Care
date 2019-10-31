@@ -25,12 +25,17 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.MenuPopupWindow;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -80,7 +85,10 @@ public class addWorkerProfile extends AppCompatActivity {
     ArrayList<String> workOfferedList;
     List<String > tempWorkOfferedList;
 */
+//    String previousActivity = "123";
+//    String user_data_from_activity;
     ArrayList<String> userWork;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +127,9 @@ public class addWorkerProfile extends AppCompatActivity {
 
         userWork = new ArrayList<>();
         getUserWork();
+        email = "x@x.com";
 
+        ET_email.setText(email);
         TI_WorkOffered.setEndIconOnClickListener(v -> endIconClicked());
 /*
         ET_firstName.setText(localUserInfo.getFirstName());
@@ -127,9 +137,100 @@ public class addWorkerProfile extends AppCompatActivity {
         ET_email.setText(localUserInfo.getEmail());
         ET_phone.setText(localUserInfo.getPhoneNumber());
 */
-        ET_WorkOffered.setText(userWork.toString());
+//        Intent tempIntent = getIntent();
+
+//        final String email=localUserInfo.getEmail();
+//        previousActivity = tempIntent.getStringExtra("FROM_ACTIVITY");
+//        user_data_from_activity = tempIntent.getStringExtra("user_work");
+        getWorkerDetails();
+
+
+//        ET_email.setText("Email: "+localUserInfo.getEmail());
+        //ET_email.setText("");
+//        ET_WorkOffered.setText(userWork.toString());
     }
 
+    private void getWorkerDetails() {
+//        Log.d("previousActivity",previousActivity);
+        final String viewYourWorkerProfile_url="http://lawn-care.us-east-1.elasticbeanstalk.com/viewYourWorkerProfile.php";
+        //stringRequest is an object that contains the request method, the url, and the parameters and the response
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, ApiDB.URL_GET_Your_Worker_Profile,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonResponse;
+                        try {
+                            jsonResponse=new JSONObject(response);
+                            if(jsonResponse.getString("success")!="false"){
+                                Log.d("Desc",jsonResponse.getString("description"));
+//                                Log.d("previousActivity",previousActivity);
+//                                if (!(previousActivity.equals("TempActivity")))
+                                ET_description.setText(jsonResponse.getString("description"));
+
+                                String workOffered=jsonResponse.getString("workOffered");
+                                workOffered=workOffered.replace("[","");
+                                workOffered=workOffered.replace("]","");
+                                workOffered=workOffered.replace("\"","");
+                                String daysAvaolable = jsonResponse.getString("daysAvailable");
+
+                                BTN_timeStart.setText(jsonResponse.getString("startTime"));
+                                BTN_timeEnd.setText(jsonResponse.getString("endTime"));
+                                ET_website.setText(jsonResponse.getString("website"));
+                                ET_WorkOffered.setText(workOffered);
+
+                                if (daysAvaolable.contains("U"))
+                                    CB_sunday.setChecked(true);
+                                if (daysAvaolable.contains("M"))
+                                    CB_monday.setChecked(true);
+                                if (daysAvaolable.contains("T"))
+                                    CB_tuesday.setChecked(true);
+                                if (daysAvaolable.contains("W"))
+                                    CB_wednesday.setChecked(true);
+                                if (daysAvaolable.contains("R"))
+                                    CB_thursday.setChecked(true);
+                                if (daysAvaolable.contains("F"))
+                                    CB_friday.setChecked(true);
+                                if (daysAvaolable.contains("S"))
+                                    CB_saturday.setChecked(true);
+
+                            }
+                            else{
+                                //message for incorrect password
+                                AlertDialog.Builder builder = new AlertDialog.Builder(addWorkerProfile.this);
+                                builder.setMessage("Invalid Input")
+                                        .setNegativeButton("Try Again",null)
+                                        .create()
+                                        .show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(addWorkerProfile.this);
+                        builder.setMessage("Connection Failed")
+                                .setNegativeButton("Try Again",null)
+                                .create()
+                                .show();
+                        error.printStackTrace();
+                        Log.e("VOLLEY", error.getMessage());
+                        //requestQueue.stop();
+                    }
+                }){
+            @Override
+            //this function is written to get the parameters for posting
+            protected Map<String,String> getParams(){
+                Map<String,String> params= new HashMap<String, String>();
+                params.put("email", email);
+                return params;
+            }
+        };
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+    }
 
     //On Click event for End Icon of JobType
     public void endIconClicked(){
@@ -161,6 +262,8 @@ public class addWorkerProfile extends AppCompatActivity {
                 resultTime = resultTime + "0";
             resultTime = resultTime + sMinute;
 
+            Log.d("Res", resultTime);
+
             btn.setText(resultTime);
         }, hour, minutes, true);
         picker.show();
@@ -173,6 +276,11 @@ public class addWorkerProfile extends AppCompatActivity {
         TI_lastName.setVisibility(View.GONE);
         TI_email.setVisibility(View.GONE);
         TI_Phone.setVisibility(View.GONE);
+
+        ET_website.setEnabled(true);
+        ET_phone.setEnabled(true);
+        ET_description.setEnabled(true);
+
         /*
         ET_firstName.setEnabled(true);
         ET_lastName.setEnabled(true);
@@ -199,7 +307,7 @@ public class addWorkerProfile extends AppCompatActivity {
         ET_email.setText(localUserInfo.getEmail());
         ET_email.setHint(R.string.Enter_Email);
 
-         */
+
 
         BTN_timeStart.setText(R.string.startTime);
         BTN_timeEnd.setText(R.string.endTime);
@@ -211,17 +319,20 @@ public class addWorkerProfile extends AppCompatActivity {
         CB_thursday.setChecked(false);
         CB_friday.setChecked(false);
         CB_saturday.setChecked(false);
+
+         */
     }
 
     //onClick event for Submit button
     public void submitWorker(View view) {
-        final String tempEmail = ET_email.getText().toString();
+//        final String tempEmail = ET_email.getText().toString();
         final String tempDescription = ET_description.getText().toString();
         final String tempWebsite = ET_website.getText().toString();
 
         StringBuilder stringBufferWorkDays = new StringBuilder();
 
         final String tempStartTime = BTN_timeStart.getText().toString();
+        Log.d("StartTime", tempStartTime);
         final String tempEndTime = BTN_timeEnd.getText().toString();
 
         if (CB_sunday.isChecked())
@@ -269,7 +380,7 @@ public class addWorkerProfile extends AppCompatActivity {
 
                 // Adding All values to Params.
                 // The firs argument should be same sa your MySQL database table columns.
-                params.put("email", tempEmail);
+                params.put("email", email);
                 params.put("description", tempDescription);
                 params.put("website", tempWebsite);
                 params.put("daysAvailable", tempWorkDays);
@@ -357,7 +468,6 @@ public class addWorkerProfile extends AppCompatActivity {
                     }
                     userWork.add(temp);
                     Log.d("TestingTRY",userWork.toString());
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

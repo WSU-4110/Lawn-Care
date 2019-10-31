@@ -24,7 +24,6 @@
             android:padding="10dp"
             android:paddingStart="25dp"
             android:paddingEnd="25dp"
-            android:text="@string/description"
             android:textColor="@color/BLACK" />
     </com.google.android.material.textfield.TextInputLayout>
 

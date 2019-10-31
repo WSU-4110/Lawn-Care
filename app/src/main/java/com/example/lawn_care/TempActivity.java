@@ -70,7 +70,7 @@ public class TempActivity extends AppCompatActivity {
     }
 
     public void endIconClicked(){
-        if (ET_WorkOffered.getText() != null) {
+        if (!(ET_WorkOffered.getText().toString().matches(""))) {
             addWorkOffered(StringFormatter.capitalizeWord(ET_WorkOffered.getText().toString()));
             ET_WorkOffered.setText("");
             adapter.notifyDataSetChanged();
@@ -112,7 +112,7 @@ public class TempActivity extends AppCompatActivity {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < listView.getChildCount(); i++) {
             View s = listView.getChildAt(i);
-            TextView textView = s.findViewById(R.id.ET_description);
+            TextView textView = s.findViewById(R.id.tvName);
             CheckBox cb = s.findViewById(R.id.cbSelected);
             if (cb.isChecked()) {
                 builder.append(textView.getText().toString());
@@ -120,6 +120,7 @@ public class TempActivity extends AppCompatActivity {
             }
         }
         String string = builder.toString();
+        Log.d("Builder",string);
 
         if (string.length()>0)
             string = string.substring(0, string.length() - 1);
@@ -128,6 +129,7 @@ public class TempActivity extends AppCompatActivity {
     }
 
     public void Submit(View view) {
+        ET_WorkOffered.setText("");
         stringRequest = new StringRequest(Request.Method.POST, ApiDB.URL_SUBMIT,
                 ServerResponse -> {
                     // Showing Echo Response Message Coming From Server.
@@ -152,5 +154,10 @@ public class TempActivity extends AppCompatActivity {
             }
         };
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+        Intent intent = new Intent(TempActivity.this, addWorkerProfile.class);
+        intent.putExtra("user_work", getWorkOfferedData());
+        intent.putExtra("FROM_ACTIVITY", "TempActivity");
+        this.startActivity(intent);
+        this.finish();
     }
 }

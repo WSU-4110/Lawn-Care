@@ -105,11 +105,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_txt_layout"
-                    android:enabled="true"
+                    android:enabled="false"
                     android:padding="10dp"
                     android:paddingStart="25dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/Enter_First_Name"
+                    android:paddingEnd="25dp"
+                    android:hint="@string/Enter_First_Name"
                     android:textColor="@color/BLACK" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,10 +126,10 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_txt_layout"
                     android:enabled="false"
-                    android:padding="@dimen/dp10"
+                    android:padding="10dp"
                     android:paddingStart="25dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/Enter_Last_Name"
+                    android:paddingEnd="25dp"
+                    android:hint="@string/Enter_Last_Name"
                     android:textColor="@color/BLACK" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,9 +148,9 @@
                     android:enabled="false"
                     android:padding="10dp"
                     android:paddingStart="25dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/Enter_Email"
-                    android:textColor="@color/BLACK" />
+                    android:paddingEnd="25dp"
+                    android:textColor="@color/BLACK"
+                    android:hint="@string/Enter_Email" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -158,18 +158,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:visibility="visible">
+                android:visibility="visible" >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ET_phone"
+                    android:enabled="false"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_txt_layout"
-                    android:enabled="false"
+                    android:focusable="true"
+                    android:hint="@string/enter_phone_number"
+                    android:inputType="textMultiLine"
                     android:padding="10dp"
                     android:paddingStart="25dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/enter_phone_number"
+                    android:paddingEnd="25dp"
                     android:textColor="@color/BLACK" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -196,20 +199,6 @@
                     android:paddingStart="25dp"
                     android:paddingEnd="25dp"
                     android:textColor="@color/BLACK" />
-                <!--
-                <AutoCompleteTextView
-                    android:id="@+id/AC_WorkOffered"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edit_txt_layout"
-                    android:focusable="true"
-                    android:hint="@string/Job_Type"
-                    android:inputType="textMultiLine"
-                    android:padding="10dp"
-                    android:paddingStart="25dp"
-                    android:paddingEnd="25dp"
-                    android:textColor="@color/BLACK" />
--->
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -217,21 +206,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:visibility="visible">
+                android:visibility="visible" >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ET_description"
+                    android:enabled="false"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_txt_layout"
-                    android:clickable="true"
-                    android:enabled="false"
                     android:focusable="true"
+                    android:hint="@string/enter_phone_number"
                     android:inputType="textMultiLine"
                     android:padding="10dp"
                     android:paddingStart="25dp"
                     android:paddingEnd="25dp"
-                    android:text="@string/description"
                     android:textColor="@color/BLACK" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -254,7 +243,7 @@
                     android:padding="10dp"
                     android:paddingStart="25dp"
                     android:paddingEnd="25dp"
-                    android:text="@string/website"
+                    android:hint="@string/website"
                     android:textColor="@color/BLACK" />
             </com.google.android.material.textfield.TextInputLayout>
 
