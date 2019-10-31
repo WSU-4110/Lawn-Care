@@ -358,10 +358,10 @@ public class addWorkerProfile extends AppCompatActivity {
 
         final String tempWorkDays = stringBufferWorkDays.toString();
 
-        String HttpUrl = ApiDB.URL_UPDATE_WORKER_PROFILE;
+//        String HttpUrl = ApiDB.URL_UPDATE_WORKER_PROFILE;
 
         // Creating string request with post method.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpUrl,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiDB.URL_UPDATE_WORKER_PROFILE,
                 ServerResponse -> {
                     // Showing Echo Response Message Coming From Server.
                     Toast.makeText(addWorkerProfile.this, ServerResponse, Toast.LENGTH_LONG).show();
@@ -505,8 +505,9 @@ public class addWorkerProfile extends AppCompatActivity {
         };
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
 
-        Intent intent = new Intent(addWorkerProfile.this, SignIn.class);
-        this.startActivity(intent);
-        this.finish();
+        Intent intent = new Intent(getApplicationContext(), SignIn.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+
     }
 }
