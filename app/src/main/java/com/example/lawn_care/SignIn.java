@@ -101,7 +101,7 @@ public class SignIn extends AppCompatActivity {
 
                                 //switch to dashboard
                                 Intent intent = new Intent(SignIn.this, dash.class);
-                                SignIn.this.startActivity(intent);
+                                startActivity(intent);
                             }
                             else{
                                 //message for incorrect password

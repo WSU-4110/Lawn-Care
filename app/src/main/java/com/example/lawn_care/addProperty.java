@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class addProperty extends AppCompatActivity {
-
+    private RequestQueue requestQueue;
         private Spinner spinnerState;
         private EditText ET_address;
         private EditText ET_city;
@@ -147,7 +147,8 @@ public class addProperty extends AppCompatActivity {
             final String zipcode= ET_zipcode.getText().toString();
             final String propertySize= ET_PropertySize.getText().toString();
             final String jobtype= ET_JobType.getText().toString();
-            final String Tools= ET_Tools.getText().toString();
+            //final String Tools= ET_Tools.getText().toString();
+            final String Tools;
             final String state= spinnerState.getSelectedItem().toString();
             if (CB_clippings.isChecked())
                 stringBufferTypesOfWorkOffered.append("Clippings,");
@@ -176,10 +177,14 @@ public class addProperty extends AppCompatActivity {
             final String tempTypesOfWorkOffered = stringBufferTypesOfWorkOffered.toString();
 
              if (CB_Yes.isChecked())
-                stringBufferTypesOfWorkOffered.append("Yes");
+                //stringBufferTypesOfWorkOffered.append("Yes");
+                 Tools="1";
+             else
+                 Tools="0";
+             /*
             if (CB_No.isChecked())
                 stringBufferTypesOfWorkOffered.append("No");
-
+              */
             final String tempTools = stringBufferToolsAvail.toString();
             final String addListing_url="http://lawn-care.us-east-1.elasticbeanstalk.com/addListing.php";
             //stringRequest is an object that contains the request method, the url, and the parameters and the response
@@ -236,9 +241,9 @@ public class addProperty extends AppCompatActivity {
                     params.put("state", state);
                     params.put("lawnSize", propertySize);
                     params.put("equipmentAvailable", Tools);
-                    params.put("workNeeded", jobtype);
-                    params.put("workOffered",tempTypesOfWorkOffered);
-                    params.put("Tools",tempTools);
+                    params.put("workNeeded", tempTypesOfWorkOffered);
+                    //params.put("workOffered",tempTypesOfWorkOffered);
+                    //params.put("Tools",tempTools);
                     return params;
                 }
             };

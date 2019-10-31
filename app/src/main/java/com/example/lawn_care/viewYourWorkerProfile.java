@@ -64,7 +64,6 @@ public class viewYourWorkerProfile extends AppCompatActivity {
                                 workOffered=workOffered.replace("]","");
                                 workOffered=workOffered.replace("\"","");
 
-
                                 TV_workOffer.setText("Work offer: "+workOffered);
                                 TV_daysAvailable.setText("Days available: "+jsonResponse.getString("daysAvailable"));
                                 TV_startEndTime.setText("Start end time: "+jsonResponse.getString("startTime")+"-"+jsonResponse.getString("endTime"));
@@ -109,8 +108,5 @@ public class viewYourWorkerProfile extends AppCompatActivity {
         };
         RequestQueue requestQueue= Volley.newRequestQueue(viewYourWorkerProfile.this);
         requestQueue.add(stringRequest);
-
-
-
     }
 }
