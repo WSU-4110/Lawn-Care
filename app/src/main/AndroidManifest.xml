@@ -12,13 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+<<<<<<< HEAD
+        <activity android:name=".editYourProperty"></activity>
+=======
         <activity android:name=".TempActivity"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
+>>>>>>> c7a2fee714feccbe1ecb5bb9ace0d77556205557
         <activity android:name=".viewYourWorkerProfile" />
         <activity android:name=".viewYourProperties" />
-        <activity android:name=".addWorkerProfile">
-        </activity>
+        <activity android:name=".addWorkerProfile"></activity>
         <activity android:name=".addProperty" />
         <activity android:name=".SignIn">
             <intent-filter>
