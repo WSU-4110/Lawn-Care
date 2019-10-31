@@ -63,7 +63,6 @@
         android:id="@+id/BTN_Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="Testing"
         android:text="@string/Details"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textColor="@color/WHITE"
@@ -182,7 +181,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:visibility="visible"
-                app:endIconDrawable="@drawable/ic_add"
+                app:endIconDrawable="@drawable/ic_edit_data"
                 app:endIconMode="custom">
 
                 <com.google.android.material.textfield.TextInputEditText
