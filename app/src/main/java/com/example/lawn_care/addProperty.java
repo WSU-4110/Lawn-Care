@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -35,19 +34,6 @@ public class addProperty extends AppCompatActivity {
         private EditText ET_JobType;
         private EditText ET_Tools;
 
-
-
-    CheckBox CB_clippings;
-    CheckBox CB_trimming;
-    CheckBox CB_mowing;
-    CheckBox CB_fertilization;
-    CheckBox CB_weed_Control;
-    CheckBox CB_pest_Control;
-    CheckBox CB_irrigation;
-    CheckBox CB_aeration;
-    CheckBox CB_Yes;
-    CheckBox CB_No;
-
         private Button btn_submit;
 
 
@@ -67,18 +53,6 @@ public class addProperty extends AppCompatActivity {
             ET_Tools = findViewById(R.id.ET_Tools);
             spinnerState = findViewById(R.id.spinner2);
             btn_submit = findViewById(R.id.btn_submit);
-
-            CB_clippings = findViewById(R.id.CB_clippings);
-            CB_trimming = findViewById(R.id.CB_trimming);
-            CB_mowing = findViewById(R.id.CB_mowing);
-            CB_fertilization = findViewById(R.id.CB_fertilization);
-            CB_weed_Control = findViewById(R.id.CB_weed_Control);
-            CB_pest_Control = findViewById(R.id.CB_pest_Control);
-            CB_irrigation = findViewById(R.id.CB_irrigation);
-            CB_aeration = findViewById(R.id.CB_aeration);
-            CB_Yes = findViewById(R.id.CB_Yes);
-            CB_No = findViewById(R.id.CB_No);
-            btn_submit = findViewById(R.id.BTN_submit);
 
 
             spinnerState = findViewById(R.id.spinner2);
@@ -111,26 +85,16 @@ public class addProperty extends AppCompatActivity {
             if (ET_PropertySize.getText().toString().length() == 0)
                 return false;
 
+            if (ET_JobType.getText().toString().length() == 0)
+                return false;
+            if (ET_Tools.getText().toString().length() == 0)
+                return false;
             if (spinnerState.toString().length() == 0)
                 return false;
             return true;
         }
-        public void edit(View view)
-        {
-
-            CB_clippings.setChecked(false);
-            CB_trimming.setChecked(false);
-            CB_mowing.setChecked(false);
-            CB_fertilization.setChecked(false);
-            CB_weed_Control.setChecked(false);
-            CB_pest_Control.setChecked(false);
-            CB_irrigation.setChecked(false);
-            CB_aeration.setChecked(false);
-
-        }
         public void PostJob(View view) {
-            StringBuffer stringBufferTypesOfWorkOffered = new StringBuffer();
-            StringBuffer stringBufferToolsAvail = new StringBuffer();
+
             if(!isValidateForm()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(addProperty.this);
                 builder.setMessage("Invalid Input")
@@ -149,38 +113,6 @@ public class addProperty extends AppCompatActivity {
             final String jobtype= ET_JobType.getText().toString();
             final String Tools= ET_Tools.getText().toString();
             final String state= spinnerState.getSelectedItem().toString();
-            if (CB_clippings.isChecked())
-                stringBufferTypesOfWorkOffered.append("Clippings,");
-
-            if (CB_trimming.isChecked())
-                stringBufferTypesOfWorkOffered.append("Trimming,");
-
-            if (CB_mowing.isChecked())
-                stringBufferTypesOfWorkOffered.append("Mowing,");
-
-            if (CB_fertilization.isChecked())
-                stringBufferTypesOfWorkOffered.append("Fertilization,");
-
-            if (CB_weed_Control.isChecked())
-               stringBufferTypesOfWorkOffered.append("Weed_Control,");
-
-            if (CB_pest_Control.isChecked())
-                stringBufferTypesOfWorkOffered.append("Pest_Control,");
-
-            if (CB_irrigation.isChecked())
-                stringBufferTypesOfWorkOffered.append("Irrigation,");
-
-            if (CB_aeration.isChecked())
-                stringBufferTypesOfWorkOffered.append("Aeration");
-
-            final String tempTypesOfWorkOffered = stringBufferTypesOfWorkOffered.toString();
-
-             if (CB_Yes.isChecked())
-                stringBufferTypesOfWorkOffered.append("Yes");
-            if (CB_No.isChecked())
-                stringBufferTypesOfWorkOffered.append("No");
-
-            final String tempTools = stringBufferToolsAvail.toString();
             final String addListing_url="http://lawn-care.us-east-1.elasticbeanstalk.com/addListing.php";
             //stringRequest is an object that contains the request method, the url, and the parameters and the response
             StringRequest stringRequest=new StringRequest(Request.Method.POST, addListing_url,
@@ -237,8 +169,7 @@ public class addProperty extends AppCompatActivity {
                     params.put("lawnSize", propertySize);
                     params.put("equipmentAvailable", Tools);
                     params.put("workNeeded", jobtype);
-                    params.put("workOffered",tempTypesOfWorkOffered);
-                    params.put("Tools",tempTools);
+
                     return params;
                 }
             };

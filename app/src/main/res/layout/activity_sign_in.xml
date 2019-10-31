@@ -6,67 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    android:background="@drawable/bg_gradient"
     tools:context=".SignIn">
 
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/lawn_care"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TI_loginEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        app:endIconMode="clear_text"
-        android:visibility="visible">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ET_loginEmail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_txt_layout"
-            android:clickable="true"
-            android:enabled="true"
-            android:focusable="true"
-            android:inputType="text"
-            android:padding="10dp"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
-            android:hint="@string/Enter_Email"
-            android:textColor="@color/BLACK" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TI_loginPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        app:endIconMode="password_toggle"
-        android:visibility="visible">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ET_loginPassword"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_txt_layout"
-            android:clickable="true"
-            android:enabled="true"
-            android:focusable="true"
-            android:inputType="textPassword"
-            android:padding="10dp"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
-            android:hint="@string/Enter_Password"
-            android:textColor="@color/BLACK" />
-    </com.google.android.material.textfield.TextInputLayout>
-    <!--
     <EditText
         android:id="@+id/ET_email"
         android:hint="@string/Enter_Email"
@@ -74,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
-        android:background="@drawable/edit_txt_layout"
+        android:background="@drawable/back_with_border"
         android:ems="10"
         android:padding="10dp" />
 
@@ -84,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
-        android:background="@drawable/edit_txt_layout"
+        android:background="@drawable/back_with_border"
         android:ems="10"
         android:inputType="textPassword"
         android:padding="10dp" />
@@ -97,7 +38,7 @@
         android:layout_gravity="end"
         android:onClick="showPasswordCheck"
         android:text="@string/Show_Password" />
-    -->
+
     <Button
         android:id="@+id/BTN_login"
         android:layout_width="wrap_content"

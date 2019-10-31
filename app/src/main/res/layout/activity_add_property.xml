@@ -1,252 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical"
+<LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context=".PropertyOwner"
-    android:background="@drawable/bg_gradient"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".addProperty">
 
-
-    <ScrollView
+    <EditText
+        android:id="@+id/ET_address"
+        android:hint="@string/Address"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/ET_city"
+        android:hint="@string/City"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="start"
+            android:background="@drawable/back_with_border"
+            android:ems="10"
+            android:layout_weight="2"
+            android:entries="@array/USA_State"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/ET_zipCode"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_margin="10dp"
+            android:background="@drawable/back_with_border"
+            android:ems="10"
+            android:layout_weight="3"
+            android:hint="@string/Zipcode"
+            android:padding="10dp" />
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/ET_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/edit_txt_layout"
-                android:ems="10"
-                android:hint="@string/Address"
-                android:padding="10dp"
-                android:textColorHint="@color/BLACK" />
+    <EditText
+        android:id="@+id/ET_PropertySize"
+        android:hint="@string/Property_Size"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
 
-            <EditText
-                android:id="@+id/ET_city"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/edit_txt_layout"
-                android:ems="10"
-                android:hint="@string/City"
-                android:padding="10dp"
-                android:textColorHint="@color/BLACK" />
+    <EditText
+        android:id="@+id/ET_JobType"
+        android:hint="@string/Job_Type"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="5">
+    <EditText
+        android:id="@+id/ET_Tools"
+        android:hint="@string/Tools_Availability"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
 
-                <Spinner
-                    android:id="@+id/spinner2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:layout_weight="2"
-                    android:background="@drawable/edit_txt_layout"
-                    android:ems="10"
-                    android:entries="@array/USA_State"
-                    android:gravity="start"
-                    android:padding="10dp"
-                    android:textColorHint="@color/BLACK" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
 
-                <EditText
-                    android:id="@+id/ET_zipCode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="3"
-                    android:background="@drawable/edit_txt_layout"
-                    android:ems="10"
-                    android:hint="@string/Zipcode"
-                    android:inputType="text"
-                    android:padding="10dp"
-                    android:textColor="@color/BLACK"
-                    android:textColorHint="@color/BLACK" />
-            </LinearLayout>
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:onClick="Cancel"
+            android:text="@string/Cancel" />
 
-            <EditText
-                android:id="@+id/ET_PropertySize"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/edit_txt_layout"
-                android:ems="10"
-                android:hint="@string/Property_Size"
-                android:padding="10dp"
-                android:textColorHint="@color/BLACK" />
+        <Button
+            android:id="@+id/btn_reset"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:onClick="ResetAll"
+            android:text="@string/Reset" />
 
-            <EditText
-                android:id="@+id/ET_JobType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/edit_txt_layout"
-                android:ems="10"
-                android:hint="@string/Job_Type"
-                android:padding="10dp"
-                android:textColorHint="@color/BLACK"
-                android:enabled="false"/>
+        <Button
+            android:id="@+id/btn_submit"
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_txt_layout"
-                android:visibility="visible">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/CB_clippings"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/Clippings"
-                    android:textColor="@color/BLACK" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/CB_trimming"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/Trimming"
-                    android:textColor="@color/BLACK" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/CB_mowing"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/Mowing"
-                    android:textColor="@color/BLACK" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/CB_fertilization"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/Fertilization"
-                    android:textColor="@color/BLACK" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/CB_weed_Control"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/Weed_Control"
-                    android:textColor="@color/BLACK" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/CB_pest_Control"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/Pest_Control"
-                    android:textColor="@color/BLACK" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/CB_irrigation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/Irrigation"
-                    android:textColor="@color/BLACK" />
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/CB_aeration"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/Aeration"
-                    android:textColor="@color/BLACK" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <EditText
-                android:id="@+id/ET_Tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/edit_txt_layout"
-                android:ems="10"
-                android:hint="@string/Tools_Availability"
-                android:padding="10dp"
-                android:textColorHint="@color/BLACK"
-                android:enabled="false"/>
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/CB_Yes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/Yes"
-                android:textColor="@color/BLACK" />
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/CB_No"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/No"
-                android:textColor="@color/BLACK" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <Button
-                    android:id="@+id/btn_cancel"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:onClick="Cancel"
-                    android:padding="10dp"
-                    android:text="@string/Cancel" />
-
-                <Button
-                    android:id="@+id/btn_reset"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:onClick="ResetAll"
-                    android:padding="10dp"
-                    android:text="@string/Reset" />
-
-                <Button
-                    android:id="@+id/btn_submit"
-
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:onClick="PostJob"
-                    android:padding="10dp"
-                    android:text="@string/Submit" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:onClick="PostJob"
+            android:text="@string/Submit" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -6,58 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context=".PropertyOwner"
-    android:background="@drawable/bg_gradient"
-    >
+    tools:context=".PropertyOwner">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TI_Address"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/ET_address"
+        android:hint="@string/Address"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:visibility="visible">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ET_address"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_txt_layout"
-            android:clickable="true"
-            android:enabled="true"
-            android:focusable="true"
-            android:inputType="text"
-            android:padding="10dp"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
-            android:text="@string/Address"
-            android:textColor="@color/BLACK" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TI_City"
         android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/ET_city"
+        android:hint="@string/City"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:visibility="visible">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ET_city"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/edit_txt_layout"
-            android:clickable="true"
-            android:enabled="true"
-            android:focusable="true"
-            android:inputType="text"
-            android:padding="10dp"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
-            android:text="@string/City"
-            android:textColor="@color/BLACK" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/back_with_border"
+        android:ems="10"
+        android:padding="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,7 +40,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:gravity="start"
-            android:background="@drawable/edit_txt_layout"
+            android:background="@drawable/back_with_border"
             android:ems="10"
             android:layout_weight="2"
             android:entries="@array/USA_State"
@@ -82,14 +51,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:inputType="text"
-            android:background="@drawable/edit_txt_layout"
+            android:background="@drawable/back_with_border"
             android:ems="10"
             android:layout_weight="3"
             android:hint="@string/Zipcode"
-            android:padding="10dp"
-            android:textColor="@color/BLACK"
-            android:textColorHint="@color/BLACK"/>
+            android:padding="10dp" />
     </LinearLayout>
 
     <EditText
@@ -98,10 +64,9 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
-        android:background="@drawable/edit_txt_layout"
+        android:background="@drawable/back_with_border"
         android:ems="10"
-        android:padding="10dp"
-        android:textColorHint="@color/BLACK"/>
+        android:padding="10dp" />
 
     <EditText
         android:id="@+id/ET_JobType"
@@ -109,10 +74,9 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
-        android:background="@drawable/edit_txt_layout"
+        android:background="@drawable/back_with_border"
         android:ems="10"
-        android:padding="10dp"
-        android:textColorHint="@color/BLACK"/>
+        android:padding="10dp" />
 
     <EditText
         android:id="@+id/ET_Tools"
@@ -120,10 +84,9 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
-        android:background="@drawable/edit_txt_layout"
+        android:background="@drawable/back_with_border"
         android:ems="10"
-        android:padding="10dp"
-        android:textColorHint="@color/BLACK"/>
+        android:padding="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

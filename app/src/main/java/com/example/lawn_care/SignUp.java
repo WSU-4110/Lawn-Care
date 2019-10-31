@@ -48,12 +48,12 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         btn_Submit = findViewById(R.id.btn_Submit);
-        ET_firstName = findViewById(R.id.ET_signupFirstName);
-        ET_lastName = findViewById(R.id.ET_signupLastName);
-        ET_email = findViewById(R.id.ET_signupEmail);
-        ET_phoneNumber=findViewById(R.id.ET_signupPhone);
-        ET_password = findViewById(R.id.ET_signupPass);
-        ET_mathPassword = findViewById(R.id.ET_signupPass2);
+        ET_firstName = findViewById(R.id.ET_firstName);
+        ET_lastName = findViewById(R.id.ET_lastName);
+        ET_email = findViewById(R.id.ET_email);
+        ET_phoneNumber=findViewById(R.id.ET_phoneNumber);
+        ET_password = findViewById(R.id.ET_password);
+        ET_mathPassword = findViewById(R.id.ET_mathPassword);
         WorkerOwnerRG=findViewById(R.id.WorkerOwnerRG);
 
         ET_mathPassword.addTextChangedListener(passwordWatcher);
@@ -110,7 +110,7 @@ public class SignUp extends AppCompatActivity {
         final String phoneNumber=ET_phoneNumber.getText().toString();
         WorkerOwnerRB=findViewById(WorkerOwnerRG.getCheckedRadioButtonId());
         //check that all fields are not empty
-        if((email.length()==0)||(password.length()==0)||(firstName.length()==0)||(lastName.length()==0)||(phoneNumber.length()==0)||WorkerOwnerRB==(null)){
+        if((email.length()==0)||(password.length()==0)||(firstName.length()==0)||(lastName.length()==0)||(phoneNumber.length()==0)||WorkerOwnerRB.equals(null)){
             AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
             builder.setMessage("No field can be empty")
                     .setNegativeButton("Enter info",null)
