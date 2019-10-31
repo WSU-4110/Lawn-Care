@@ -161,10 +161,66 @@ public class viewYourProperties extends AppCompatActivity {
     }
 
     //Add in code below for deleting an entry
-    void deleteEntry(int propertyNumber)
+    void deleteEntry(final int propertyNumber)
     {
+        final String signup_url="http://lawn-care.us-east-1.elasticbeanstalk.com/DeleteProperty.php";
+        //stringRequest is an object that contains the request method, the url, and the parameters and the response
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, signup_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonResponse;
+                        try {
+                            jsonResponse=new JSONObject(response);
+                            if(jsonResponse.getString("success")!="false"){
+
+
+                                //switch to login
+                                Intent intent = new Intent(viewYourProperties.this, viewYourProperties.class);
+
+                                viewYourProperties.this.startActivity(intent);
+
+                            }
+                            else{
+                                //message for incorrect password
+                                AlertDialog.Builder builder = new AlertDialog.Builder(viewYourProperties.this);
+                                builder.setMessage("Invalid Input")
+                                        .setNegativeButton("Try Again",null)
+                                        .create()
+                                        .show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(viewYourProperties.this);
+                        builder.setMessage("Connection Failed")
+                                .setNegativeButton("Try Again",null)
+                                .create()
+                                .show();
+                        error.printStackTrace();
+                        Log.e("VOLLEY", error.getMessage());
+                        //requestQueue.stop();
+                    }
+                }){
+            @Override
+            //this function is written to get the parameters for posting
+            protected Map<String,String> getParams(){
+                Map<String,String> params= new HashMap<String, String>();
+                params.put("propertyNumber", String.valueOf(propertyNumber));
+                return params;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(viewYourProperties.this);
+        requestQueue.add(stringRequest);
 
     }
+
 
     //Add in code below for editing an entry
     void editEntry(int propertyNumber)
