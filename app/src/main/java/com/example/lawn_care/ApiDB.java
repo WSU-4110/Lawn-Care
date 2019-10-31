@@ -7,6 +7,8 @@ public class ApiDB {
 
 //    http://lawn-care.us-east-1.elasticbeanstalk.com/
 
+    public static final String URL_DELETE_WORKER_PROFILE = ROOT_URL + "deleteWorkerProfile.php";
+
     public static final String URL_GET_Your_Worker_Profile = ROOT_URL + "viewYourWorkerProfile.php";
 
     public static final String URL_UPDATE_WORKER_PROFILE = ROOT_URL + "updateWorkerProfile.php";

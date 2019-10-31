@@ -80,12 +80,12 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         android:padding="20dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/BTN_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BTN_Review"
-        app:layout_constraintVertical_bias="0.32"
-        tools:visibility="visible">
+        app:layout_constraintVertical_bias="0.32">
 
         <LinearLayout
             android:id="@+id/detailsLinear"
@@ -106,10 +106,10 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_txt_layout"
                     android:enabled="false"
+                    android:hint="@string/Enter_First_Name"
                     android:padding="10dp"
                     android:paddingStart="25dp"
                     android:paddingEnd="25dp"
-                    android:hint="@string/Enter_First_Name"
                     android:textColor="@color/BLACK" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,10 +126,10 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_txt_layout"
                     android:enabled="false"
+                    android:hint="@string/Enter_Last_Name"
                     android:padding="10dp"
                     android:paddingStart="25dp"
                     android:paddingEnd="25dp"
-                    android:hint="@string/Enter_Last_Name"
                     android:textColor="@color/BLACK" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,11 +146,11 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_txt_layout"
                     android:enabled="false"
+                    android:hint="@string/Enter_Email"
                     android:padding="10dp"
                     android:paddingStart="25dp"
                     android:paddingEnd="25dp"
-                    android:textColor="@color/BLACK"
-                    android:hint="@string/Enter_Email" />
+                    android:textColor="@color/BLACK" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -158,15 +158,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:visibility="visible" >
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ET_phone"
-                    android:enabled="false"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_txt_layout"
+                    android:clickable="true"
+                    android:enabled="false"
                     android:focusable="true"
                     android:hint="@string/enter_phone_number"
                     android:inputType="textMultiLine"
@@ -187,11 +187,11 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ET_WorkOffered"
-                    android:enabled="false"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_txt_layout"
+                    android:clickable="true"
+                    android:enabled="false"
                     android:focusable="true"
                     android:hint="@string/Job_Type"
                     android:inputType="textMultiLine"
@@ -206,15 +206,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:visibility="visible" >
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ET_description"
-                    android:enabled="false"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_txt_layout"
+                    android:clickable="true"
+                    android:enabled="false"
                     android:focusable="true"
                     android:hint="@string/enter_phone_number"
                     android:inputType="textMultiLine"
@@ -239,12 +239,13 @@
                     android:clickable="true"
                     android:enabled="false"
                     android:focusable="true"
+                    android:hint="@string/website"
                     android:inputType="textMultiLine"
                     android:padding="10dp"
                     android:paddingStart="25dp"
                     android:paddingEnd="25dp"
-                    android:hint="@string/website"
                     android:textColor="@color/BLACK" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <!--
@@ -274,8 +275,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="4">
 
                 <CheckBox
                     android:id="@+id/CB_sunday"
@@ -309,8 +310,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="3"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="3">
 
                 <CheckBox
                     android:id="@+id/CB_thursday"
@@ -349,11 +350,11 @@
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:onClick="startTime"
-                    android:text="@string/startTime"
                     android:background="@drawable/time_layout"
                     android:gravity="center"
+                    android:onClick="startTime"
                     android:padding="10dp"
+                    android:text="@string/startTime"
                     android:textColor="@color/WHITE"
                     android:textSize="20sp" />
 
@@ -364,9 +365,9 @@
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:text="@string/endTime"
-                    android:onClick="endTime"
                     android:background="@drawable/time_layout"
+                    android:onClick="endTime"
+                    android:text="@string/endTime"
                     android:textColor="@color/WHITE"
                     android:textSize="20sp" />
 
@@ -381,7 +382,19 @@
         android:onClick="submitWorker"
         android:text="@string/Submit"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/BTN_Review"
+        app:layout_constraintStart_toStartOf="@+id/BTN_Review" />
+
+    <Button
+        android:id="@+id/BTN_delete"
+        android:onClick="deleteProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/BTN_Details"
+        app:layout_constraintStart_toStartOf="@+id/BTN_Details"
+        app:layout_constraintTop_toTopOf="@+id/BTN_submit"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

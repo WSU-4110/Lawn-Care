@@ -127,16 +127,16 @@ public class addWorkerProfile extends AppCompatActivity {
 
         userWork = new ArrayList<>();
         getUserWork();
-        email = "x@x.com";
+        email = localUserInfo.getEmail();
 
-        ET_email.setText(email);
+//        ET_email.setText(email);
         TI_WorkOffered.setEndIconOnClickListener(v -> endIconClicked());
-/*
+
         ET_firstName.setText(localUserInfo.getFirstName());
         ET_lastName.setText(localUserInfo.getLastName());
         ET_email.setText(localUserInfo.getEmail());
         ET_phone.setText(localUserInfo.getPhoneNumber());
-*/
+
 //        Intent tempIntent = getIntent();
 
 //        final String email=localUserInfo.getEmail();
@@ -235,7 +235,7 @@ public class addWorkerProfile extends AppCompatActivity {
     //On Click event for End Icon of JobType
     public void endIconClicked(){
         Intent intent = new Intent(addWorkerProfile.this, TempActivity.class);
-        intent.putExtra("user_work", userWork.toString());
+        intent.putExtra("user_work", ET_WorkOffered.getText().toString());
         this.startActivity(intent);
     }
 
@@ -480,7 +480,33 @@ public class addWorkerProfile extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
-    public void Testing(View view) {
+    public void deleteProfile(View view) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiDB.URL_DELETE_WORKER_PROFILE,
+                ServerResponse -> {
+                    // Showing Echo Response Message Coming From Server.
+                    Toast.makeText(addWorkerProfile.this, ServerResponse, Toast.LENGTH_LONG).show();
+                },
+                volleyError -> {
 
+                    // Showing error message if something goes wrong.
+                    Toast.makeText(addWorkerProfile.this, volleyError.toString(), Toast.LENGTH_LONG).show();
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+
+                // Creating Map String Params.
+                Map<String, String> params = new HashMap<>();
+
+                // Adding All values to Params.
+                // The firs argument should be same sa your MySQL database table columns.
+                params.put("email", email);
+                return params;
+            }
+        };
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+
+        Intent intent = new Intent(addWorkerProfile.this, SignIn.class);
+        this.startActivity(intent);
+        this.finish();
     }
 }

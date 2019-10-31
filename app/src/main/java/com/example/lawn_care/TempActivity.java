@@ -129,7 +129,6 @@ public class TempActivity extends AppCompatActivity {
     }
 
     public void Submit(View view) {
-        ET_WorkOffered.setText("");
         stringRequest = new StringRequest(Request.Method.POST, ApiDB.URL_SUBMIT,
                 ServerResponse -> {
                     // Showing Echo Response Message Coming From Server.
@@ -148,15 +147,14 @@ public class TempActivity extends AppCompatActivity {
 
                 // Adding All values to Params.
                 // The firs argument should be same sa your MySQL database table columns.
-                params.put("email", "x@x.com");
+                params.put("email", localUserInfo.getEmail());
                 params.put("workOffered", getWorkOfferedData());
                 return params;
             }
         };
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+
         Intent intent = new Intent(TempActivity.this, addWorkerProfile.class);
-        intent.putExtra("user_work", getWorkOfferedData());
-        intent.putExtra("FROM_ACTIVITY", "TempActivity");
         this.startActivity(intent);
         this.finish();
     }

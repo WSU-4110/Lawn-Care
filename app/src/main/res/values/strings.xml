@@ -1,4 +1,5 @@
 <resources>
+    <string name="Delete">Delete</string>
     <string name="Retrieve_Data">Retrieve Data</string>
     <string name="app_name">lawn-care</string>
     <string name="Enter_First_Name">Enter First Name</string>
