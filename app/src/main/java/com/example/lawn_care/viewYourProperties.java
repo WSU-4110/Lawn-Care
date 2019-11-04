@@ -86,6 +86,13 @@ public class viewYourProperties extends AppCompatActivity {
                                     addWorkOffered(address);
                                     String workNeeded = currentListing.getString("workNeeded");
                                     String propertyNumString = currentListing.getString("propertyNumber");
+                                    String zipcodeString = currentListing.getString("zip");
+                                    String lawnSizeString = currentListing.getString("lawnSize");
+                                    String addressString = currentListing.getString("street");
+                                    String cityString = currentListing.getString("city");
+                                    String stateString = currentListing.getString("state");
+                                    String workNeededString = currentListing.getString("workNeeded");
+
                                     final int propertyNum = Integer.parseInt(propertyNumString);
 
                                     //IDEA: it would be a good idea to remove the [] and "" from the workNeeded string... just an idea
@@ -116,7 +123,7 @@ public class viewYourProperties extends AppCompatActivity {
                                     BTN_editButton.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            editEntry(propertyNum);
+                                            editEntry(propertyNum, addressString, stateString, zipcodeString, lawnSizeString, cityString, workNeededString);
                                         }
                                     });
 
@@ -244,10 +251,16 @@ public class viewYourProperties extends AppCompatActivity {
     }
 
     //Add in code below for editing an entry
-    void editEntry(int propertyNumber)
+    void editEntry(int propertyNumber, String address, String state, String zip, String lawnSize, String city, String workNeeded)
     {
         Intent intent = new Intent(viewYourProperties.this, editYourProperty.class);
         intent.putExtra("EXTRA_NUM", propertyNumber);
+        intent.putExtra("EXTRA_STREET", address);
+        intent.putExtra("EXTRA_ZIP", zip);
+        intent.putExtra("EXTRA_LAWNSIZE", lawnSize);
+        intent.putExtra("EXTRA_CITY", city);
+        intent.putExtra("EXTRA_STATE", state);
+        intent.putExtra("EXTRA_WORK", workNeeded);
         startActivity(intent);
     }
 
