@@ -214,7 +214,7 @@
                     android:clickable="true"
                     android:enabled="false"
                     android:focusable="true"
-                    android:hint="@string/enter_phone_number"
+                    android:hint="@string/Enter_Description"
                     android:inputType="textMultiLine"
                     android:padding="10dp"
                     android:paddingStart="25dp"

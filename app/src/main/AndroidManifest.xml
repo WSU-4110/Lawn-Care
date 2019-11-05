@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".editYourProperty"></activity>
-        <activity android:name=".TempActivity"
+        <activity android:name=".workOffered"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
         <activity android:name=".viewYourWorkerProfile" />
