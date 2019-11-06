@@ -126,6 +126,14 @@ public class addWorkerProfile extends AppCompatActivity {
 //        ET_email.setText("Email: "+localUserInfo.getEmail());
         //ET_email.setText("");
 //        ET_WorkOffered.setText(userWork.toString());
+        if (localUserInfo.getUserType().contains("owner"))
+            disableAll();
+    }
+
+    //Michael Working
+    public void disableAll(){
+        ET_WorkOffered.setText("Worked");
+        TI_WorkOffered.setEnabled(false);
     }
 
     private void getWorkerDetails() {
