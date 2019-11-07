@@ -22,7 +22,7 @@ public class currentUserSingleton {
         userInfo.userType=userType;
     }
 
-    public static currentUserSingleton getCurrentUser(){
+    public static currentUserSingleton getUserInfo(){
         return userInfo;
     }
 
