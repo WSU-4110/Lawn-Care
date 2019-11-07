@@ -35,7 +35,9 @@ public class workOffered extends AppCompatActivity {
 
     String user_Data;
 
+    // Creating UserAdapter Object adapter
     UsersAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,9 @@ public class workOffered extends AppCompatActivity {
         loadWorkOffered();
 
         adapter = new UsersAdapter(this, arrayOfUsers);
+        // assigning data to adapter
         listView.setAdapter(adapter);
+        // Assigning adapter to List View
         TI_New_WorkOffered.setEndIconOnClickListener(v -> endIconClicked());
     }
 
@@ -90,6 +94,7 @@ public class workOffered extends AppCompatActivity {
                     if (user_Data.contains(user.getName()))
                         user.setSelected(true);
                     arrayOfUsers.add(user);
+                    //adding data to array
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -108,6 +113,7 @@ public class workOffered extends AppCompatActivity {
             View s = listView.getChildAt(i);
             TextView textView = s.findViewById(R.id.tvName);
             CheckBox cb = s.findViewById(R.id.cbSelected);
+            // Creating Object cb of CheckBox from cbSelected
             if (cb.isChecked()) {
                 builder.append(textView.getText().toString());
                 builder.append(",");

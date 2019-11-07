@@ -16,22 +16,28 @@ public class UsersAdapter extends ArrayAdapter<User> {
         super(context, 0, users);
     }
 
+//    Overriding the getView
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        User user = getItem(position);
+        User user = getItem(position); //from position it can identify which object is clicked
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.single_list, parent, false);
+            //getting layout from "single_list" for single user object
         }
         // Lookup view for data population
         TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
+        // Assigning TextView to tvName
         CheckBox cbSelected = (CheckBox) convertView.findViewById(R.id.cbSelected);
-        // Populate the data into the template view using the data object
+        // Assigning CheckBox to cbSelected
+
         tvName.setText(user.getName());
+        // setting up data for the TextView Object
         cbSelected.setChecked(user.isSelected());
-        // Return the completed view to render on screen
+        // setting cbSelected is checked or not
 
         return convertView;
+        // Retuning the view
     }
 }
