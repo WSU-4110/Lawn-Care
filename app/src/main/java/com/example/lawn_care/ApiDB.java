@@ -18,4 +18,5 @@ public class ApiDB {
     public static final String URL_SUBMIT = ROOT_URL + "submit.php";
 
     public static final String URL_TESTING = ROOT_URL + "test.php";
+    public static final String URL_ADD_PROPERTY_LISTING = ROOT_URL + "addListing.php";
 }

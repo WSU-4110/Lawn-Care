@@ -186,9 +186,9 @@ public class addProperty extends AppCompatActivity {
                 stringBufferTypesOfWorkOffered.append("No");
               */
             final String tempTools = stringBufferToolsAvail.toString();
-            final String addListing_url="http://lawn-care.us-east-1.elasticbeanstalk.com/addListing.php";
+            //final String addListing_url="http://lawn-care.us-east-1.elasticbeanstalk.com/addListing.php";
             //stringRequest is an object that contains the request method, the url, and the parameters and the response
-            StringRequest stringRequest=new StringRequest(Request.Method.POST, addListing_url,
+            StringRequest stringRequest=new StringRequest(Request.Method.POST, ApiDB.URL_ADD_PROPERTY_LISTING,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
