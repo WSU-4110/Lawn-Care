@@ -18,10 +18,20 @@ import com.example.lawn_care.localUserInfo;
 
 public class DashboardFragment extends Fragment {
 
+    public interface State{
+        void owner();
+        void worker();
+
+    }
+
+
+
     private DashboardViewModel dashboardViewModel;
 
     TextView text_welcome;
     Button btn_addYourData,btn_viewYourData;
+
+    String dashboardState = localUserInfo.getUserType();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,15 +53,44 @@ public class DashboardFragment extends Fragment {
         btn_addYourData=root.findViewById(R.id.btn_addYourData);
         btn_viewYourData=root.findViewById(R.id.btn_viewYourData);
         //set button text accordingly
-        if(localUserInfo.getUserType().equals("owner")){
-            btn_addYourData.setText("Add a property");
-            btn_viewYourData.setText("View your properties");
+
+        class ownerDash implements State {
+            @Override
+            public void owner(){
+                btn_addYourData.setText("Add a property");
+                btn_viewYourData.setText("View your properties");
+            }
+            public void worker(){
+
+            }
         }
-        else if(localUserInfo.getUserType().equals("worker")){
-            btn_addYourData.setText("Add your worker profile");
-            btn_viewYourData.setText("View your worker profile");
+
+        class workerDash implements State {
+            @Override
+            public void owner() {
+
+            }
+
+            public void worker() {
+                btn_addYourData.setText("Add your worker profile");
+                btn_viewYourData.setText("View your worker profile");
+            }
         }
-        
+
+        State ownerState = new ownerDash();
+        State workerState = new workerDash();
+        State currentState = ownerState;
+
+        if(dashboardState.equals("owner")){
+            currentState = ownerState;
+            currentState.owner();
+        }
+        else if(dashboardState.equals("worker")){
+            currentState = workerState;
+            currentState.worker();
+        }
+
+
         return root;
     }
 }
