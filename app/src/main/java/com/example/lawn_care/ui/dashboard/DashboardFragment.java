@@ -18,19 +18,12 @@ import com.example.lawn_care.localUserInfo;
 
 public class DashboardFragment extends Fragment {
 
-    public interface State{
-        void owner();
-        void worker();
-
-    }
-
-
-
     private DashboardViewModel dashboardViewModel;
 
     TextView text_welcome;
     Button btn_addYourData,btn_viewYourData;
 
+    //Use string to find the current dashboard state
     String dashboardState = localUserInfo.getUserType();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -54,7 +47,8 @@ public class DashboardFragment extends Fragment {
         btn_viewYourData=root.findViewById(R.id.btn_viewYourData);
         //set button text accordingly
 
-        class ownerDash implements State {
+        //Create the OwnerDash class for the correct button inputs for an owner
+        class ownerDash implements DashboardState {
             @Override
             public void owner(){
                 btn_addYourData.setText("Add a property");
@@ -65,7 +59,8 @@ public class DashboardFragment extends Fragment {
             }
         }
 
-        class workerDash implements State {
+        //Create the workerDash class for the correct button inputs for a worker
+        class workerDash implements DashboardState {
             @Override
             public void owner() {
 
@@ -77,9 +72,9 @@ public class DashboardFragment extends Fragment {
             }
         }
 
-        State ownerState = new ownerDash();
-        State workerState = new workerDash();
-        State currentState = ownerState;
+        DashboardState ownerState = new ownerDash();
+        DashboardState workerState = new workerDash();
+        DashboardState currentState = ownerState;
 
         if(dashboardState.equals("owner")){
             currentState = ownerState;
