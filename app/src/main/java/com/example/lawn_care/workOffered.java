@@ -2,15 +2,11 @@ package com.example.lawn_care;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,13 +21,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-public class TempActivity extends AppCompatActivity {
+public class workOffered extends AppCompatActivity {
 
     TextInputLayout TI_New_WorkOffered;
     TextInputEditText ET_WorkOffered;
@@ -46,7 +40,7 @@ public class TempActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_temp);
+        setContentView(R.layout.activity_work_offered);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -132,12 +126,12 @@ public class TempActivity extends AppCompatActivity {
         stringRequest = new StringRequest(Request.Method.POST, ApiDB.URL_SUBMIT,
                 ServerResponse -> {
                     // Showing Echo Response Message Coming From Server.
-                    Toast.makeText(TempActivity.this, ServerResponse, Toast.LENGTH_LONG).show();
+                    Toast.makeText(workOffered.this, ServerResponse, Toast.LENGTH_LONG).show();
                 },
                 volleyError -> {
 
                     // Showing error message if something goes wrong.
-                    Toast.makeText(TempActivity.this, volleyError.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(workOffered.this, volleyError.toString(), Toast.LENGTH_LONG).show();
                 }) {
             @Override
             protected Map<String, String> getParams() {
@@ -154,7 +148,7 @@ public class TempActivity extends AppCompatActivity {
         };
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
 
-        Intent intent = new Intent(TempActivity.this, addWorkerProfile.class);
+        Intent intent = new Intent(workOffered.this, addWorkerProfile.class);
         this.startActivity(intent);
         this.finish();
     }
