@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -107,18 +108,22 @@ public class addWorkerProfile extends AppCompatActivity {
         getUserWork();
         if(localUserInfo.getUserType().equals("worker")) {
             email = localUserInfo.getEmail();
+            ET_firstName.setText(localUserInfo.getFirstName());
+            ET_lastName.setText(localUserInfo.getLastName());
+            ET_email.setText(localUserInfo.getEmail());
+            ET_phone.setText(localUserInfo.getPhoneNumber());
         }
         else{
             email=getIntent().getStringExtra("email");
+            ET_firstName.setText(getIntent().getStringExtra("firstName"));
+            ET_lastName.setText(getIntent().getStringExtra("lastName"));
+            ET_email.setText(email);
+            ET_phone.setText(getIntent().getStringExtra("phone"));
+            disableAll();
         }
 
 //        ET_email.setText(email);
         TI_WorkOffered.setEndIconOnClickListener(v -> endIconClicked());
-
-        ET_firstName.setText(localUserInfo.getFirstName());
-        ET_lastName.setText(localUserInfo.getLastName());
-        ET_email.setText(localUserInfo.getEmail());
-        ET_phone.setText(localUserInfo.getPhoneNumber());
 
 //        Intent tempIntent = getIntent();
 
@@ -131,12 +136,26 @@ public class addWorkerProfile extends AppCompatActivity {
 //        ET_email.setText("Email: "+localUserInfo.getEmail());
         //ET_email.setText("");
 //        ET_WorkOffered.setText(userWork.toString());
-        if (localUserInfo.getUserType().contains("owner"))
-            disableAll();
+
     }
 
     //Michael Working
     public void disableAll(){
+        BTN_submit.setVisibility(View.GONE);
+        BTN_timeStart.setClickable(false);
+        BTN_timeEnd.setClickable(false);
+
+        CB_sunday.setClickable(false);
+        CB_monday.setClickable(false);
+        CB_tuesday.setClickable(false);
+        CB_wednesday.setClickable(false);
+        CB_thursday.setClickable(false);
+        CB_friday.setClickable(false);
+        CB_saturday.setClickable(false);
+
+        ImageView IV_Edit = findViewById(R.id.IV_Edit);
+        IV_Edit.setVisibility(View.GONE);
+
         ET_WorkOffered.setText("Worked");
         TI_WorkOffered.setEnabled(false);
     }

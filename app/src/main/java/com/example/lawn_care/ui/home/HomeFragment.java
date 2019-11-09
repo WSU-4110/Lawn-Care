@@ -35,6 +35,7 @@ import com.example.lawn_care.addWorkerProfile;
 import com.example.lawn_care.dash;
 import com.example.lawn_care.localUserInfo;
 import com.example.lawn_care.viewYourProperties;
+import com.example.lawn_care.workOffered;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -124,10 +125,13 @@ public class HomeFragment extends Fragment {
                                     JSONObject currentWorker=jsonResponse.getJSONObject(String.valueOf(x));
 
                                     //get the fields i want to show in the views and format the strings how i want them to appear
-                                    String name = currentWorker.getString("firstName")+" "+currentWorker.getString("lastName");
+                                    String firstName=currentWorker.getString("firstName");
+                                    String lastName=currentWorker.getString("lastName");
+                                    String name = firstName+" "+lastName;
                                     String email = currentWorker.getString("workerEmail");
+                                    String phone = currentWorker.getString("phone");
                                     String workOffered = currentWorker.getString("workOffered");
-                                    workOffered=workOffered.replace("[","");
+                                    workOffered= workOffered.replace("[","");
                                     workOffered=workOffered.replace("]","");
                                     workOffered=workOffered.replace("\"","");
 
@@ -153,14 +157,18 @@ public class HomeFragment extends Fragment {
                                     listingItem.addView(TV_workOffered);
 
                                     //add clickable listing to go to their profile
-                                    linearLayout.setClickable(true);
-                                    linearLayout.setOnClickListener(new View.OnClickListener() {
+                                    listingItem.setClickable(true);
+                                    listingItem.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             //PLACEHOLDER
                                             //TODO: SEND THEM TO THE PROFILE PAGE
                                             Intent intent= new Intent(getActivity(), addWorkerProfile.class);
                                             intent.putExtra("email", email);
+                                            intent.putExtra("firstName", firstName);
+                                            intent.putExtra("lastName",lastName);
+                                            intent.putExtra("phone",phone);
+
                                             getActivity().startActivity(intent);
                                         }
                                     });
