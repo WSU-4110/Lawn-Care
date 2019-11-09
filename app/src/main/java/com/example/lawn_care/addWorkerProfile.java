@@ -127,7 +127,12 @@ public class addWorkerProfile extends AppCompatActivity {
 
         userWork = new ArrayList<>();
         getUserWork();
-        email = localUserInfo.getEmail();
+        if(localUserInfo.getUserType().equals("worker")) {
+            email = localUserInfo.getEmail();
+        }
+        else{
+            email=getIntent().getStringExtra("email");
+        }
 
 //        ET_email.setText(email);
         TI_WorkOffered.setEndIconOnClickListener(v -> endIconClicked());

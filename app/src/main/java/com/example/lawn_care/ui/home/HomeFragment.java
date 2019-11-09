@@ -31,6 +31,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.lawn_care.R;
 import com.example.lawn_care.SignIn;
+import com.example.lawn_care.addWorkerProfile;
 import com.example.lawn_care.dash;
 import com.example.lawn_care.localUserInfo;
 import com.example.lawn_care.viewYourProperties;
@@ -158,7 +159,8 @@ public class HomeFragment extends Fragment {
                                         public void onClick(View v) {
                                             //PLACEHOLDER
                                             //TODO: SEND THEM TO THE PROFILE PAGE
-                                            Intent intent= new Intent(getActivity(),dash.class);
+                                            Intent intent= new Intent(getActivity(), addWorkerProfile.class);
+                                            intent.putExtra("email", email);
                                             getActivity().startActivity(intent);
                                         }
                                     });
