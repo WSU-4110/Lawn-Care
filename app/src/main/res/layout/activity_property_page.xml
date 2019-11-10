@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
     android:orientation="vertical"
-    tools:context=".propertyPage">
+    tools:context=".PropertyPage">
 
     <LinearLayout
         android:layout_width="match_parent"

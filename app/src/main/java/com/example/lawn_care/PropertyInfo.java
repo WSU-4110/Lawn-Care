@@ -1,6 +1,12 @@
 package com.example.lawn_care;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PropertyInfo {
     private int propertyNumber;
@@ -12,13 +18,24 @@ public class PropertyInfo {
     private int lawnSize;
     private boolean equipmentAvailable;
 
-    private ArrayList<String> workNeeded;
+    private List<String> workNeeded;
 
 
     public PropertyInfo() {
     }
 
-    public PropertyInfo(int propertyNumber, String ownerEmail, String street, String city, String state, String zip, int lawnSize, boolean equipmentAvailable, ArrayList<String> workNeeded) {
+    public PropertyInfo(int propertyNumber, String ownerEmail, String street, String city, String state, String zip, int lawnSize, boolean equipmentAvailable) {
+        this.propertyNumber = propertyNumber;
+        this.ownerEmail = ownerEmail;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.lawnSize = lawnSize;
+        this.equipmentAvailable = equipmentAvailable;
+    }
+
+    public PropertyInfo(int propertyNumber, String ownerEmail, String street, String city, String state, String zip, int lawnSize, boolean equipmentAvailable, List<String> workNeeded) {
         this.propertyNumber = propertyNumber;
         this.ownerEmail = ownerEmail;
         this.street = street;
@@ -28,6 +45,18 @@ public class PropertyInfo {
         this.lawnSize = lawnSize;
         this.equipmentAvailable = equipmentAvailable;
         this.workNeeded = workNeeded;
+    }
+
+    public PropertyInfo(int propertyNumber, String email, String street, String city, String state, String zip, int lawnSize, boolean equipmentAvailable, String workNeeded) {
+        this.propertyNumber = propertyNumber;
+        this.ownerEmail = ownerEmail;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.lawnSize = lawnSize;
+        this.equipmentAvailable = equipmentAvailable;
+        this.workNeeded= Arrays.asList(workNeeded.split(","));
     }
 
     public int getPropertyNumber() {
@@ -78,6 +107,10 @@ public class PropertyInfo {
         this.zip = zip;
     }
 
+    public String getAddress(){
+        return street + ", " + city + ", " + state + " " + zip;
+    }
+
     public int getLawnSize() {
         return lawnSize;
     }
@@ -86,7 +119,11 @@ public class PropertyInfo {
         this.lawnSize = lawnSize;
     }
 
-    public boolean isEquipmentAvailable() {
+    public String getLawnSizeSqFt(){
+        return Integer.toString(lawnSize)+" sq. ft.";
+    }
+
+    public boolean getEquipmentAvailable() {
         return equipmentAvailable;
     }
 
@@ -94,15 +131,30 @@ public class PropertyInfo {
         this.equipmentAvailable = equipmentAvailable;
     }
 
-    public ArrayList<String> getWorkNeeded() {
+    public String isEquipmentAvailable(){
+        if (equipmentAvailable){return "Yes";}
+        else{return "No";}
+    }
+
+    public List<String> getWorkNeeded() {
         return workNeeded;
     }
 
-    public void setWorkNeeded(ArrayList<String> workNeeded) {
+    public void setWorkNeeded(List<String> workNeeded) {
         this.workNeeded = workNeeded;
     }
 
     public void addWorkNeeded(String workType){
         this.workNeeded.add(workType);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String getWorkNeededString() {
+        String work = String.join(", ",workNeeded);
+        work=work.replace("[","");
+        work=work.replace("]","");
+        work=work.replace("\"","");
+        work=work.replace("_"," ");
+        return work;
     }
 }

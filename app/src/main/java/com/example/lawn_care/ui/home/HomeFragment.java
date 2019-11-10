@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lawn_care.PropertyPage;
 import com.example.lawn_care.R;
 import com.example.lawn_care.SignIn;
 import com.example.lawn_care.addWorkerProfile;
@@ -264,6 +265,7 @@ public class HomeFragment extends Fragment {
                                     JSONObject currentWorker=jsonResponse.getJSONObject(String.valueOf(x));
 
                                     //get the fields i want to show in the views and format the strings how i want them to appear
+                                    String propertyNumber = currentWorker.getString("propertyNumber");
                                     String address = currentWorker.getString("street")+", "+currentWorker.getString("city")+", "+currentWorker.getString("state");
                                     String propertySize = currentWorker.getString("lawnSize")+" sq. ft.";
                                     String workNeeded = currentWorker.getString("workNeeded");
@@ -293,13 +295,14 @@ public class HomeFragment extends Fragment {
                                     listingItem.addView(TV_workNeeded);
 
                                     //add clickable listing to go to their profile
-                                    linearLayout.setClickable(true);
-                                    linearLayout.setOnClickListener(new View.OnClickListener() {
+                                    listingItem.setClickable(true);
+                                    listingItem.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             //PLACEHOLDER
                                             //TODO: SEND THEM TO THE PROFILE PAGE
-                                            Intent intent= new Intent(getActivity(),dash.class);
+                                            Intent intent= new Intent(getActivity(), PropertyPage.class);
+                                            intent.putExtra("propertyNumber",propertyNumber);
                                             getActivity().startActivity(intent);
                                         }
                                     });
@@ -314,7 +317,7 @@ public class HomeFragment extends Fragment {
                                     linearLayout.addView(V_line);
                                 }
                                 //padding at the bottom
-                                //TODO: figure out why it shows behind the navar
+                                //TODO: figure out why it shows behind the navbar
                                 View padding = new View(getActivity());
                                 padding.setMinimumHeight(150);
                                 linearLayout.addView(padding);
