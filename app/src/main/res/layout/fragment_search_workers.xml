@@ -24,11 +24,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/TI_searchWorkerQuery"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            app:endIconMode="clear_text"
-            android:visibility="visible">
+            android:layout_weight="1"
+            android:visibility="visible"
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ET_searchWorkerQuery"
@@ -38,11 +39,11 @@
                 android:clickable="true"
                 android:enabled="true"
                 android:focusable="true"
+                android:hint="@string/enter_query"
                 android:inputType="text"
                 android:padding="10dp"
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
-                android:hint="@string/enter_query"
                 android:textColor="@color/BLACK" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,7 +51,34 @@
             android:id="@+id/BTN_submitSearchWorkerQuery"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/Submit"/>
+            android:layout_margin="10dp"
+            android:layout_weight="0"
+            android:text="@string/Submit" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TV_SearchFilterWorkers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/search"
+                android:textSize="12sp" />
+
+            <Switch
+                android:id="@+id/SW_SearchFilterWorkers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:showText="false"
+                android:splitTrack="false"
+                android:textOff="@string/search"
+                android:textOn="@string/filter"
+                tools:checked="false" />
+        </LinearLayout>
 
     </LinearLayout>
     <ScrollView

@@ -11,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -29,6 +32,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.lawn_care.PropertyPage;
 import com.example.lawn_care.R;
 import com.example.lawn_care.addWorkerProfile;
+import com.example.lawn_care.localUserInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,33 +43,88 @@ import java.util.Map;
 public class SearchFragment extends Fragment {
 
     private SearchViewModel searchViewModel;
-    EditText ET_searchWorkerQuery, ET_searchPropertiesQuery;
-    Button BTN_submitSearchWorkerQuery, BTN_submitSearchPropertiesQuery;
+    private EditText ET_searchWorkerQuery, ET_searchPropertiesQuery;
+    //these are for specific reference to each of these buttons
+    private Button BTN_submitSearchWorkerQuery, BTN_submitSearchPropertiesQuery;
+    //this button is for generic reference to either button
+    private Button BTN_submitSearchQuery;
+
+    //specific refernce to these TV
+    private TextView TV_SearchFilterJobs, TV_SearchFilterWorkers;
+    //generic reference to these TV, they have same function
+    private TextView TV_SearchFilter;
+    private Switch SW_SearchFilterJobs, SW_SearchFilterWorkers;
+
+    private boolean SearchFilter=false;
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         searchViewModel =
                 ViewModelProviders.of(this).get(SearchViewModel.class);
-        String userType=com.example.lawn_care.localUserInfo.getUserType();
         View root;
+
+        //search handling
+        //if the usertype is a worker, search properties
+        //if the usertype is an owner, search workers
+
+        //handing the switches
+        //one switch per page, jobs and workers
+        //when switched off, do a search
+        //when switched on, do a filter
+
+        //TODO: if the usertype is an admin, search everything
+        String userType= localUserInfo.getUserType();
         if(userType.equals("worker")){
             root = inflater.inflate(R.layout.fragment_search_jobs, container, false);
             ET_searchPropertiesQuery = root.findViewById(R.id.ET_searchPropertiesQuery);
-            BTN_submitSearchPropertiesQuery=root.findViewById(R.id.BTN_submitSearchPropertiesQuery);
+            BTN_submitSearchQuery=BTN_submitSearchPropertiesQuery=root.findViewById(R.id.BTN_submitSearchPropertiesQuery);
+            TV_SearchFilter=TV_SearchFilterJobs =root.findViewById(R.id.TV_SearchFilterJobs);
+            SW_SearchFilterJobs =root.findViewById(R.id.SW_SearchFilterJobs);
             BTN_submitSearchPropertiesQuery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    searchProperties();
+                    if(!SearchFilter){
+                        searchProperties();
+                    }
+                    else{
+                        filterProperties();
+                    }
                 }
             });
+
+            //workers will be able to choose between searching and filtering properties
+            SW_SearchFilterJobs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    SearchFilterSwitchChange(isChecked);
+                }
+            });
+
         }
         else if(userType.equals("owner")){
             root = inflater.inflate(R.layout.fragment_search_workers, container, false);
             ET_searchWorkerQuery = root.findViewById(R.id.ET_searchWorkerQuery);
-            BTN_submitSearchWorkerQuery=root.findViewById(R.id.BTN_submitSearchWorkerQuery);
+            BTN_submitSearchQuery=BTN_submitSearchWorkerQuery=root.findViewById(R.id.BTN_submitSearchWorkerQuery);
+            TV_SearchFilter=TV_SearchFilterWorkers=root.findViewById(R.id.TV_SearchFilterWorkers);
+            SW_SearchFilterWorkers=root.findViewById(R.id.SW_SearchFilterWorkers);
             BTN_submitSearchWorkerQuery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    searchWorkers();
+                    if(!SearchFilter){
+                        searchWorkers();
+                    }
+                    else{
+                        filterWorkers();
+                    }
+                }
+            });
+
+            //owners will be able to choose between searching and filtering workers
+            SW_SearchFilterWorkers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    SearchFilterSwitchChange(isChecked);
                 }
             });
         }
@@ -73,7 +132,23 @@ public class SearchFragment extends Fragment {
             //change when admin stuff is added
             root = inflater.inflate(R.layout.fragment_search_workers, container, false);
         }
+
         return root;
+    }
+
+    private void SearchFilterSwitchChange(boolean isChecked) {
+        if(isChecked){
+            SearchFilter=true;
+            TV_SearchFilter.setText(getString(R.string.filter));
+            BTN_submitSearchQuery.setText(R.string.filter);
+            Toast.makeText(getContext(),"To filter, enter your query and click the filter button",Toast.LENGTH_LONG).show();
+        }
+        else{
+            SearchFilter=false;
+            TV_SearchFilter.setText(getString(R.string.search));
+            BTN_submitSearchQuery.setText(R.string.search);
+            Toast.makeText(getContext(),"To search, enter your query and click the search button",Toast.LENGTH_LONG).show();
+        }
     }
 
     private void searchWorkers() {
@@ -215,6 +290,31 @@ public class SearchFragment extends Fragment {
 
     }
 
+    //TODO: removing is stupid, just remove all and readd
+    private void filterWorkers() {
+        final String query=ET_searchWorkerQuery.getText().toString().toLowerCase();
+        //get the main linear layout with all the listings
+        LinearLayout linearLayout = getActivity().findViewById(R.id.LL_searchWorkersList);
+        int listingsCount = linearLayout.getChildCount();
+        //for each listing, check if the query is in one of the textviews
+        for(int i =listingsCount-1;i>=0;--i){
+            LinearLayout listingItem = (LinearLayout) linearLayout.getChildAt(i);
+            int textCount=listingItem.getChildCount();
+            boolean queryFound=false;
+            for(int j =0;j<textCount;++j){
+                TextView textItem = (TextView) listingItem.getChildAt(j);
+                String textString =textItem.toString().toLowerCase();
+                if(textString.contains(query)){
+                    queryFound=true;
+                }
+            }
+            //if a listing item does not have a query match, remove it
+            if(!queryFound){
+                linearLayout.removeViewAt(i);
+            }
+        }
+    }
+
     private void searchProperties() {
         final String query=ET_searchPropertiesQuery.getText().toString();
 
@@ -346,5 +446,10 @@ public class SearchFragment extends Fragment {
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
 
+    }
+
+
+    private void filterProperties() {
+        final String query=ET_searchPropertiesQuery.getText().toString();
     }
 }

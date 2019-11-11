@@ -67,4 +67,6 @@
     <string name="property_size">Property Size:</string>
     <string name="work_needed">Work Needed:</string>
     <string name="equipment_available">Equipment Available?:</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
 </resources>
