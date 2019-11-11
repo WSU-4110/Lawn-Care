@@ -1,4 +1,4 @@
-package com.example.lawn_care.ui.home;
+package com.example.lawn_care.ui.search;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,13 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.android.volley.Request;
@@ -31,29 +28,23 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.lawn_care.PropertyPage;
 import com.example.lawn_care.R;
-import com.example.lawn_care.SignIn;
 import com.example.lawn_care.addWorkerProfile;
-import com.example.lawn_care.dash;
-import com.example.lawn_care.localUserInfo;
-import com.example.lawn_care.viewYourProperties;
-import com.example.lawn_care.workOffered;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class HomeFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private SearchViewModel searchViewModel;
     EditText ET_searchWorkerQuery, ET_searchPropertiesQuery;
     Button BTN_submitSearchWorkerQuery, BTN_submitSearchPropertiesQuery;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+        searchViewModel =
+                ViewModelProviders.of(this).get(SearchViewModel.class);
         String userType=com.example.lawn_care.localUserInfo.getUserType();
         View root;
         if(userType.equals("worker")){
