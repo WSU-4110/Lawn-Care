@@ -29,15 +29,25 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lawn_care.ApiDB;
+import com.example.lawn_care.PropertyInfo;
 import com.example.lawn_care.PropertyPage;
 import com.example.lawn_care.R;
 import com.example.lawn_care.RequestHandler;
+import com.example.lawn_care.SignIn;
+import com.example.lawn_care.User;
+import com.example.lawn_care.UserAccount;
+import com.example.lawn_care.WorkerProfile;
 import com.example.lawn_care.addWorkerProfile;
+import com.example.lawn_care.dash;
 import com.example.lawn_care.localUserInfo;
+import com.example.lawn_care.workType;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,12 +68,22 @@ public class SearchFragment extends Fragment {
 
     private boolean SearchFilter=false;
 
+    //workTypes for filtering
+    ArrayList<String> workTypes;
+
+    ArrayList<WorkerProfile> workerProfileList;
+    ArrayList<PropertyInfo> propertyInfoList;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         searchViewModel =
                 ViewModelProviders.of(this).get(SearchViewModel.class);
         View root;
+
+        workTypes=new ArrayList<>();
+        workerProfileList = new ArrayList<>();
+        propertyInfoList = new ArrayList<>();
 
         //search handling
         //if the usertype is a worker, search properties
@@ -134,7 +154,95 @@ public class SearchFragment extends Fragment {
             root = inflater.inflate(R.layout.fragment_search_workers, container, false);
         }
 
+        //gets the list of possible filters
+        getFilterOptions(localUserInfo.getUserType());
+
         return root;
+    }
+
+    private void getFilterOptions(String userType) {
+        StringRequest stringRequest;
+        if(userType=="owner"){
+            final String signin_url="http://10.0.2.2:80/scripts/getPropertyWork.php";
+            //final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/login.php";
+            //stringRequest is an object that contains the request method, the url, and the parameters and the response
+            stringRequest=new StringRequest(Request.Method.POST, signin_url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject obj = new JSONObject(response);
+                                JSONArray workArray = obj.getJSONArray("work");
+
+                                //now looping through all the elements of the json array
+                                for (int i = 0; i < workArray.length(); i++) {
+                                    //getting the json object of the particular index inside the array
+                                    JSONObject workObject = workArray.getJSONObject(i);
+                                    String work = workObject.getString("workOffered");
+                                    workTypes.add(work);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("VOLLEY", error.getMessage());
+                            //requestQueue.stop();
+                        }
+                    }){
+                @Override
+                //this function is written to get the parameters for posting
+                protected Map<String,String> getParams(){
+                    Map<String,String> params= new HashMap<String, String>();
+                    return params;
+                }
+            };
+        }
+        else {
+            //final String signin_url="http://10.0.2.2:80/scripts/getPropertyWork.php";
+            //final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/login.php";
+            //stringRequest is an object that contains the request method, the url, and the parameters and the response
+            stringRequest=new StringRequest(Request.Method.POST, ApiDB.URL_TESTING,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject obj = new JSONObject(response);
+                                JSONArray workArray = obj.getJSONArray("work");
+
+                                //now looping through all the elements of the json array
+                                for (int i = 0; i < workArray.length(); i++) {
+                                    //getting the json object of the particular index inside the array
+                                    JSONObject workObject = workArray.getJSONObject(i);
+                                    String work = workObject.getString("workOffered");
+                                    workTypes.add(work);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("VOLLEY", error.getMessage());
+                            //requestQueue.stop();
+                        }
+                    }){
+                @Override
+                //this function is written to get the parameters for posting
+                protected Map<String,String> getParams(){
+                    Map<String,String> params= new HashMap<String, String>();
+                    return params;
+                }
+            };
+        }
+        //RequestQueue requestQueue=Volley.newRequestQueue(SignIn.this);
+        RequestQueue requestQueue=RequestHandler.getInstance(this.getContext()).getRequestQueue();
+        requestQueue.add(stringRequest);
     }
 
     private void SearchFilterSwitchChange(boolean isChecked) {

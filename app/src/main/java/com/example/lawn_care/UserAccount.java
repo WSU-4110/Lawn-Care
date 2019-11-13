@@ -1,11 +1,11 @@
 package com.example.lawn_care;
 
 public class UserAccount {
-    private String email;
-    private String phone;
-    private String firstName;
-    private String lastName;
-    private String userType;
+    protected String email;
+    protected String phone;
+    protected String firstName;
+    protected String lastName;
+    protected String userType;
 
 
     public UserAccount(String email, String phone, String firstName, String lastName, String userType) {

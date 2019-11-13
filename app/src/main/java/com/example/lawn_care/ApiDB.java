@@ -2,8 +2,9 @@ package com.example.lawn_care;
 
 public class ApiDB {
 //    private static final String ROOT_URL = "http://35.16.126.96/Android/";
+    private static final String ROOT_URL="http://10.0.2.2:80/scripts/";
 
-    private static final String ROOT_URL = "http://lawn-care.us-east-1.elasticbeanstalk.com/";
+//    private static final String ROOT_URL = "http://lawn-care.us-east-1.elasticbeanstalk.com/";
 
 //    http://lawn-care.us-east-1.elasticbeanstalk.com/
     
