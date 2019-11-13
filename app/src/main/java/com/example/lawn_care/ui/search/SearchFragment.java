@@ -31,6 +31,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.lawn_care.PropertyPage;
 import com.example.lawn_care.R;
+import com.example.lawn_care.RequestHandler;
 import com.example.lawn_care.addWorkerProfile;
 import com.example.lawn_care.localUserInfo;
 
@@ -285,7 +286,8 @@ public class SearchFragment extends Fragment {
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
+        //RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue = RequestHandler.getInstance(this.getContext()).getRequestQueue();
         requestQueue.add(stringRequest);
 
     }
@@ -293,26 +295,6 @@ public class SearchFragment extends Fragment {
     //TODO: removing is stupid, just remove all and readd
     private void filterWorkers() {
         final String query=ET_searchWorkerQuery.getText().toString().toLowerCase();
-        //get the main linear layout with all the listings
-        LinearLayout linearLayout = getActivity().findViewById(R.id.LL_searchWorkersList);
-        int listingsCount = linearLayout.getChildCount();
-        //for each listing, check if the query is in one of the textviews
-        for(int i =listingsCount-1;i>=0;--i){
-            LinearLayout listingItem = (LinearLayout) linearLayout.getChildAt(i);
-            int textCount=listingItem.getChildCount();
-            boolean queryFound=false;
-            for(int j =0;j<textCount;++j){
-                TextView textItem = (TextView) listingItem.getChildAt(j);
-                String textString =textItem.toString().toLowerCase();
-                if(textString.contains(query)){
-                    queryFound=true;
-                }
-            }
-            //if a listing item does not have a query match, remove it
-            if(!queryFound){
-                linearLayout.removeViewAt(i);
-            }
-        }
     }
 
     private void searchProperties() {
@@ -390,8 +372,6 @@ public class SearchFragment extends Fragment {
                                     listingItem.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            //PLACEHOLDER
-                                            //TODO: SEND THEM TO THE PROFILE PAGE
                                             Intent intent= new Intent(getActivity(), PropertyPage.class);
                                             intent.putExtra("propertyNumber",propertyNumber);
                                             getActivity().startActivity(intent);
