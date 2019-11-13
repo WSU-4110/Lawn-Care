@@ -1,17 +1,15 @@
 package com.example.lawn_care;
 
-import java.util.ArrayList;
-
 public class WorkerProfile extends UserAccount{
     protected String description;
     protected String website;
     protected String daysAvailable;
     protected String startTime;
     protected String endTime;
-    protected ArrayList<String> workOffered;
+    protected workType workOffered;
 
-    WorkerProfile(){
-        workOffered=new ArrayList<>();
+    public WorkerProfile(){
+        workOffered=new workType();
     }
 
     public String getDescription() {
@@ -54,11 +52,11 @@ public class WorkerProfile extends UserAccount{
         this.endTime = endTime;
     }
 
-    public ArrayList<String> getWorkOffered() {
-        return workOffered;
+    public String getWorkOffered() {
+        return workOffered.toString();
     }
 
-    public void addWorkOffered(String workType) {
-        workOffered.add(workType);
+    public void setWorkOffered(String workTypeList) {
+        workOffered.setWorkTypeList(workTypeList);
     }
 }

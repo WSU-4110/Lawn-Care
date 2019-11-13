@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +44,7 @@ import com.example.lawn_care.addWorkerProfile;
 import com.example.lawn_care.dash;
 import com.example.lawn_care.localUserInfo;
 import com.example.lawn_care.workType;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +57,10 @@ import java.util.Map;
 public class SearchFragment extends Fragment {
 
     private SearchViewModel searchViewModel;
+    private TextInputLayout TI_searchQuery;
+
     private EditText ET_searchWorkerQuery, ET_searchPropertiesQuery;
+    private EditText ET_searchQuery;
     //these are for specific reference to each of these buttons
     private Button BTN_submitSearchWorkerQuery, BTN_submitSearchPropertiesQuery;
     //this button is for generic reference to either button
@@ -65,6 +71,8 @@ public class SearchFragment extends Fragment {
     //generic reference to these TV, they have same function
     private TextView TV_SearchFilter;
     private Switch SW_SearchFilterJobs, SW_SearchFilterWorkers;
+    private Spinner SP_WorkTypeFilter;
+    private Spinner SP_JobFilter, SP_WorkerFilter;
 
     private boolean SearchFilter=false;
 
@@ -98,10 +106,12 @@ public class SearchFragment extends Fragment {
         String userType= localUserInfo.getUserType();
         if(userType.equals("worker")){
             root = inflater.inflate(R.layout.fragment_search_jobs, container, false);
-            ET_searchPropertiesQuery = root.findViewById(R.id.ET_searchPropertiesQuery);
+            TI_searchQuery=root.findViewById(R.id.TI_searchPropertiesQuery);
+            ET_searchQuery=ET_searchPropertiesQuery = root.findViewById(R.id.ET_searchPropertiesQuery);
             BTN_submitSearchQuery=BTN_submitSearchPropertiesQuery=root.findViewById(R.id.BTN_submitSearchPropertiesQuery);
             TV_SearchFilter=TV_SearchFilterJobs =root.findViewById(R.id.TV_SearchFilterJobs);
             SW_SearchFilterJobs =root.findViewById(R.id.SW_SearchFilterJobs);
+            SP_WorkTypeFilter=SP_JobFilter=root.findViewById(R.id.SP_JobFilters);
             BTN_submitSearchPropertiesQuery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -125,10 +135,12 @@ public class SearchFragment extends Fragment {
         }
         else if(userType.equals("owner")){
             root = inflater.inflate(R.layout.fragment_search_workers, container, false);
-            ET_searchWorkerQuery = root.findViewById(R.id.ET_searchWorkerQuery);
+            TI_searchQuery=root.findViewById(R.id.TI_searchWorkerQuery);
+            ET_searchQuery=ET_searchWorkerQuery = root.findViewById(R.id.ET_searchWorkerQuery);
             BTN_submitSearchQuery=BTN_submitSearchWorkerQuery=root.findViewById(R.id.BTN_submitSearchWorkerQuery);
             TV_SearchFilter=TV_SearchFilterWorkers=root.findViewById(R.id.TV_SearchFilterWorkers);
             SW_SearchFilterWorkers=root.findViewById(R.id.SW_SearchFilterWorkers);
+            SP_WorkTypeFilter=SP_WorkerFilter=root.findViewById(R.id.SP_WorkerFilter);
             BTN_submitSearchWorkerQuery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -162,7 +174,7 @@ public class SearchFragment extends Fragment {
 
     private void getFilterOptions(String userType) {
         StringRequest stringRequest;
-        if(userType=="owner"){
+        if(userType.equals("owner")){
             final String signin_url="http://10.0.2.2:80/scripts/getPropertyWork.php";
             //final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/login.php";
             //stringRequest is an object that contains the request method, the url, and the parameters and the response
@@ -181,6 +193,10 @@ public class SearchFragment extends Fragment {
                                     String work = workObject.getString("workOffered");
                                     workTypes.add(work);
                                 }
+                                ArrayAdapter spinnerList = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,workTypes.toArray());
+                                spinnerList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                SP_WorkTypeFilter.setAdapter(spinnerList);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -220,6 +236,11 @@ public class SearchFragment extends Fragment {
                                     String work = workObject.getString("workOffered");
                                     workTypes.add(work);
                                 }
+
+                                ArrayAdapter spinnerList = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,workTypes.toArray());
+                                spinnerList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                SP_WorkTypeFilter.setAdapter(spinnerList);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -248,13 +269,21 @@ public class SearchFragment extends Fragment {
     private void SearchFilterSwitchChange(boolean isChecked) {
         if(isChecked){
             SearchFilter=true;
-            TV_SearchFilter.setText(getString(R.string.filter));
+            //TV_SearchFilter.setText(getString(R.string.filter));
+            TI_searchQuery.setVisibility(View.GONE);
+            //ET_searchQuery.setVisibility(View.GONE);
+            //TV_SearchFilter.setVisibility(View.GONE);
+            SP_WorkTypeFilter.setVisibility(View.VISIBLE);
             BTN_submitSearchQuery.setText(R.string.filter);
             Toast.makeText(getContext(),"To filter, enter your query and click the filter button",Toast.LENGTH_LONG).show();
         }
         else{
             SearchFilter=false;
-            TV_SearchFilter.setText(getString(R.string.search));
+            //TV_SearchFilter.setText(getString(R.string.search));
+            TI_searchQuery.setVisibility(View.VISIBLE);
+            //ET_searchQuery.setVisibility(View.VISIBLE);
+            //TV_SearchFilter.setVisibility(View.VISIBLE);
+            SP_WorkTypeFilter.setVisibility(View.GONE);
             BTN_submitSearchQuery.setText(R.string.search);
             Toast.makeText(getContext(),"To search, enter your query and click the search button",Toast.LENGTH_LONG).show();
         }
@@ -310,6 +339,15 @@ public class SearchFragment extends Fragment {
                                     workOffered= workOffered.replace("[","");
                                     workOffered=workOffered.replace("]","");
                                     workOffered=workOffered.replace("\"","");
+
+                                    //put this result in an object
+                                    WorkerProfile currentWorkerProfile = new WorkerProfile();
+                                    currentWorkerProfile.setFirstName(firstName);
+                                    currentWorkerProfile.setLastName(lastName);
+                                    currentWorkerProfile.setEmail(email);
+                                    currentWorkerProfile.setPhone(phone);
+                                    currentWorkerProfile.setWorkOffered(workOffered);
+                                    workerProfileList.add(currentWorkerProfile);
 
                                     //set the view texts
                                     TV_name.setText(name);
@@ -397,8 +435,9 @@ public class SearchFragment extends Fragment {
         //RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
         RequestQueue requestQueue = RequestHandler.getInstance(this.getContext()).getRequestQueue();
         requestQueue.add(stringRequest);
-
     }
+
+    
 
     //TODO: removing is stupid, just remove all and readd
     private void filterWorkers() {
