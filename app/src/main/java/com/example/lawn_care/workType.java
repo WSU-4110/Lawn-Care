@@ -70,4 +70,8 @@ public class workType {
             work_type_list.add(workType);
         }
     }
+
+    public List<String> getWorkTypeList(){
+        return work_type_list;
+    }
 }

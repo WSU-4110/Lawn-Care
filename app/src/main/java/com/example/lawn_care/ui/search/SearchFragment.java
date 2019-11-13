@@ -174,7 +174,7 @@ public class SearchFragment extends Fragment {
 
     private void getFilterOptions(String userType) {
         StringRequest stringRequest;
-        if(userType.equals("owner")){
+        if(!userType.equals("owner")){
             final String signin_url="http://10.0.2.2:80/scripts/getPropertyWork.php";
             //final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/login.php";
             //stringRequest is an object that contains the request method, the url, and the parameters and the response
@@ -190,7 +190,7 @@ public class SearchFragment extends Fragment {
                                 for (int i = 0; i < workArray.length(); i++) {
                                     //getting the json object of the particular index inside the array
                                     JSONObject workObject = workArray.getJSONObject(i);
-                                    String work = workObject.getString("workOffered");
+                                    String work = workObject.getString("workNeeded");
                                     workTypes.add(work);
                                 }
                                 ArrayAdapter spinnerList = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,workTypes.toArray());
@@ -318,13 +318,6 @@ public class SearchFragment extends Fragment {
                                 linearLayout.addView(V_line);
                                 //0 to len-1, the first index is the success check, the rest are listings, but the first address starts at 0, so listings go from 0 to n-1
                                 for(int x = 0; x < jsonResponse.length()-1; x++){
-                                    //create a new linear layout so each listing can be in a view, easier to do stuff with
-                                    LinearLayout listingItem = new LinearLayout(getActivity());
-                                    listingItem.setOrientation(LinearLayout.VERTICAL);
-                                    //creates views for stuff shown on preview
-                                    TextView TV_name=new TextView(getActivity());
-                                    TextView TV_email=new TextView(getActivity());
-                                    TextView TV_workOffered=new TextView(getActivity());
                                     //index the json based on the value in x. all the stuff in the json is technically a string, so you have to convert the integer to string to get the xth object
                                     //everything from 0 to n-1 can be stored as a jsonobject
                                     JSONObject currentWorker=jsonResponse.getJSONObject(String.valueOf(x));
@@ -349,52 +342,12 @@ public class SearchFragment extends Fragment {
                                     currentWorkerProfile.setWorkOffered(workOffered);
                                     workerProfileList.add(currentWorkerProfile);
 
-                                    //set the view texts
-                                    TV_name.setText(name);
-                                    TV_name.setTextSize(25);
-                                    TV_name.setTextColor(Color.BLACK);
-                                    TV_name.setTypeface(null, Typeface.BOLD);
-
-                                    TV_email.setText(email);
-                                    TV_email.setTextSize(20);
-                                    TV_email.setTextColor(Color.BLACK);
-
-                                    TV_workOffered.setText(workOffered);
-                                    TV_workOffered.setTextSize(16);
-                                    TV_workOffered.setSingleLine();
-                                    TV_workOffered.setEllipsize(TextUtils.TruncateAt.END);
-                                    TV_workOffered.setTextColor(Color.BLACK);
-
-                                    //add the views to the current linear layout
-                                    listingItem.addView(TV_name);
-                                    listingItem.addView(TV_email);
-                                    listingItem.addView(TV_workOffered);
-
-                                    //add clickable listing to go to their profile
-                                    listingItem.setClickable(true);
-                                    listingItem.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            //PLACEHOLDER
-                                            //TODO: SEND THEM TO THE PROFILE PAGE
-                                            Intent intent= new Intent(getActivity(), addWorkerProfile.class);
-                                            intent.putExtra("email", email);
-                                            intent.putExtra("firstName", firstName);
-                                            intent.putExtra("lastName",lastName);
-                                            intent.putExtra("phone",phone);
-
-                                            getActivity().startActivity(intent);
-                                        }
-                                    });
-
                                     //add the current linear layout to the main linear layout
+                                    LinearLayout listingItem = buildListingWorker(currentWorkerProfile);
                                     linearLayout.addView(listingItem);
 
                                     //add line between items
-                                    V_line=new View(getActivity());
-                                    V_line.setBackgroundResource(R.color.BLACK);
-                                    V_line.setMinimumHeight(2);
-                                    linearLayout.addView(V_line);
+                                    linearLayout.addView(buildDividerLine());
                                 }
                                 //padding at the bottom
                                 //TODO: figure out why it shows behind the navar
@@ -437,11 +390,84 @@ public class SearchFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    
+    LinearLayout buildListingWorker(WorkerProfile workerProfile){
+        //create a new linear layout so each listing can be in a view, easier to do stuff with
+        LinearLayout listingItem = new LinearLayout(getActivity());
+        listingItem.setOrientation(LinearLayout.VERTICAL);
+        //creates views for stuff shown on preview
+        TextView TV_name=new TextView(getActivity());
+        TextView TV_email=new TextView(getActivity());
+        TextView TV_workOffered=new TextView(getActivity());
+
+        //set the view texts
+        String firstName=workerProfile.getFirstName();
+        String lastName=workerProfile.getLastName();
+        String name=workerProfile.getFullName();
+        TV_name.setText(name);
+        TV_name.setTextSize(25);
+        TV_name.setTextColor(Color.BLACK);
+        TV_name.setTypeface(null, Typeface.BOLD);
+
+        String email=workerProfile.getEmail();
+        TV_email.setText(email);
+        TV_email.setTextSize(20);
+        TV_email.setTextColor(Color.BLACK);
+
+        String workOffered=workerProfile.getWorkOffered();
+        TV_workOffered.setText(workOffered);
+        TV_workOffered.setTextSize(16);
+        TV_workOffered.setSingleLine();
+        TV_workOffered.setEllipsize(TextUtils.TruncateAt.END);
+        TV_workOffered.setTextColor(Color.BLACK);
+
+        //add the views to the current linear layout
+        listingItem.addView(TV_name);
+        listingItem.addView(TV_email);
+        listingItem.addView(TV_workOffered);
+
+        //add clickable listing to go to their profile
+        String phone=workerProfile.getPhone();
+        listingItem.setClickable(true);
+        listingItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //PLACEHOLDER
+                //TODO: SEND THEM TO THE PROFILE PAGE
+                Intent intent= new Intent(getActivity(), addWorkerProfile.class);
+                intent.putExtra("email", email);
+                intent.putExtra("firstName", firstName);
+                intent.putExtra("lastName",lastName);
+                intent.putExtra("phone",phone);
+
+                getActivity().startActivity(intent);
+            }
+        });
+
+        return listingItem;
+    }
+
+    View buildDividerLine(){
+        View V_line=new View(getActivity());
+        V_line.setBackgroundResource(R.color.BLACK);
+        V_line.setMinimumHeight(2);
+        return V_line;
+    }
 
     //TODO: removing is stupid, just remove all and readd
     private void filterWorkers() {
-        final String query=ET_searchWorkerQuery.getText().toString().toLowerCase();
+        String filter = SP_WorkerFilter.getSelectedItem().toString();
+        LinearLayout linearLayout=getActivity().findViewById(R.id.LL_searchWorkersList);
+
+        linearLayout.removeAllViews();
+
+        linearLayout.addView(buildDividerLine());
+
+        for(WorkerProfile currentWorkerProfile:workerProfileList){
+            if(currentWorkerProfile.getWorkOfferedList().getWorkTypeList().contains(filter)){
+                linearLayout.addView(buildListingWorker(currentWorkerProfile));
+                linearLayout.addView(buildDividerLine());
+            }
+        }
     }
 
     private void searchProperties() {

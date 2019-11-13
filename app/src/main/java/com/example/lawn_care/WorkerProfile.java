@@ -56,6 +56,10 @@ public class WorkerProfile extends UserAccount{
         return workOffered.toString();
     }
 
+    public workType getWorkOfferedList(){
+        return workOffered;
+    }
+
     public void setWorkOffered(String workTypeList) {
         workOffered.setWorkTypeList(workTypeList);
     }
