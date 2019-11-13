@@ -25,16 +25,18 @@
         <Spinner
             android:id="@+id/SP_WorkerFilter"
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/edit_txt_layout"
+            android:padding="10dp"
             android:visibility="gone" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/TI_searchWorkerQuery"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:visibility="visible"
             app:endIconMode="clear_text">
@@ -58,9 +60,10 @@
         <Button
             android:id="@+id/BTN_submitSearchWorkerQuery"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="0"
+            android:padding="10dp"
             android:text="@string/Submit" />
 
         <LinearLayout
