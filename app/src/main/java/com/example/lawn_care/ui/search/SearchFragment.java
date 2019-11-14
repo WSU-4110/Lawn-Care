@@ -295,7 +295,7 @@ public class SearchFragment extends Fragment {
     //function to get list of workers that match query
     private void searchWorkers() {
         final String query=ET_searchWorkerQuery.getText().toString();
-
+        workerProfileList.clear();
         //get list of workers from database
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
@@ -486,7 +486,7 @@ public class SearchFragment extends Fragment {
     //this function gets properties that match the query
     private void searchProperties() {
         final String query=ET_searchPropertiesQuery.getText().toString();
-
+        propertyInfoList.clear();
         //get list of workers from database
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
@@ -522,16 +522,17 @@ public class SearchFragment extends Fragment {
                                     TextView TV_workNeeded=new TextView(getActivity());
                                     //index the json based on the value in x. all the stuff in the json is technically a string, so you have to convert the integer to string to get the xth object
                                     //everything from 0 to n-1 can be stored as a jsonobject
-                                    JSONObject currentWorker=jsonResponse.getJSONObject(String.valueOf(x));
+                                    JSONObject currentProp=jsonResponse.getJSONObject(String.valueOf(x));
 
                                     //get the fields i want to show in the views and format the strings how i want them to appear
-                                    int propertyNumber = currentWorker.getInt("propertyNumber");
-                                    String street = currentWorker.getString("street");
-                                    String city = currentWorker.getString("city");
-                                    String state = currentWorker.getString("state");
-                                    int propertySize = currentWorker.getInt("lawnSize");
-                                    String workNeeded = currentWorker.getString("workNeeded");
-                                    PropertyInfo currentProperty=new PropertyInfo(propertyNumber,street,city,state,propertySize,workNeeded);
+                                    int propertyNumber = currentProp.getInt("propertyNumber");
+                                    String street = currentProp.getString("street");
+                                    String city = currentProp.getString("city");
+                                    String state = currentProp.getString("state");
+                                    String zip = currentProp.getString("zip");
+                                    int propertySize = currentProp.getInt("lawnSize");
+                                    String workNeeded = currentProp.getString("workNeeded");
+                                    PropertyInfo currentProperty=new PropertyInfo(propertyNumber,street,city,state,zip,propertySize,workNeeded);
                                     propertyInfoList.add(currentProperty);
                                     //add as a linearlayout
                                     LinearLayout currentPropertyListing=buildListingProperty(currentProperty);

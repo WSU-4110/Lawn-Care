@@ -49,11 +49,12 @@ public class PropertyInfo {
         this.workNeeded.setWorkTypeList(workNeeded);
     }
 
-    public PropertyInfo(int propertyNumber, String street, String city, String state, int propertySize, String workNeeded) {
+    public PropertyInfo(int propertyNumber, String street, String city, String state,String zip, int propertySize, String workNeeded) {
         this.propertyNumber = propertyNumber;
         this.street = street;
         this.city = city;
         this.state = state;
+        this.zip=zip;
         this.lawnSize = propertySize;
         this.workNeeded=new workType();
         this.workNeeded.setWorkTypeList(workNeeded);
