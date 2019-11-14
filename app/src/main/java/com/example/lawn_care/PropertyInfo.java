@@ -4,7 +4,6 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,10 +17,11 @@ public class PropertyInfo {
     private int lawnSize;
     private boolean equipmentAvailable;
 
-    private List<String> workNeeded;
+    private workType workNeeded;
 
 
     public PropertyInfo() {
+        this.workNeeded=new workType();
     }
 
     public PropertyInfo(int propertyNumber, String ownerEmail, String street, String city, String state, String zip, int lawnSize, boolean equipmentAvailable) {
@@ -33,30 +33,20 @@ public class PropertyInfo {
         this.zip = zip;
         this.lawnSize = lawnSize;
         this.equipmentAvailable = equipmentAvailable;
-    }
-
-    public PropertyInfo(int propertyNumber, String ownerEmail, String street, String city, String state, String zip, int lawnSize, boolean equipmentAvailable, List<String> workNeeded) {
-        this.propertyNumber = propertyNumber;
-        this.ownerEmail = ownerEmail;
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.lawnSize = lawnSize;
-        this.equipmentAvailable = equipmentAvailable;
-        this.workNeeded = workNeeded;
+        this.workNeeded=new workType();
     }
 
     public PropertyInfo(int propertyNumber, String email, String street, String city, String state, String zip, int lawnSize, boolean equipmentAvailable, String workNeeded) {
         this.propertyNumber = propertyNumber;
-        this.ownerEmail = ownerEmail;
+        this.ownerEmail = email;
         this.street = street;
         this.city = city;
         this.state = state;
         this.zip = zip;
         this.lawnSize = lawnSize;
         this.equipmentAvailable = equipmentAvailable;
-        this.workNeeded= Arrays.asList(workNeeded.split(","));
+        this.workNeeded=new workType();
+        this.workNeeded.setWorkTypeList(workNeeded);
     }
 
     public int getPropertyNumber() {
@@ -136,25 +126,15 @@ public class PropertyInfo {
         else{return "No";}
     }
 
-    public List<String> getWorkNeeded() {
+    public String getWorkNeeded() {
+        return workNeeded.toString();
+    }
+
+    public workType getWorkNeededList(){
         return workNeeded;
     }
 
-    public void setWorkNeeded(List<String> workNeeded) {
-        this.workNeeded = workNeeded;
-    }
-
-    public void addWorkNeeded(String workType){
-        this.workNeeded.add(workType);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public String getWorkNeededString() {
-        String work = String.join(", ",workNeeded);
-        work=work.replace("[","");
-        work=work.replace("]","");
-        work=work.replace("\"","");
-        work=work.replace("_"," ");
-        return work;
+    public void setWorkNeeded(String workTypeList) {
+        workNeeded.setWorkTypeList(workTypeList);
     }
 }

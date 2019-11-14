@@ -66,6 +66,9 @@ public class workType {
     }
 
     public void setWorkTypeList(String workTypeList){
+        workTypeList= workTypeList.replace("[","");
+        workTypeList=workTypeList.replace("]","");
+        workTypeList=workTypeList.replace("\"","");
         for(String workType:workTypeList.split(",")){
             work_type_list.add(workType);
         }

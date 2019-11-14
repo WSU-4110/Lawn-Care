@@ -330,9 +330,6 @@ public class SearchFragment extends Fragment {
                                     String email = currentWorker.getString("workerEmail");
                                     String phone = currentWorker.getString("phone");
                                     String workOffered = currentWorker.getString("workOffered");
-                                    workOffered= workOffered.replace("[","");
-                                    workOffered=workOffered.replace("]","");
-                                    workOffered=workOffered.replace("\"","");
 
                                     //put this result in an object
                                     WorkerProfile currentWorkerProfile = new WorkerProfile();
@@ -462,7 +459,11 @@ public class SearchFragment extends Fragment {
 
         linearLayout.addView(buildDividerLine());
 
+        //loop to go through search results
+        //if item has query, add to view
+        //else remove
 
+        //will show matching search results while removing mismatches from the workerProfileList
         for (Iterator<WorkerProfile> it = workerProfileList.iterator(); it.hasNext();) {
             WorkerProfile currentWorkerProfile=it.next();
             if (currentWorkerProfile.getWorkOfferedList().getWorkTypeList().contains(filter)) {
@@ -473,16 +474,6 @@ public class SearchFragment extends Fragment {
                 it.remove();
             }
         }
-
-//        for(WorkerProfile currentWorkerProfile:workerProfileList){
-//            if(currentWorkerProfile.getWorkOfferedList().getWorkTypeList().contains(filter)){
-//                linearLayout.addView(buildListingWorker(currentWorkerProfile));
-//                linearLayout.addView(buildDividerLine());
-//            }
-//            else{
-//                workerProfileList.remove(currentWorkerProfile);
-//            }
-//        }
     }
 
     private void searchProperties() {

@@ -77,7 +77,7 @@ public class PropertyPage extends AppCompatActivity {
 
                                 TV_propertyAddress.setText(propertyInfo.getAddress());
                                 TV_propertySize.setText(propertyInfo.getLawnSizeSqFt());
-                                TV_propertyWorkNeeded.setText(propertyInfo.getWorkNeededString());
+                                TV_propertyWorkNeeded.setText(propertyInfo.getWorkNeeded());
                                 TV_propertyToolsAvailable.setText(propertyInfo.isEquipmentAvailable());
                             }
                             else{
