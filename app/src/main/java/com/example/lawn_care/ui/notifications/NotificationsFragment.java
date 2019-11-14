@@ -13,8 +13,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.lawn_care.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class NotificationsFragment extends Fragment {
+public class NotificationsFragment extends Fragment implements OnMapReadyCallback {
 
     private NotificationsViewModel notificationsViewModel;
 
@@ -30,6 +36,23 @@ public class NotificationsFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+
         return root;
     }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+
+
+        LatLng sydney=new LatLng(42.3314,-83.0458);
+        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+
 }
