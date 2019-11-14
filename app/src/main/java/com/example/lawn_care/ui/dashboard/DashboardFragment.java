@@ -50,24 +50,22 @@ public class DashboardFragment extends Fragment {
         //Create the OwnerDash class for the correct button inputs for an owner
         class ownerDash implements DashboardState {
             @Override
-            public void owner(){
+            public void addData(){
                 btn_addYourData.setText("Add a property");
-                btn_viewYourData.setText("View your properties");
             }
-            public void worker(){
-
+            public void viewData(){
+                btn_viewYourData.setText("View your properties");
             }
         }
 
         //Create the workerDash class for the correct button inputs for a worker
         class workerDash implements DashboardState {
             @Override
-            public void owner() {
-
+            public void addData() {
+                btn_addYourData.setText("Add your worker profile");
             }
 
-            public void worker() {
-                btn_addYourData.setText("Add your worker profile");
+            public void viewData() {
                 btn_viewYourData.setText("View your worker profile");
             }
         }
@@ -78,11 +76,13 @@ public class DashboardFragment extends Fragment {
 
         if(dashboardState.equals("owner")){
             currentState = ownerState;
-            currentState.owner();
+            currentState.addData();
+            currentState.viewData();
         }
         else if(dashboardState.equals("worker")){
             currentState = workerState;
-            currentState.worker();
+            currentState.addData();
+            currentState.viewData();
         }
 
 

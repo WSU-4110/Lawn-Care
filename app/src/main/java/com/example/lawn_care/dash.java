@@ -18,7 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 public class dash extends AppCompatActivity {
 
     //Use string to find the current dashboard state
-    String dashboardState = localUserInfo.getUserType();
+    String dashState = localUserInfo.getUserType();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,59 +37,32 @@ public class dash extends AppCompatActivity {
     }
 
     //Create the ownerDashAddData class for the correct button intent for owners
-    class ownerDashaddData implements DashboardState {
+    class ownerDash implements DashboardState {
         @Override
-        public void owner(){
+        public void addData(){
             //TODO: OWNER ADDING A PROPERTY TO THE DATABASE
             //go to adding property screen
             Intent intent= new Intent(dash.this, addProperty.class);
             dash.this.startActivity(intent);
         }
-        public void worker(){
-
-        }
-    }
-
-    //Create the workerDashAddData class for the correct button intent for workers
-    class workerDashAddData implements DashboardState {
-        @Override
-        public void owner(){
-
-        }
-        public void worker(){
-            //TODO: WORKER ADDING THEIR PROFILE TO THE DATABASE
-            //go to add profile screen
-            Intent intent= new Intent(dash.this, addWorkerProfile.class);
-            dash.this.startActivity(intent);
-        }
-    }
-
-    //Implement dashboard states for adding data
-    DashboardState ownerStateAddData = new ownerDashaddData();
-    DashboardState workerStateAddData = new workerDashAddData();
-    DashboardState currentStateAddData = ownerStateAddData;
-
-    //Create the ownerDashAddData class for the correct button intent for owners
-    class ownerDashViewData implements DashboardState {
-        @Override
-        public void owner(){
+        public void viewData(){
             //TODO: OWNER VIEWS THEIR LIST OF PROPERTIES
             //go to viewing properties screen
             Intent intent= new Intent(dash.this, viewYourProperties.class);
             dash.this.startActivity(intent);
         }
-        public void worker(){
-
-        }
     }
 
     //Create the workerDashAddData class for the correct button intent for workers
-    class workerDashViewData implements DashboardState {
+    class workerDash implements DashboardState {
         @Override
-        public void owner(){
-
+        public void addData(){
+            //TODO: WORKER ADDING THEIR PROFILE TO THE DATABASE
+            //go to add profile screen
+            Intent intent= new Intent(dash.this, addWorkerProfile.class);
+            dash.this.startActivity(intent);
         }
-        public void worker(){
+        public void viewData(){
             //TODO: WORKER VIEWS THEIR PROFILE
             //go to view profile screen
             Intent intent= new Intent(dash.this, viewYourWorkerProfile.class);
@@ -97,30 +70,26 @@ public class dash extends AppCompatActivity {
         }
     }
 
-    //Implement dashboard states for adding data
-    DashboardState ownerStateViewData = new ownerDashViewData();
-    DashboardState workerStateViewData = new workerDashViewData();
-    DashboardState currentStateViewData = ownerStateViewData;
+    DashboardState ownerDash = new ownerDash();
+    DashboardState workerDash = new workerDash();
+    DashboardState currentDash = ownerDash;
 
-    public void addYourData(View view) {
-        if (dashboardState.equals("owner")){
-            currentStateAddData = ownerStateAddData;
-            currentStateAddData.owner();
+    public void selectState(){
+        if(dashState.equals("owner")){
+            currentDash = ownerDash;
         }
-        else if(dashboardState.equals("worker")){
-            currentStateAddData = workerStateAddData;
-            currentStateAddData.worker();
+        else if(dashState.equals("worker")){
+            currentDash = workerDash;
         }
     }
 
+    public void addYourData(View view) {
+            selectState();
+            currentDash.addData();
+        }
+
     public void viewYourData(View view) {
-        if (dashboardState.equals("owner")){
-            currentStateViewData = ownerStateViewData;
-            currentStateViewData.owner();
-        }
-        else if(dashboardState.equals("worker")){
-            currentStateViewData = workerStateViewData;
-            currentStateViewData.worker();
-        }
+            selectState();
+            currentDash.viewData();
     }
 }
