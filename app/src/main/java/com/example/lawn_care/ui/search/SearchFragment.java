@@ -52,6 +52,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class SearchFragment extends Fragment {
@@ -453,7 +454,6 @@ public class SearchFragment extends Fragment {
         return V_line;
     }
 
-    //TODO: removing is stupid, just remove all and readd
     private void filterWorkers() {
         String filter = SP_WorkerFilter.getSelectedItem().toString();
         LinearLayout linearLayout=getActivity().findViewById(R.id.LL_searchWorkersList);
@@ -462,12 +462,27 @@ public class SearchFragment extends Fragment {
 
         linearLayout.addView(buildDividerLine());
 
-        for(WorkerProfile currentWorkerProfile:workerProfileList){
-            if(currentWorkerProfile.getWorkOfferedList().getWorkTypeList().contains(filter)){
+
+        for (Iterator<WorkerProfile> it = workerProfileList.iterator(); it.hasNext();) {
+            WorkerProfile currentWorkerProfile=it.next();
+            if (currentWorkerProfile.getWorkOfferedList().getWorkTypeList().contains(filter)) {
                 linearLayout.addView(buildListingWorker(currentWorkerProfile));
                 linearLayout.addView(buildDividerLine());
             }
+            else{
+                it.remove();
+            }
         }
+
+//        for(WorkerProfile currentWorkerProfile:workerProfileList){
+//            if(currentWorkerProfile.getWorkOfferedList().getWorkTypeList().contains(filter)){
+//                linearLayout.addView(buildListingWorker(currentWorkerProfile));
+//                linearLayout.addView(buildDividerLine());
+//            }
+//            else{
+//                workerProfileList.remove(currentWorkerProfile);
+//            }
+//        }
     }
 
     private void searchProperties() {
