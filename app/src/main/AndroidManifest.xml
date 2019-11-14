@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.lawn_care">
+    package="com.example.lawn_care"
+    >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!--Permissions-->
@@ -10,7 +11,6 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.
 
    READ_GSERVICES" />
-    package="com.example.currentplacedetailsonmap">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
