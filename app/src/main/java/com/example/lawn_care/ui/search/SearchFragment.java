@@ -173,6 +173,7 @@ public class SearchFragment extends Fragment {
         return root;
     }
 
+    //function to get filter options based on search needed
     private void getFilterOptions(String userType) {
         StringRequest stringRequest;
         if(!userType.equals("owner")){
@@ -267,6 +268,7 @@ public class SearchFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+    //function to change between search and filter mode
     private void SearchFilterSwitchChange(boolean isChecked) {
         if(isChecked){
             SearchFilter=true;
@@ -290,6 +292,7 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    //function to get list of workers that match query
     private void searchWorkers() {
         final String query=ET_searchWorkerQuery.getText().toString();
 
@@ -388,6 +391,8 @@ public class SearchFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+    //function to create a linear layout for the search based on a worker profile
+    //an item consists of the worker name, their email, and the work they offer
     LinearLayout buildListingWorker(WorkerProfile workerProfile){
         //create a new linear layout so each listing can be in a view, easier to do stuff with
         LinearLayout listingItem = new LinearLayout(getActivity());
@@ -444,6 +449,7 @@ public class SearchFragment extends Fragment {
         return listingItem;
     }
 
+    //simple function to create a view that appears as a horizontal line
     View buildDividerLine(){
         View V_line=new View(getActivity());
         V_line.setBackgroundResource(R.color.BLACK);
@@ -451,6 +457,7 @@ public class SearchFragment extends Fragment {
         return V_line;
     }
 
+    //this function filters the workers in the list to those that match the filter
     private void filterWorkers() {
         String filter = SP_WorkerFilter.getSelectedItem().toString();
         LinearLayout linearLayout=getActivity().findViewById(R.id.LL_searchWorkersList);
@@ -476,6 +483,7 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    //this function gets properties that match the query
     private void searchProperties() {
         final String query=ET_searchPropertiesQuery.getText().toString();
 
@@ -517,54 +525,19 @@ public class SearchFragment extends Fragment {
                                     JSONObject currentWorker=jsonResponse.getJSONObject(String.valueOf(x));
 
                                     //get the fields i want to show in the views and format the strings how i want them to appear
-                                    String propertyNumber = currentWorker.getString("propertyNumber");
-                                    String address = currentWorker.getString("street")+", "+currentWorker.getString("city")+", "+currentWorker.getString("state");
-                                    String propertySize = currentWorker.getString("lawnSize")+" sq. ft.";
+                                    int propertyNumber = currentWorker.getInt("propertyNumber");
+                                    String street = currentWorker.getString("street");
+                                    String city = currentWorker.getString("city");
+                                    String state = currentWorker.getString("state");
+                                    int propertySize = currentWorker.getInt("lawnSize");
                                     String workNeeded = currentWorker.getString("workNeeded");
-                                    workNeeded=workNeeded.replace("[","");
-                                    workNeeded=workNeeded.replace("]","");
-                                    workNeeded=workNeeded.replace("\"","");
-
-                                    //set the view texts
-                                    TV_address.setText(address);
-                                    TV_address.setTextSize(25);
-                                    TV_address.setTextColor(Color.BLACK);
-                                    TV_address.setTypeface(null, Typeface.BOLD);
-
-                                    TV_propertySize.setText(propertySize);
-                                    TV_propertySize.setTextSize(20);
-                                    TV_propertySize.setTextColor(Color.BLACK);
-
-                                    TV_workNeeded.setText(workNeeded);
-                                    TV_workNeeded.setTextSize(16);
-                                    TV_workNeeded.setSingleLine();
-                                    TV_workNeeded.setEllipsize(TextUtils.TruncateAt.END);
-                                    TV_workNeeded.setTextColor(Color.BLACK);
-
-                                    //add the views to the current linear layout
-                                    listingItem.addView(TV_address);
-                                    listingItem.addView(TV_propertySize);
-                                    listingItem.addView(TV_workNeeded);
-
-                                    //add clickable listing to go to their profile
-                                    listingItem.setClickable(true);
-                                    listingItem.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Intent intent= new Intent(getActivity(), PropertyPage.class);
-                                            intent.putExtra("propertyNumber",propertyNumber);
-                                            getActivity().startActivity(intent);
-                                        }
-                                    });
-
-                                    //add the current linear layout to the main linear layout
-                                    linearLayout.addView(listingItem);
-
-                                    //add line between items
-                                    V_line=new View(getActivity());
-                                    V_line.setBackgroundResource(R.color.BLACK);
-                                    V_line.setMinimumHeight(2);
-                                    linearLayout.addView(V_line);
+                                    PropertyInfo currentProperty=new PropertyInfo(propertyNumber,street,city,state,propertySize,workNeeded);
+                                    propertyInfoList.add(currentProperty);
+                                    //add as a linearlayout
+                                    LinearLayout currentPropertyListing=buildListingProperty(currentProperty);
+                                    linearLayout.addView(currentPropertyListing);
+                                    //add dividing line
+                                    linearLayout.addView(buildDividerLine());
                                 }
                                 //padding at the bottom
                                 //TODO: figure out why it shows behind the navbar
@@ -607,8 +580,80 @@ public class SearchFragment extends Fragment {
 
     }
 
+    //this function builds a listing item based on propertyinfo
+    //each listing item consists of address, property size, and work needed
+    private LinearLayout buildListingProperty(PropertyInfo currentProperty) {
+
+        LinearLayout listingItem = new LinearLayout(getActivity());
+        listingItem.setOrientation(LinearLayout.VERTICAL);
+
+        TextView TV_address=new TextView(getActivity());
+        TextView TV_propertySize=new TextView(getActivity());
+        TextView TV_workNeeded=new TextView(getActivity());
+
+        String address=currentProperty.getAddress();
+        String propertySize=currentProperty.getLawnSizeSqFt();
+        String workNeeded=currentProperty.getWorkNeeded();
+        String propertyNumber= String.valueOf(currentProperty.getPropertyNumber());
+
+
+        //set the view texts
+        TV_address.setText(address);
+        TV_address.setTextSize(25);
+        TV_address.setTextColor(Color.BLACK);
+        TV_address.setTypeface(null, Typeface.BOLD);
+
+        TV_propertySize.setText(propertySize);
+        TV_propertySize.setTextSize(20);
+        TV_propertySize.setTextColor(Color.BLACK);
+
+        TV_workNeeded.setText(workNeeded);
+        TV_workNeeded.setTextSize(16);
+        TV_workNeeded.setSingleLine();
+        TV_workNeeded.setEllipsize(TextUtils.TruncateAt.END);
+        TV_workNeeded.setTextColor(Color.BLACK);
+
+        //add the views to the current linear layout
+        listingItem.addView(TV_address);
+        listingItem.addView(TV_propertySize);
+        listingItem.addView(TV_workNeeded);
+
+        //add clickable listing to go to their profile
+        listingItem.setClickable(true);
+        listingItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getActivity(), PropertyPage.class);
+                intent.putExtra("propertyNumber",propertyNumber);
+                getActivity().startActivity(intent);
+            }
+        });
+        return listingItem;
+    }
+
 
     private void filterProperties() {
-        final String query=ET_searchPropertiesQuery.getText().toString();
+        String filter = SP_JobFilter.getSelectedItem().toString();
+        LinearLayout linearLayout=getActivity().findViewById(R.id.LL_searchPropertiesList);
+
+        linearLayout.removeAllViews();
+
+        linearLayout.addView(buildDividerLine());
+
+        //loop to go through search results
+        //if item has query, add to view
+        //else remove
+
+        //will show matching search results while removing mismatches from the the property list
+        for (Iterator<PropertyInfo> it = propertyInfoList.iterator(); it.hasNext();) {
+            PropertyInfo currentPropertyInfo=it.next();
+            if (currentPropertyInfo.getWorkNeededList().getWorkTypeList().contains(filter)) {
+                linearLayout.addView(buildListingProperty(currentPropertyInfo));
+                linearLayout.addView(buildDividerLine());
+            }
+            else{
+                it.remove();
+            }
+        }
     }
 }
