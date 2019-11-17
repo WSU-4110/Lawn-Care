@@ -34,13 +34,11 @@ public class dash extends AppCompatActivity {
 
     public void addYourData(View view) {
         if (localUserInfo.getUserType().equals("owner")){
-            //TODO: OWNER ADDING A PROPERTY TO THE DATABASE
             //go to adding property screen
             Intent intent= new Intent(dash.this, addProperty.class);
             dash.this.startActivity(intent);
         }
         else if(localUserInfo.getUserType().equals("worker")){
-            //TODO: WORKER ADDING THEIR PROFILE TO THE DATABASE
             //go to add profile screen
             Intent intent= new Intent(dash.this, addWorkerProfile.class);
             dash.this.startActivity(intent);
@@ -49,13 +47,11 @@ public class dash extends AppCompatActivity {
 
     public void viewYourData(View view) {
         if (localUserInfo.getUserType().equals("owner")){
-            //TODO: OWNER VIEWS THEIR LIST OF PROPERTIES
             //go to viewing properties screen
             Intent intent= new Intent(dash.this, viewYourProperties.class);
             dash.this.startActivity(intent);
         }
         else if(localUserInfo.getUserType().equals("worker")){
-            //TODO: WORKER VIEWS THEIR PROFILE
             //go to view profile screen
             Intent intent= new Intent(dash.this, viewYourWorkerProfile.class);
             dash.this.startActivity(intent);

@@ -2,41 +2,22 @@ package com.example.lawn_care;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.ActionProvider;
-import android.view.ContextMenu;
-import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
-import android.widget.PopupWindow;
-import android.widget.Spinner;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.MenuPopupWindow;
-import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
@@ -46,9 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 
 public class addWorkerProfile extends AppCompatActivity {
 
@@ -127,15 +106,24 @@ public class addWorkerProfile extends AppCompatActivity {
 
         userWork = new ArrayList<>();
         getUserWork();
-        email = localUserInfo.getEmail();
+        if(localUserInfo.getUserType().equals("worker")) {
+            email = localUserInfo.getEmail();
+            ET_firstName.setText(localUserInfo.getFirstName());
+            ET_lastName.setText(localUserInfo.getLastName());
+            ET_email.setText(localUserInfo.getEmail());
+            ET_phone.setText(localUserInfo.getPhoneNumber());
+        }
+        else{
+            email=getIntent().getStringExtra("email");
+            ET_firstName.setText(getIntent().getStringExtra("firstName"));
+            ET_lastName.setText(getIntent().getStringExtra("lastName"));
+            ET_email.setText(email);
+            ET_phone.setText(getIntent().getStringExtra("phone"));
+            disableAll();
+        }
 
 //        ET_email.setText(email);
         TI_WorkOffered.setEndIconOnClickListener(v -> endIconClicked());
-
-        ET_firstName.setText(localUserInfo.getFirstName());
-        ET_lastName.setText(localUserInfo.getLastName());
-        ET_email.setText(localUserInfo.getEmail());
-        ET_phone.setText(localUserInfo.getPhoneNumber());
 
 //        Intent tempIntent = getIntent();
 
@@ -148,6 +136,28 @@ public class addWorkerProfile extends AppCompatActivity {
 //        ET_email.setText("Email: "+localUserInfo.getEmail());
         //ET_email.setText("");
 //        ET_WorkOffered.setText(userWork.toString());
+
+    }
+
+    //Michael Working
+    public void disableAll(){
+        BTN_submit.setVisibility(View.GONE);
+        BTN_timeStart.setClickable(false);
+        BTN_timeEnd.setClickable(false);
+
+        CB_sunday.setClickable(false);
+        CB_monday.setClickable(false);
+        CB_tuesday.setClickable(false);
+        CB_wednesday.setClickable(false);
+        CB_thursday.setClickable(false);
+        CB_friday.setClickable(false);
+        CB_saturday.setClickable(false);
+
+        ImageView IV_Edit = findViewById(R.id.IV_Edit);
+        IV_Edit.setVisibility(View.GONE);
+
+        ET_WorkOffered.setText("Worked");
+        TI_WorkOffered.setEnabled(false);
     }
 
     private void getWorkerDetails() {
@@ -164,7 +174,7 @@ public class addWorkerProfile extends AppCompatActivity {
                             if(jsonResponse.getString("success")!="false"){
                                 Log.d("Desc",jsonResponse.getString("description"));
 //                                Log.d("previousActivity",previousActivity);
-//                                if (!(previousActivity.equals("TempActivity")))
+//                                if (!(previousActivity.equals("workOffered")))
                                 ET_description.setText(jsonResponse.getString("description"));
 
                                 String workOffered=jsonResponse.getString("workOffered");
@@ -234,7 +244,7 @@ public class addWorkerProfile extends AppCompatActivity {
 
     //On Click event for End Icon of JobType
     public void endIconClicked(){
-        Intent intent = new Intent(addWorkerProfile.this, TempActivity.class);
+        Intent intent = new Intent(addWorkerProfile.this, workOffered.class);
         intent.putExtra("user_work", ET_WorkOffered.getText().toString());
         this.startActivity(intent);
     }

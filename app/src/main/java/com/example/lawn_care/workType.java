@@ -64,4 +64,17 @@ public class workType {
     public String toString(){
         return String.join(",", this.work_type_list );
     }
+
+    public void setWorkTypeList(String workTypeList){
+        workTypeList= workTypeList.replace("[","");
+        workTypeList=workTypeList.replace("]","");
+        workTypeList=workTypeList.replace("\"","");
+        for(String workType:workTypeList.split(",")){
+            work_type_list.add(workType);
+        }
+    }
+
+    public List<String> getWorkTypeList(){
+        return work_type_list;
+    }
 }
