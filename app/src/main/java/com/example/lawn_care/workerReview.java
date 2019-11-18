@@ -8,10 +8,9 @@ public class workerReview {
     private String ownerFirstName;
     private String ownerLastName;
 
-    public workerReview(float star, String description, String ownerEmail, String ownerFirstName, String ownerLastName) {
+    public workerReview(float star, String description, String ownerFirstName, String ownerLastName) {
         this.star = star;
         this.description = description;
-        this.ownerEmail = ownerEmail;
         this.ownerFirstName = ownerFirstName;
         this.ownerLastName = ownerLastName;
     }
@@ -34,5 +33,9 @@ public class workerReview {
 
     public float getStar() {
         return star;
+    }
+
+    public void setStar(float star) {
+        this.star = star;
     }
 }

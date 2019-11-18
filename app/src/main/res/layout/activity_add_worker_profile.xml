@@ -81,7 +81,7 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         android:padding="20dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/BTN_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -381,7 +381,7 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         android:padding="20dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/BTN_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -396,7 +396,48 @@
             <ListView
                 android:id="@+id/LST_review"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <RatingBar
+                android:id="@+id/rating"
+                style="@style/ImageRatingBar"
+                android:background="@drawable/edit_txt_layout"
+                android:layout_marginTop="15dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="1" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TI_workerReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edit_txt_layout"
+                android:visibility="visible">
+
+
+
+                <TextView
+                    android:id="@+id/ET_workerReviewDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:paddingStart="45dp"
+                    android:paddingEnd="25dp"
+                    android:textSize="12sp"
+                    android:text="Description"
+                    android:textColor="@color/BLACK" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
         </LinearLayout>
     </ScrollView>

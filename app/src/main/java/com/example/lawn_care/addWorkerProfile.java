@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -74,6 +76,10 @@ public class addWorkerProfile extends AppCompatActivity {
     ArrayList<String> userWork;
     ArrayList<workerReview> workerReviewArrayList;
 
+    ReviewAdapter reviewAdapter;
+    RatingBar rating;
+
+
     String email;
 
     @Override
@@ -114,10 +120,13 @@ public class addWorkerProfile extends AppCompatActivity {
         SV_details = findViewById(R.id.SV_details);
 
         LST_review = findViewById(R.id.LST_review);
+        rating = findViewById(R.id.rating);
+
 
 //        loadWorkOffered();
 
         userWork = new ArrayList<>();
+        workerReviewArrayList = new ArrayList<workerReview>();
         getUserWork();
         if(localUserInfo.getUserType().equals("worker")) {
             email = localUserInfo.getEmail();
@@ -133,6 +142,7 @@ public class addWorkerProfile extends AppCompatActivity {
             ET_email.setText(email);
             ET_phone.setText(getIntent().getStringExtra("phone"));
             disableAll();
+
         }
 
 //        ET_email.setText(email);
@@ -152,7 +162,14 @@ public class addWorkerProfile extends AppCompatActivity {
         if (localUserInfo.getUserType().contains("owner"))
             disableAll();
 
-        getReview("g@g.com");
+        getReview(email);
+        rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                rating.setRating(rating.getRating());
+
+            }
+        });
     }
 
     //Michael Working
@@ -541,6 +558,9 @@ public class addWorkerProfile extends AppCompatActivity {
         SV_details.setVisibility(View.GONE);
         BTN_submit.setVisibility(View.GONE);
         BTN_delete.setVisibility(View.GONE);
+
+        reviewAdapter = new ReviewAdapter(this, R.layout.single_review, workerReviewArrayList);
+        LST_review.setAdapter(reviewAdapter);
     }
 
     public void showDetails(View view) {
@@ -561,7 +581,16 @@ public class addWorkerProfile extends AppCompatActivity {
                             jsonResponse=new JSONObject(response);
                             if(jsonResponse.getString("success")!="false") {
                                 JSONArray jsonArray = jsonResponse.getJSONArray("result");
-                                ET_firstName.setText((jsonArray.toString()));
+                                for (int i = 0; i < jsonArray.length(); i++){
+                                    JSONObject object = (JSONObject) jsonArray.get(i);
+                                    float theStar = Float.parseFloat(object.getString("rating_star"));
+                                    String rating_description = object.getString("rating_description");
+                                    String ownerFirstName = object.getString("firstName");
+                                    String ownerLastName = object.getString("lastName");
+                                    workerReview review = new workerReview(theStar,rating_description,ownerFirstName,ownerLastName);
+                                    workerReviewArrayList.add(review);
+                                    Log.d("theStar", String.valueOf(theStar));
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

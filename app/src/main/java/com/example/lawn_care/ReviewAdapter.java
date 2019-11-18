@@ -1,8 +1,10 @@
 package com.example.lawn_care;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,36 +14,59 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
+import java.util.List;
 
 public class ReviewAdapter extends ArrayAdapter<workerReview> {
 
-    public ReviewAdapter(Context context, ArrayList<workerReview> workerReviewList) {
-        super(context, 0, workerReviewList);
+    private AppCompatActivity activity;
+    private List<workerReview> workerReviewList;
+
+    public ReviewAdapter(AppCompatActivity context, int resource, List<workerReview> reviews) {
+        super(context, resource, reviews);
+        this.activity = context;
+        this.workerReviewList = reviews;
+    }
+
+    @Override
+    public workerReview getItem(int position) {
+        return workerReviewList.get(position);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
-        workerReview workerReview = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
+        ViewHolder holder;
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+
         if (convertView == null) {
-           
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.single_review, parent, false);
+            convertView = inflater.inflate(R.layout.single_review, parent, false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+            //holder.ratingBar.getTag(position);
         }
-        String name = workerReview.getOwnerFirstName() + " " +workerReview.getOwnerLastName();
-        // Lookup view for data population
 
-        TextView tvNameOwner = (TextView) convertView.findViewById(R.id.tvNameOwner);
-        RatingBar rating = (RatingBar) convertView.findViewById(R.id.rating);
-        TextView tvDescription = (TextView) convertView.findViewById(R.id.tvDescription);
-
-        tvNameOwner.setText(name);
-        tvDescription.setText(workerReview.getDescription());
-        rating.setRating(workerReview.getStar());
-
-        // Return the completed view to render on screen
+        String name = getItem(position).getOwnerFirstName() + " " + getItem(position).getOwnerLastName();
+        holder.rating.setTag(position);
+        holder.rating.setRating(getItem(position).getStar());
+        holder.tvDescription.setText(getItem(position).getDescription());
+        holder.tvNameOwner.setText(name);
 
         return convertView;
+    }
+
+    private static class ViewHolder {
+        private TextView tvNameOwner;
+        private RatingBar rating;
+        private TextView tvDescription;
+
+        public ViewHolder(View view) {
+            tvNameOwner = (TextView) view.findViewById(R.id.tvNameOwner);
+            rating = (RatingBar) view.findViewById(R.id.rating);
+            tvDescription = (TextView) view.findViewById(R.id.tvDescription);
+
+        }
     }
 }
