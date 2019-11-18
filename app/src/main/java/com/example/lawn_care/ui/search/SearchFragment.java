@@ -177,10 +177,9 @@ public class SearchFragment extends Fragment {
     private void getFilterOptions(String userType) {
         StringRequest stringRequest;
         if(!userType.equals("owner")){
-            final String signin_url="http://10.0.2.2:80/scripts/getPropertyWork.php";
-            //final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/login.php";
+            final String url=ApiDB.URL_SEARCH;
             //stringRequest is an object that contains the request method, the url, and the parameters and the response
-            stringRequest=new StringRequest(Request.Method.POST, signin_url,
+            stringRequest=new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -220,10 +219,9 @@ public class SearchFragment extends Fragment {
             };
         }
         else {
-            //final String signin_url="http://10.0.2.2:80/scripts/getPropertyWork.php";
-            //final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/login.php";
+            final String url=ApiDB.URL_TESTING;
             //stringRequest is an object that contains the request method, the url, and the parameters and the response
-            stringRequest=new StringRequest(Request.Method.POST, ApiDB.URL_TESTING,
+            stringRequest=new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

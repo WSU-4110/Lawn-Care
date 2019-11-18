@@ -43,9 +43,9 @@ public class PropertyPage extends AppCompatActivity {
 
         String propertyNumber = getIntent().getStringExtra("propertyNumber");
 
-        final String signin_url="http://10.0.2.2:80/scripts/getPropertyInfo.php";
+        final String url=ApiDB.URL_PROPERTY_INFO;
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, signin_url,
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
