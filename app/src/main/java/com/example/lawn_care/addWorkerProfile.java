@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -51,6 +52,7 @@ public class addWorkerProfile extends AppCompatActivity {
     CheckBox CB_saturday;
 
     Button BTN_submit;
+    Button BTN_delete;
     Button BTN_timeStart;
     Button BTN_timeEnd;
 
@@ -58,6 +60,9 @@ public class addWorkerProfile extends AppCompatActivity {
     TimePickerDialog picker;
     Calendar calendar = Calendar.getInstance();
     TextInputLayout TI_WorkOffered;
+
+    ScrollView SV_review,SV_details;
+    ListView LST_review;
 
     /*
     List<String> theWorkOfferedList;
@@ -67,6 +72,8 @@ public class addWorkerProfile extends AppCompatActivity {
 //    String previousActivity = "123";
 //    String user_data_from_activity;
     ArrayList<String> userWork;
+    ArrayList<workerReview> workerReviewArrayList;
+
     String email;
 
     @Override
@@ -90,6 +97,7 @@ public class addWorkerProfile extends AppCompatActivity {
         CB_friday = findViewById(R.id.CB_friday);
         CB_saturday = findViewById(R.id.CB_saturday);
 
+        BTN_delete = findViewById(R.id.BTN_delete);
         BTN_submit = findViewById(R.id.BTN_submit);
         BTN_timeStart = findViewById(R.id.BTN_timeStart);
         BTN_timeEnd = findViewById(R.id.BTN_timeEnd);
@@ -101,6 +109,11 @@ public class addWorkerProfile extends AppCompatActivity {
         TI_Phone = findViewById(R.id.TI_Phone);
 
         ET_WorkOffered= findViewById(R.id.ET_WorkOffered);
+
+        SV_review = findViewById(R.id.SV_review);
+        SV_details = findViewById(R.id.SV_details);
+
+        LST_review = findViewById(R.id.LST_review);
 
 //        loadWorkOffered();
 
@@ -136,7 +149,10 @@ public class addWorkerProfile extends AppCompatActivity {
 //        ET_email.setText("Email: "+localUserInfo.getEmail());
         //ET_email.setText("");
 //        ET_WorkOffered.setText(userWork.toString());
+        if (localUserInfo.getUserType().contains("owner"))
+            disableAll();
 
+        getReview("g@g.com");
     }
 
     //Michael Working
@@ -162,7 +178,6 @@ public class addWorkerProfile extends AppCompatActivity {
 
     private void getWorkerDetails() {
 //        Log.d("previousActivity",previousActivity);
-        final String viewYourWorkerProfile_url="http://lawn-care.us-east-1.elasticbeanstalk.com/viewYourWorkerProfile.php";
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
         StringRequest stringRequest=new StringRequest(Request.Method.POST, ApiDB.URL_GET_Your_Worker_Profile,
                 new Response.Listener<String>() {
@@ -519,5 +534,61 @@ public class addWorkerProfile extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 
+    }
+
+    public void showReview(View view) {
+        SV_review.setVisibility(View.VISIBLE);
+        SV_details.setVisibility(View.GONE);
+        BTN_submit.setVisibility(View.GONE);
+        BTN_delete.setVisibility(View.GONE);
+    }
+
+    public void showDetails(View view) {
+        SV_review.setVisibility(View.GONE);
+        SV_details.setVisibility(View.VISIBLE);
+        BTN_submit.setVisibility(View.VISIBLE);
+        BTN_delete.setVisibility(View.VISIBLE);
+    }
+
+    public void getReview(String emailID){
+        String url = "http://192.168.0.14/Test/getUserRating.php";
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonResponse;
+                        try {
+                            jsonResponse=new JSONObject(response);
+                            if(jsonResponse.getString("success")!="false") {
+                                JSONArray jsonArray = jsonResponse.getJSONArray("result");
+                                ET_firstName.setText((jsonArray.toString()));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(addWorkerProfile.this);
+                        builder.setMessage("Connection Failed")
+                                .setNegativeButton("Try Again",null)
+                                .create()
+                                .show();
+                        error.printStackTrace();
+                        Log.e("VOLLEY", error.getMessage());
+                        //requestQueue.stop();
+                    }
+                }){
+            @Override
+            //this function is written to get the parameters for posting
+            protected Map<String,String> getParams(){
+                Map<String,String> params= new HashMap<String, String>();
+                params.put("email", email);
+                return params;
+            }
+        };
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 }
