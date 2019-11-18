@@ -61,4 +61,11 @@ public class dash extends AppCompatActivity {
             dash.this.startActivity(intent);
         }
     }
+
+    public void LogoutAttempt(View view)
+    {
+        Intent intent = new Intent(this, SignIn.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 }

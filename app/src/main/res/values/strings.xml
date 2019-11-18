@@ -10,6 +10,7 @@
     <string name="Types_of_Work_Offered">Types of Work Offered</string>
     <string name="Do_not_have_an_Account">Don\'t have an Account</string>
     <string name="Login">Login</string>
+    <string name="Logout">Logout</string>
     <string name="Enter_Password">Enter Password</string>
     <string name="Enter_Email">Enter Email</string>
     <string name="Submit">Submit</string>
