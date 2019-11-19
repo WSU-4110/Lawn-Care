@@ -61,19 +61,14 @@
 
     <Button
         android:id="@+id/BTN_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="24dp"
         android:onClick="LogoutAttempt"
-        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/Logout"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_addYourData"
-        app:layout_constraintVertical_bias="0.118" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_viewYourData"
+
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
