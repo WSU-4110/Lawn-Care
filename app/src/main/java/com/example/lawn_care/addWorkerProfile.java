@@ -12,21 +12,25 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -35,7 +39,7 @@ import java.util.Map;
 public class addWorkerProfile extends AppCompatActivity {
 
     TextInputLayout TI_firstName,
-            TI_lastName, TI_email, TI_Phone;
+            TI_lastName, TI_email, TI_Phone, TI_workerReview;
 
     EditText ET_firstName;
     EditText ET_lastName;
@@ -44,6 +48,7 @@ public class addWorkerProfile extends AppCompatActivity {
     EditText ET_description;
     EditText ET_website;
     EditText ET_WorkOffered;
+    EditText ET_workerReviewDescription;
 
     CheckBox CB_sunday;
     CheckBox CB_monday;
@@ -57,13 +62,16 @@ public class addWorkerProfile extends AppCompatActivity {
     Button BTN_delete;
     Button BTN_timeStart;
     Button BTN_timeEnd;
+    Button BTN_addReview;
+    Button BTN_Details;
+    Button BTN_Review;
 
     StringRequest stringRequest;
     TimePickerDialog picker;
     Calendar calendar = Calendar.getInstance();
     TextInputLayout TI_WorkOffered;
 
-    ScrollView SV_review,SV_details;
+    ScrollView SV_review, SV_details;
     ListView LST_review;
 
     /*
@@ -94,9 +102,10 @@ public class addWorkerProfile extends AppCompatActivity {
         ET_description = findViewById(R.id.ET_description);
         ET_website = findViewById(R.id.ET_website);
         ET_WorkOffered = findViewById(R.id.ET_WorkOffered);
+        ET_workerReviewDescription = findViewById(R.id.ET_workerReviewDescription);
 
         CB_sunday = findViewById(R.id.CB_sunday);
-        CB_monday= findViewById(R.id.CB_monday);
+        CB_monday = findViewById(R.id.CB_monday);
         CB_tuesday = findViewById(R.id.CB_tuesday);
         CB_wednesday = findViewById(R.id.CB_wednesday);
         CB_thursday = findViewById(R.id.CB_thursday);
@@ -107,14 +116,18 @@ public class addWorkerProfile extends AppCompatActivity {
         BTN_submit = findViewById(R.id.BTN_submit);
         BTN_timeStart = findViewById(R.id.BTN_timeStart);
         BTN_timeEnd = findViewById(R.id.BTN_timeEnd);
+        BTN_addReview = findViewById(R.id.BTN_addReview);
+        BTN_Details = findViewById(R.id.BTN_Details);
+        BTN_Review = findViewById(R.id.BTN_Review);
 
         TI_WorkOffered = findViewById(R.id.TI_WorkOffered);
         TI_firstName = findViewById(R.id.TI_firstName);
         TI_lastName = findViewById(R.id.TI_lastName);
         TI_email = findViewById(R.id.TI_email);
         TI_Phone = findViewById(R.id.TI_Phone);
+        TI_workerReview = findViewById(R.id.TI_workerReview);
 
-        ET_WorkOffered= findViewById(R.id.ET_WorkOffered);
+        ET_WorkOffered = findViewById(R.id.ET_WorkOffered);
 
         SV_review = findViewById(R.id.SV_review);
         SV_details = findViewById(R.id.SV_details);
@@ -128,15 +141,14 @@ public class addWorkerProfile extends AppCompatActivity {
         userWork = new ArrayList<>();
         workerReviewArrayList = new ArrayList<workerReview>();
         getUserWork();
-        if(localUserInfo.getUserType().equals("worker")) {
+        if (localUserInfo.getUserType().equals("worker")) {
             email = localUserInfo.getEmail();
             ET_firstName.setText(localUserInfo.getFirstName());
             ET_lastName.setText(localUserInfo.getLastName());
             ET_email.setText(localUserInfo.getEmail());
             ET_phone.setText(localUserInfo.getPhoneNumber());
-        }
-        else{
-            email=getIntent().getStringExtra("email");
+        } else {
+            email = getIntent().getStringExtra("email");
             ET_firstName.setText(getIntent().getStringExtra("firstName"));
             ET_lastName.setText(getIntent().getStringExtra("lastName"));
             ET_email.setText(email);
@@ -163,17 +175,10 @@ public class addWorkerProfile extends AppCompatActivity {
             disableAll();
 
         getReview(email);
-        rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                rating.setRating(rating.getRating());
-
-            }
-        });
     }
 
     //Michael Working
-    public void disableAll(){
+    public void disableAll() {
         BTN_submit.setVisibility(View.GONE);
         BTN_timeStart.setClickable(false);
         BTN_timeEnd.setClickable(false);
@@ -196,23 +201,23 @@ public class addWorkerProfile extends AppCompatActivity {
     private void getWorkerDetails() {
 //        Log.d("previousActivity",previousActivity);
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, ApiDB.URL_GET_Your_Worker_Profile,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiDB.URL_GET_Your_Worker_Profile,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         JSONObject jsonResponse;
                         try {
-                            jsonResponse=new JSONObject(response);
-                            if(jsonResponse.getString("success")!="false"){
-                                Log.d("Desc",jsonResponse.getString("description"));
+                            jsonResponse = new JSONObject(response);
+                            if (jsonResponse.getString("success") != "false") {
+                                Log.d("Desc", jsonResponse.getString("description"));
 //                                Log.d("previousActivity",previousActivity);
 //                                if (!(previousActivity.equals("workOffered")))
                                 ET_description.setText(jsonResponse.getString("description"));
 
-                                String workOffered=jsonResponse.getString("workOffered");
-                                workOffered=workOffered.replace("[","");
-                                workOffered=workOffered.replace("]","");
-                                workOffered=workOffered.replace("\"","");
+                                String workOffered = jsonResponse.getString("workOffered");
+                                workOffered = workOffered.replace("[", "");
+                                workOffered = workOffered.replace("]", "");
+                                workOffered = workOffered.replace("\"", "");
                                 String daysAvaolable = jsonResponse.getString("daysAvailable");
 
                                 BTN_timeStart.setText(jsonResponse.getString("startTime"));
@@ -235,12 +240,11 @@ public class addWorkerProfile extends AppCompatActivity {
                                 if (daysAvaolable.contains("S"))
                                     CB_saturday.setChecked(true);
 
-                            }
-                            else{
+                            } else {
                                 //message for incorrect password
                                 AlertDialog.Builder builder = new AlertDialog.Builder(addWorkerProfile.this);
                                 builder.setMessage("Invalid Input")
-                                        .setNegativeButton("Try Again",null)
+                                        .setNegativeButton("Try Again", null)
                                         .create()
                                         .show();
                             }
@@ -255,18 +259,18 @@ public class addWorkerProfile extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(addWorkerProfile.this);
                         builder.setMessage("Connection Failed")
-                                .setNegativeButton("Try Again",null)
+                                .setNegativeButton("Try Again", null)
                                 .create()
                                 .show();
                         error.printStackTrace();
                         Log.e("VOLLEY", error.getMessage());
                         //requestQueue.stop();
                     }
-                }){
+                }) {
             @Override
             //this function is written to get the parameters for posting
-            protected Map<String,String> getParams(){
-                Map<String,String> params= new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("email", email);
                 return params;
             }
@@ -275,7 +279,7 @@ public class addWorkerProfile extends AppCompatActivity {
     }
 
     //On Click event for End Icon of JobType
-    public void endIconClicked(){
+    public void endIconClicked() {
         Intent intent = new Intent(addWorkerProfile.this, workOffered.class);
         intent.putExtra("user_work", ET_WorkOffered.getText().toString());
         this.startActivity(intent);
@@ -292,7 +296,7 @@ public class addWorkerProfile extends AppCompatActivity {
     }
 
     //Getting time from Time Picker
-    public void getTime(Button btn){
+    public void getTime(Button btn) {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minutes = calendar.get(Calendar.MINUTE);
         picker = new TimePickerDialog(this, (tp, sHour, sMinute) -> {
@@ -436,63 +440,63 @@ public class addWorkerProfile extends AppCompatActivity {
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 
-/*
-    //Worker can pick up types of job they are providing
-    public void addWorkOffered(String temp){
-        final TextInputLayout inputLayout = new TextInputLayout(this);
-        TextInputEditText editText = new TextInputEditText(this);
-        Resources r = this.getResources();
-        int px = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                10,
-                r.getDisplayMetrics()
-        );
-        TextInputLayout.LayoutParams layoutParams = new TextInputLayout.LayoutParams(
-                TextInputLayout.LayoutParams.MATCH_PARENT, TextInputLayout.LayoutParams.MATCH_PARENT
-        );
+    /*
+        //Worker can pick up types of job they are providing
+        public void addWorkOffered(String temp){
+            final TextInputLayout inputLayout = new TextInputLayout(this);
+            TextInputEditText editText = new TextInputEditText(this);
+            Resources r = this.getResources();
+            int px = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    10,
+                    r.getDisplayMetrics()
+            );
+            TextInputLayout.LayoutParams layoutParams = new TextInputLayout.LayoutParams(
+                    TextInputLayout.LayoutParams.MATCH_PARENT, TextInputLayout.LayoutParams.MATCH_PARENT
+            );
 
-        layoutParams.setMargins(0,0,px,px);
-        editText.setBackground(ContextCompat.getDrawable(this,R.drawable.edit_txt_layout));
-        editText.setPadding(px,px,px,px);
-        editText.setEnabled(false);
-        editText.setTextColor(ContextCompat.getColor(this, R.color.BLACK));
-        editText.setText(temp);
+            layoutParams.setMargins(0,0,px,px);
+            editText.setBackground(ContextCompat.getDrawable(this,R.drawable.edit_txt_layout));
+            editText.setPadding(px,px,px,px);
+            editText.setEnabled(false);
+            editText.setTextColor(ContextCompat.getColor(this, R.color.BLACK));
+            editText.setText(temp);
 
-        inputLayout.addView(editText);
+            inputLayout.addView(editText);
 
-        inputLayout.setEndIconDrawable(R.drawable.ic_clear);
-        inputLayout.setEndIconVisible(true);
+            inputLayout.setEndIconDrawable(R.drawable.ic_clear);
+            inputLayout.setEndIconVisible(true);
 
-        inputLayout.setLayoutParams(layoutParams);
-        inputLayout.setEndIconOnClickListener(v -> {
-            detailsLinear.removeView(inputLayout);
-            tempWorkOfferedList.remove(temp);
-            theWorkOfferedList.add(temp);
+            inputLayout.setLayoutParams(layoutParams);
+            inputLayout.setEndIconOnClickListener(v -> {
+                detailsLinear.removeView(inputLayout);
+                tempWorkOfferedList.remove(temp);
+                theWorkOfferedList.add(temp);
+                updatedData(theWorkOfferedList);
+            });
+
+            detailsLinear.addView(inputLayout,5);
+            tempWorkOfferedList.add(temp);
+            theWorkOfferedList.remove(temp);
             updatedData(theWorkOfferedList);
-        });
 
-        detailsLinear.addView(inputLayout,5);
-        tempWorkOfferedList.add(temp);
-        theWorkOfferedList.remove(temp);
-        updatedData(theWorkOfferedList);
-
-        Log.d("Add", theWorkOfferedList.toString());
-    }
-
-
-
-    //Updating Job type in AC
-    public void updatedData(List itemsWorkOffered) {
-        adapter.clear();
-        if (itemsWorkOffered != null){
-            for (String object : theWorkOfferedList)
-                adapter.add(object);
+            Log.d("Add", theWorkOfferedList.toString());
         }
-        adapter.notifyDataSetChanged();
-    }
 
- */
-    public void getUserWork(){
+
+
+        //Updating Job type in AC
+        public void updatedData(List itemsWorkOffered) {
+            adapter.clear();
+            if (itemsWorkOffered != null){
+                for (String object : theWorkOfferedList)
+                    adapter.add(object);
+            }
+            adapter.notifyDataSetChanged();
+        }
+
+     */
+    public void getUserWork() {
         stringRequest = new StringRequest(Request.Method.GET, ApiDB.URL_GET_WORKER_LIST, response -> {
             String temp = "";
             try {
@@ -509,7 +513,7 @@ public class addWorkerProfile extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     userWork.add(temp);
-                    Log.d("TestingTRY",userWork.toString());
+                    Log.d("TestingTRY", userWork.toString());
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -555,39 +559,49 @@ public class addWorkerProfile extends AppCompatActivity {
 
     public void showReview(View view) {
         SV_review.setVisibility(View.VISIBLE);
+        BTN_addReview.setVisibility(View.VISIBLE);
+
         SV_details.setVisibility(View.GONE);
         BTN_submit.setVisibility(View.GONE);
         BTN_delete.setVisibility(View.GONE);
-
+        if (localUserInfo.getUserType().equals("worker")) {
+            BTN_addReview.setVisibility(View.GONE);
+        }
+        BTN_addReview.setText("Add Review");
         reviewAdapter = new ReviewAdapter(this, R.layout.single_review, workerReviewArrayList);
         LST_review.setAdapter(reviewAdapter);
     }
 
     public void showDetails(View view) {
         SV_review.setVisibility(View.GONE);
+        BTN_addReview.setVisibility(View.GONE);
         SV_details.setVisibility(View.VISIBLE);
-        BTN_submit.setVisibility(View.VISIBLE);
-        BTN_delete.setVisibility(View.VISIBLE);
+        if (localUserInfo.getUserType().equals("worker")) {
+            BTN_submit.setVisibility(View.VISIBLE);
+            BTN_delete.setVisibility(View.VISIBLE);
+        }
     }
 
-    public void getReview(String emailID){
-        String url = "http://192.168.0.14/Test/getUserRating.php";
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, url,
+    public void getReview(String emailID) {
+//        String url = "http://192.168.0.14/Test/getUserRating.php";
+        String url = ApiDB.URL_GET_USER_RATING;
+        workerReviewArrayList.clear();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiDB.URL_GET_USER_RATING,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         JSONObject jsonResponse;
                         try {
-                            jsonResponse=new JSONObject(response);
-                            if(jsonResponse.getString("success")!="false") {
+                            jsonResponse = new JSONObject(response);
+                            if (jsonResponse.getString("success") != "false") {
                                 JSONArray jsonArray = jsonResponse.getJSONArray("result");
-                                for (int i = 0; i < jsonArray.length(); i++){
+                                for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject object = (JSONObject) jsonArray.get(i);
                                     float theStar = Float.parseFloat(object.getString("rating_star"));
                                     String rating_description = object.getString("rating_description");
                                     String ownerFirstName = object.getString("firstName");
                                     String ownerLastName = object.getString("lastName");
-                                    workerReview review = new workerReview(theStar,rating_description,ownerFirstName,ownerLastName);
+                                    workerReview review = new workerReview(theStar, rating_description, ownerFirstName, ownerLastName);
                                     workerReviewArrayList.add(review);
                                     Log.d("theStar", String.valueOf(theStar));
                                 }
@@ -602,19 +616,95 @@ public class addWorkerProfile extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(addWorkerProfile.this);
                         builder.setMessage("Connection Failed")
-                                .setNegativeButton("Try Again",null)
+                                .setNegativeButton("Try Again", null)
                                 .create()
                                 .show();
                         error.printStackTrace();
                         Log.e("VOLLEY", error.getMessage());
                         //requestQueue.stop();
                     }
-                }){
+                }) {
             @Override
             //this function is written to get the parameters for posting
-            protected Map<String,String> getParams(){
-                Map<String,String> params= new HashMap<String, String>();
-                params.put("email", email);
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", emailID);
+                return params;
+            }
+        };
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    public void addReviewWorker(View view) {
+        if (BTN_addReview.getText().toString().equals("Add Review")) {
+            LST_review.setVisibility(View.GONE);
+            TI_workerReview.setVisibility(View.VISIBLE);
+            rating.setVisibility(View.VISIBLE);
+            BTN_addReview.setText("Submit");
+        }
+        else if (BTN_addReview.getText().toString().equals("Submit")) {
+            submitReview();
+            BTN_addReview.setText("Add Review");
+            LST_review.setVisibility(View.VISIBLE);
+            TI_workerReview.setVisibility(View.GONE);
+            rating.setVisibility(View.GONE);
+            finish();
+            startActivity(getIntent());
+        }
+    }
+
+    public void submitReview() {
+        String url = "http://192.168.0.14/Test/setUserRating.php";
+//        String url = ApiDB.URL_SET_USER_RATING;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiDB.URL_SET_USER_RATING,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonResponse;
+                        try {
+                            jsonResponse = new JSONObject(response);
+                            if (jsonResponse.getString("success") != "false") {
+
+                                Toast toast = Toast.makeText(getApplicationContext(),
+                                        "Review Submitted",
+                                        Toast.LENGTH_SHORT);
+
+                                toast.show();
+                            } else {
+                                //message for incorrect password
+                                AlertDialog.Builder builder = new AlertDialog.Builder(addWorkerProfile.this);
+                                builder.setMessage("Invalid Input")
+                                        .setNegativeButton("Try Again", null)
+                                        .create()
+                                        .show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(addWorkerProfile.this);
+                        builder.setMessage("Connection Failed")
+                                .setNegativeButton("Try Again", null)
+                                .create()
+                                .show();
+                        error.printStackTrace();
+                        Log.e("VOLLEY", error.getMessage());
+                        //requestQueue.stop();
+                    }
+                }) {
+            @Override
+            //this function is written to get the parameters for posting
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("rating_star", String.valueOf(rating.getRating()));
+                params.put("rating_description", ET_workerReviewDescription.getText().toString());
+                params.put("worker_email", email);
+                params.put("owner_email", localUserInfo.getEmail());
                 return params;
             }
         };

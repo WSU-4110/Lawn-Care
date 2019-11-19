@@ -23,4 +23,8 @@ public class ApiDB {
     public static final String URL_SEARCH=ROOT_URL+"getPropertyWork.php";
 
     public static final String URL_PROPERTY_INFO=ROOT_URL+"getPropertyInfo.php";
+
+    public static final String URL_SET_USER_RATING = ROOT_URL + "setUserRating.php";
+
+    public static final String URL_GET_USER_RATING = ROOT_URL + "getUserRating.php";
 }
