@@ -560,7 +560,8 @@ public class addWorkerProfile extends AppCompatActivity {
     public void showReview(View view) {
         SV_review.setVisibility(View.VISIBLE);
         BTN_addReview.setVisibility(View.VISIBLE);
-
+        BTN_Review.setTextColor(getResources().getColor(R.color.WHITE));
+        BTN_Details.setTextColor(getResources().getColor(R.color.btnDisableText));
         SV_details.setVisibility(View.GONE);
         BTN_submit.setVisibility(View.GONE);
         BTN_delete.setVisibility(View.GONE);
@@ -580,13 +581,16 @@ public class addWorkerProfile extends AppCompatActivity {
             BTN_submit.setVisibility(View.VISIBLE);
             BTN_delete.setVisibility(View.VISIBLE);
         }
+        BTN_Review.setTextColor(getResources().getColor(R.color.btnDisableText));
+        BTN_Details.setTextColor(getResources().getColor(R.color.WHITE));
+
     }
 
     public void getReview(String emailID) {
-//        String url = "http://192.168.0.14/Test/getUserRating.php";
-        String url = ApiDB.URL_GET_USER_RATING;
+        String url = "http://192.168.0.14/Test/getUserRating.php";
+//        String url = ApiDB.URL_GET_USER_RATING;
         workerReviewArrayList.clear();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiDB.URL_GET_USER_RATING,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -656,7 +660,7 @@ public class addWorkerProfile extends AppCompatActivity {
     public void submitReview() {
         String url = "http://192.168.0.14/Test/setUserRating.php";
 //        String url = ApiDB.URL_SET_USER_RATING;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiDB.URL_SET_USER_RATING,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
