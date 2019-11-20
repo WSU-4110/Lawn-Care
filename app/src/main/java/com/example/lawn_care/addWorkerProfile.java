@@ -583,14 +583,11 @@ public class addWorkerProfile extends AppCompatActivity {
         }
         BTN_Review.setTextColor(getResources().getColor(R.color.btnDisableText));
         BTN_Details.setTextColor(getResources().getColor(R.color.WHITE));
-
     }
 
     public void getReview(String emailID) {
-        String url = "http://192.168.0.14/Test/getUserRating.php";
-//        String url = ApiDB.URL_GET_USER_RATING;
         workerReviewArrayList.clear();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiDB.URL_GET_USER_RATING,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -658,9 +655,7 @@ public class addWorkerProfile extends AppCompatActivity {
     }
 
     public void submitReview() {
-        String url = "http://192.168.0.14/Test/setUserRating.php";
-//        String url = ApiDB.URL_SET_USER_RATING;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiDB.URL_SET_USER_RATING,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
