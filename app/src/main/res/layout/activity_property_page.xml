@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical"
+    tools:context=".PropertyPage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_txt_layout"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textView12"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/name"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/TV_ownerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="@string/defaulttext"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_txt_layout"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textView11"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/email"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/TV_ownerEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/defaulttext"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_txt_layout"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textView13"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/phone"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/TV_ownerPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/defaulttext"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_txt_layout"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textView14"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/address"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/TV_propertyAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/defaulttext"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_txt_layout"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textView15"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/property_size"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/TV_propertySize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/defaulttext"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_txt_layout"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textView16"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/work_needed"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/TV_propertyWorkNeeded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/defaulttext"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_txt_layout"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textView17"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/equipment_available"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/TV_propertyToolsAvailable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/defaulttext"
+            android:textColor="@color/BLACK"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+</LinearLayout>

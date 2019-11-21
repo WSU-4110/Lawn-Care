@@ -58,4 +58,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_addYourData" />
+
+    <Button
+        android:id="@+id/BTN_logout"
+        android:onClick="LogoutAttempt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_viewYourData"
+
+    />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

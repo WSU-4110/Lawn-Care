@@ -46,14 +46,14 @@ import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    //private HomeViewModel homeViewModel;
     EditText ET_searchWorkerQuery, ET_searchPropertiesQuery;
     Button BTN_submitSearchWorkerQuery, BTN_submitSearchPropertiesQuery;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+        //homeViewModel =
+          //      ViewModelProviders.of(this).get(HomeViewModel.class);
         String userType = com.example.lawn_care.localUserInfo.getUserType();
         View root;
         if (userType.equals("admin")) {

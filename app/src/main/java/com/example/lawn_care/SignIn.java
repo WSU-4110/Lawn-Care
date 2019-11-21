@@ -139,7 +139,8 @@ public class SignIn extends AppCompatActivity {
                 return params;
             }
         };
-        RequestQueue requestQueue=Volley.newRequestQueue(SignIn.this);
+        //RequestQueue requestQueue=Volley.newRequestQueue(SignIn.this);
+        RequestQueue requestQueue=RequestHandler.getInstance(this.getApplicationContext()).getRequestQueue();
         requestQueue.add(stringRequest);
     }
 

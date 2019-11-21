@@ -15,9 +15,10 @@
         <activity android:name=".adminViewProperties"></activity>
         <activity android:name=".viewUserList" />
         <activity android:name=".editYourProperty" />
+        <activity android:name=".PropertyPage"></activity>
         <activity
-            android:name=".TempActivity"
-            android:theme="@style/AppTheme.CustomTheme" />
+            android:name=".workOffered"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
         <activity android:name=".viewYourWorkerProfile" />
         <activity android:name=".viewYourProperties" />
         <activity android:name=".addWorkerProfile" />
