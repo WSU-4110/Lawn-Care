@@ -20,6 +20,8 @@ public class ApiDB {
 
     public static final String URL_TESTING = ROOT_URL + "test.php";
 
+    public static final String URL_ADD_PROPERTY_LISTING = ROOT_URL + "addListing.php";
+
     public static final String URL_SEARCH=ROOT_URL+"getPropertyWork.php";
 
     public static final String URL_PROPERTY_INFO=ROOT_URL+"getPropertyInfo.php";
