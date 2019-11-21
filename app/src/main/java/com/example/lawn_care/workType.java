@@ -1,5 +1,9 @@
 package com.example.lawn_care;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,6 +65,7 @@ public class workType {
         return work_type_list.toString();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public String toString(){
         return String.join(",", this.work_type_list );
     }
