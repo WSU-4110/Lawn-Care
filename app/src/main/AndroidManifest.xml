@@ -29,6 +29,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
+        <activity android:name=".adminViewProperties"></activity>
+        <activity android:name=".viewUserList" />
+
+
         <activity android:name=".testingView"></activity>
         <activity android:name=".editYourProperty" />
         <activity
@@ -36,11 +40,8 @@
 
         <activity android:name=".editYourProperty"></activity>
         <uses-library android:required="true" android:name="com.google.android.maps" />
-        <activity android:name=".TempActivity"
-            android:theme="@style/AppTheme.CustomTheme">
-        </activity>
         <activity android:name=".PropertyPage"></activity>
-        <activity android:name=".editYourProperty" />
+        <activity android:name=".PropertyPage"></activity>
         <activity
             android:name=".workOffered"
 

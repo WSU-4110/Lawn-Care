@@ -105,7 +105,26 @@ public class SearchFragment extends Fragment {
 
         //TODO: if the usertype is an admin, search everything
         String userType= localUserInfo.getUserType();
-        if(userType.equals("worker")){
+        if (userType.equals("admin")) {
+            root = inflater.inflate(R.layout.fragment_search_workers, container, false);
+            TI_searchQuery = root.findViewById(R.id.TI_searchWorkerQuery);
+            ET_searchQuery = ET_searchWorkerQuery = root.findViewById(R.id.ET_searchWorkerQuery);
+            BTN_submitSearchQuery = BTN_submitSearchWorkerQuery = root.findViewById(R.id.BTN_submitSearchWorkerQuery);
+            TV_SearchFilter = TV_SearchFilterWorkers = root.findViewById(R.id.TV_SearchFilterWorkers);
+            SW_SearchFilterWorkers = root.findViewById(R.id.SW_SearchFilterWorkers);
+            SP_WorkTypeFilter = SP_WorkerFilter = root.findViewById(R.id.SP_WorkerFilter);
+            BTN_submitSearchWorkerQuery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!SearchFilter) {
+                        searchWorkers();
+                    } else {
+                        filterWorkers();
+                    }
+                }
+            });
+        }
+        else if(userType.equals("worker")){
             root = inflater.inflate(R.layout.fragment_search_jobs, container, false);
             TI_searchQuery=root.findViewById(R.id.TI_searchPropertiesQuery);
             ET_searchQuery=ET_searchPropertiesQuery = root.findViewById(R.id.ET_searchPropertiesQuery);
@@ -421,6 +440,20 @@ public class SearchFragment extends Fragment {
         TV_workOffered.setEllipsize(TextUtils.TruncateAt.END);
         TV_workOffered.setTextColor(Color.BLACK);
 
+        if (localUserInfo.getUserType().equals("admin")) {
+            Button BTN_adminDelete = new Button(getActivity());
+            listingItem.addView(BTN_adminDelete);
+            BTN_adminDelete.setText("Delete User");
+            BTN_adminDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteUser(email);
+                    searchWorkers();
+                    Toast.makeText(getActivity(), "Deleted User", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
         //add the views to the current linear layout
         listingItem.addView(TV_name);
         listingItem.addView(TV_email);
@@ -655,4 +688,51 @@ public class SearchFragment extends Fragment {
             }
         }
     }
+
+    private void deleteUser(String email) {
+        final String signin_url = "http://lawn-care.us-east-1.elasticbeanstalk.com/deleteWorkerProfile.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, signin_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonResponse;
+                        try {
+                            jsonResponse = new JSONObject(response);
+                            if (jsonResponse.getString("success") != "false") {
+                                searchWorkers();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("Connection Failed")
+                                .setNegativeButton("Try Again", null)
+                                .create()
+                                .show();
+                        error.printStackTrace();
+                        Log.e("VOLLEY", error.getMessage());
+                        //requestQueue.stop();
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() {
+
+                // Creating Map String Params.
+                Map<String, String> params = new HashMap<>();
+
+                // Adding All values to Params.
+                // The firs argument should be same sa your MySQL database table columns.
+                params.put("email", email);
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
+    }
+
 }
