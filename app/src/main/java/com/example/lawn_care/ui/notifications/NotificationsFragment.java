@@ -56,12 +56,12 @@ public class NotificationsFragment extends Fragment implements OnMapReadyCallbac
         ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+//        notificationsViewModel.getText().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
 
         //this should find the map on the xml
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.MAP);
@@ -109,10 +109,15 @@ public class NotificationsFragment extends Fragment implements OnMapReadyCallbac
                                         e.printStackTrace();
                                     }
 
-                                    Address address = list.get(0);
-                                    //add this geocoded fullAddress to the map
-                                    googleMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title("my house"));
-                                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(address.getLatitude(), address.getLongitude())));
+                                    if(list.size()>0){
+                                        Address address = list.get(0);
+                                        //add this geocoded fullAddress to the map
+                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title("my house"));
+                                        googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(address.getLatitude(), address.getLongitude())));
+                                    }
+                                    else{
+
+                                    }
                                 }
                             } else {
                                 //message for incorrect password
