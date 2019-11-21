@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +52,7 @@ public class NotificationsFragment extends Fragment implements OnMapReadyCallbac
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
+
                 ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         final TextView textView = root.findViewById(R.id.text_notifications);
@@ -70,7 +71,7 @@ public class NotificationsFragment extends Fragment implements OnMapReadyCallbac
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public <stringRequest> void onMapReady(GoogleMap googleMap) {
 
         final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/login.php";
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
@@ -80,70 +81,106 @@ public class NotificationsFragment extends Fragment implements OnMapReadyCallbac
                     public void onResponse(String response) {
                         JSONObject jsonResponse;
                         try {
-                            jsonResponse=new JSONObject(response);
-                            if(jsonResponse.getString("success")!="false"){
+                            jsonResponse = new JSONObject(response);
+                            if (jsonResponse.getString("success") != "false") {
                                 //save the data from the json into local variables
-                                String firstName=jsonResponse.getString("firstName");
 
+                                LinearLayout linearLayout = getActivity().findViewById(R.id.LL_searchPropertiesList);
+                                linearLayout.removeAllViews();
+                                //line between items
+                                View V_line = new View(getActivity());
+                                V_line.setBackgroundResource(R.color.BLACK);
+                                V_line.setMinimumHeight(2);
+                                linearLayout.addView(V_line);
+                                //0 to len-1, the first index is the success check, the rest are listings, but the first address starts at 0, so listings go from 0 to n-1
+                                for (int x = 0; x < jsonResponse.length() - 1; x++) {
+                                    //create a new linear layout so each listing can be in a view, easier to do stuff with
+                                    LinearLayout listingItem = new LinearLayout(getActivity());
+                                    listingItem.setOrientation(LinearLayout.VERTICAL);
+                                    //creates views for stuff shown on preview
+                                    TextView TV_address = new TextView(getActivity());
+                                    JSONObject currentProp = jsonResponse.getJSONObject(String.valueOf(x));
 
+                                    //get the fields i want to show in the views and format the strings how i want them to appear
+
+                                    String street = currentProp.getString("street");
+                                    String city = currentProp.getString("city");
+                                    String state = currentProp.getString("state");
+                                    String zip = currentProp.getString("zip");
+                                    PropertyInfo currentProperty = new PropertyInfo(street, city, state, zip);
+                                    ArrayList<PropertyInfo> propertyInfoList = null;
+                                    propertyInfoList.add(currentProperty);
+                                    //add as a linearlayout
+                                    LinearLayout currentPropertyListing = buildListingProperty(currentProperty);
+                                    linearLayout.addView(currentPropertyListing);
+                                    //add dividing line
+                                    linearLayout.addView(buildDividerLine());
+                                }
                                 //here
-                                LatLng sydney=new LatLng(42.3314,-83.0458);
-                                List<Address> list= new ArrayList<>();
-                                Geocoder geocoder=new Geocoder(getActivity());
+                                LatLng sydney = new LatLng(42.3314, -83.0458);
+                                List<Address> list = new ArrayList<>();
+                                Geocoder geocoder = new Geocoder(getActivity());
                                 try {
                                     list = geocoder.getFromLocationName("2533 Solace Drive, Commerce Township 48382", 1);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
 
-                                Address address=list.get(0);
+                                Address address = list.get(0);
 
-                                googleMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(),address.getLongitude())).title("my house"));
+                                googleMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title("my house"));
 
 
                                 //googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
                                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                            }
-                            else{
+                            } else {
                                 //message for incorrect password
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                                 builder.setMessage("Map Issue")
-                                        .setNegativeButton("Try Again",null)
+                                        .setNegativeButton("Try Again", null)
                                         .create()
                                         .show();
                             }
 
-                        } catch (JSONException e) {
+                        }
+                        catch (JSONException  e) {
                             e.printStackTrace();
                         }
-                    }
-                },
+                    catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    };
+
+
                 new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setMessage("Connection Failed")
-                                .setNegativeButton("Try Again",null)
-                                .create()
-                                .show();
-                        error.printStackTrace();
-                        Log.e("VOLLEY", error.getMessage());
-                        //requestQueue.stop();
-                    }
-                }){
-            @Override
-            //this function is written to get the parameters for posting
-            protected Map<String,String> getParams(){
-                Map<String,String> params= new HashMap<String, String>();
-                return params;
-            }
-        };
-        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
-        requestQueue.add(stringRequest);
+                        @Override
+                        public void onErrorResponse(VolleyError Throwable error;
+                        error) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setMessage("Connection Failed")
+                                    .setNegativeButton("Try Again",null)
+                                    .create()
+                                    .show();
+                            error.printStackTrace();
+                            Log.e("VOLLEY", error.getMessage());
+                            //requestQueue.stop();
+                        }
+                    })
+                    {
+                        @Override
+                        //this function is written to get the parameters for posting
+                        protected Map<String,String> getParams(){
+                            Map<String,String> params= new HashMap<String, String>();
+                            params.put("query",query);
+                            return params;
+                        }
+                    };
+                    RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest)
+                }
 
 
 
-    }
 
 
 }
