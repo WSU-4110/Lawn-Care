@@ -18,6 +18,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -186,9 +191,9 @@ public class addProperty extends AppCompatActivity {
                 stringBufferTypesOfWorkOffered.append("No");
               */
             final String tempTools = stringBufferToolsAvail.toString();
-            final String addListing_url="http://lawn-care.us-east-1.elasticbeanstalk.com/addListing.php";
+            //final String addListing_url="http://lawn-care.us-east-1.elasticbeanstalk.com/addListing.php";
             //stringRequest is an object that contains the request method, the url, and the parameters and the response
-            StringRequest stringRequest=new StringRequest(Request.Method.POST, addListing_url,
+            StringRequest stringRequest=new StringRequest(Request.Method.POST, ApiDB.URL_ADD_PROPERTY_LISTING,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -257,4 +262,4 @@ public class addProperty extends AppCompatActivity {
             Intent intent = new Intent(addProperty.this, dash.class);
             startActivity(intent);
         }
-    }
+}

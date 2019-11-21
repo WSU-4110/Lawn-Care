@@ -38,11 +38,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="gone" />
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="376dp"
-        android:layout_height="563dp"
+
+    <fragment
+        android:id="@+id/MAP"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="328dp"
+        android:layout_height="367dp"
+        tools:context="com.example.mapwithmarker.MapsMarkerActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_mapTest" />
+        app:layout_constraintTop_toBottomOf="@+id/text_mapTest"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="168dp"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

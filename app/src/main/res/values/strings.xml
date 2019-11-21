@@ -64,4 +64,11 @@
     <string name="this_is_the_scroll_area">This is the Scroll Area</string>
     <string name="enter_query">Enter Query</string>
     <string name="lawn_care">Lawn-Care</string>
+    <string name="defaulttext">DefaultText</string>
+    <string name="address">Address:</string>
+    <string name="property_size">Property Size:</string>
+    <string name="work_needed">Work Needed:</string>
+    <string name="equipment_available">Equipment Available?:</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
 </resources>

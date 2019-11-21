@@ -41,22 +41,6 @@ public class SignIn extends AppCompatActivity {
     Button BTN_login;
     //CheckBox CB_showPassword;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
-
-        ET_loginEmail=findViewById(R.id.ET_loginEmail);
-        ET_loginPassword=findViewById(R.id.ET_loginPassword);
-         BTN_login=findViewById(R.id.BTN_login);
-         //CB_showPassword=findViewById(R.id.CB_showPassword);
-    }
-
-    public void ActivitySignUp(View view) {
-        Intent intent = new Intent(SignIn.this, SignUp.class);
-        startActivity(intent);
-    }
-
     public void LoginAttempt(View view) {
         final String email= ET_loginEmail.getText().toString();
         final String password= ET_loginPassword.getText().toString();
@@ -139,8 +123,25 @@ public class SignIn extends AppCompatActivity {
                 return params;
             }
         };
-        RequestQueue requestQueue=Volley.newRequestQueue(SignIn.this);
+        //RequestQueue requestQueue=Volley.newRequestQueue(SignIn.this);
+        RequestQueue requestQueue=RequestHandler.getInstance(this.getApplicationContext()).getRequestQueue();
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_in);
+
+        ET_loginEmail=findViewById(R.id.ET_loginEmail);
+        ET_loginPassword=findViewById(R.id.ET_loginPassword);
+         BTN_login=findViewById(R.id.BTN_login);
+         //CB_showPassword=findViewById(R.id.CB_showPassword);
+    }
+
+    public void ActivitySignUp(View view) {
+        Intent intent = new Intent(SignIn.this, SignUp.class);
+        startActivity(intent);
     }
 
     /*
