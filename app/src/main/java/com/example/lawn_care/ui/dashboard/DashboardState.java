@@ -4,5 +4,6 @@ package com.example.lawn_care.ui.dashboard;
 public interface DashboardState {
         void addData();
         void viewData();
-        //void buttonText();
 }
+
+

@@ -29,7 +29,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lawn_care.ApiDB;
 import com.example.lawn_care.R;
+import com.example.lawn_care.RequestHandler;
 import com.example.lawn_care.SignIn;
 import com.example.lawn_care.dash;
 import com.example.lawn_care.localUserInfo;
@@ -47,35 +49,44 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     EditText ET_searchWorkerQuery, ET_searchPropertiesQuery;
     Button BTN_submitSearchWorkerQuery, BTN_submitSearchPropertiesQuery;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
-        String userType=com.example.lawn_care.localUserInfo.getUserType();
+        String userType = com.example.lawn_care.localUserInfo.getUserType();
         View root;
-        if(userType.equals("worker")){
-            root = inflater.inflate(R.layout.fragment_search_jobs, container, false);
-            ET_searchPropertiesQuery = root.findViewById(R.id.ET_searchPropertiesQuery);
-            BTN_submitSearchPropertiesQuery=root.findViewById(R.id.BTN_submitSearchPropertiesQuery);
-            BTN_submitSearchPropertiesQuery.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    searchProperties();
-                }
-            });
-        }
-        else if(userType.equals("owner")){
+        if (userType.equals("admin")) {
             root = inflater.inflate(R.layout.fragment_search_workers, container, false);
             ET_searchWorkerQuery = root.findViewById(R.id.ET_searchWorkerQuery);
-            BTN_submitSearchWorkerQuery=root.findViewById(R.id.BTN_submitSearchWorkerQuery);
+            BTN_submitSearchWorkerQuery = root.findViewById(R.id.BTN_submitSearchWorkerQuery);
             BTN_submitSearchWorkerQuery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     searchWorkers();
                 }
             });
-        }
-        else{
+        } else if (userType.equals("worker")) {
+            root = inflater.inflate(R.layout.fragment_search_jobs, container, false);
+            ET_searchPropertiesQuery = root.findViewById(R.id.ET_searchPropertiesQuery);
+            BTN_submitSearchPropertiesQuery = root.findViewById(R.id.BTN_submitSearchPropertiesQuery);
+            BTN_submitSearchPropertiesQuery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    searchProperties();
+                }
+            });
+        } else if (userType.equals("owner")) {
+            root = inflater.inflate(R.layout.fragment_search_workers, container, false);
+            ET_searchWorkerQuery = root.findViewById(R.id.ET_searchWorkerQuery);
+            BTN_submitSearchWorkerQuery = root.findViewById(R.id.BTN_submitSearchWorkerQuery);
+            BTN_submitSearchWorkerQuery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    searchWorkers();
+                }
+            });
+        } else {
             //change when admin stuff is added
             root = inflater.inflate(R.layout.fragment_search_workers, container, false);
         }
@@ -83,7 +94,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void searchWorkers() {
-        final String query=ET_searchWorkerQuery.getText().toString();
+        final String query = ET_searchWorkerQuery.getText().toString();
 
         //get list of workers from database
 
@@ -91,44 +102,44 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Finding Workers....");
         progressDialog.show();
 
-        final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/viewAllWorkerProfiles.php";
+        final String signin_url = "http://lawn-care.us-east-1.elasticbeanstalk.com/viewAllWorkerProfiles.php";
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, signin_url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, signin_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         JSONObject jsonResponse;
                         try {
-                            jsonResponse=new JSONObject(response);
-                            if(jsonResponse.getString("success")!="false"){
+                            jsonResponse = new JSONObject(response);
+                            if (jsonResponse.getString("success") != "false") {
                                 //gets linear layout from screen
-                                LinearLayout linearLayout=getActivity().findViewById(R.id.LL_searchWorkersList);
+                                LinearLayout linearLayout = getActivity().findViewById(R.id.LL_searchWorkersList);
                                 linearLayout.removeAllViews();
                                 //line between items
-                                View V_line=new View(getActivity());
+                                View V_line = new View(getActivity());
                                 V_line.setBackgroundResource(R.color.BLACK);
                                 V_line.setMinimumHeight(2);
                                 linearLayout.addView(V_line);
                                 //0 to len-1, the first index is the success check, the rest are listings, but the first address starts at 0, so listings go from 0 to n-1
-                                for(int x = 0; x < jsonResponse.length()-1; x++){
+                                for (int x = 0; x < jsonResponse.length() - 1; x++) {
                                     //create a new linear layout so each listing can be in a view, easier to do stuff with
                                     LinearLayout listingItem = new LinearLayout(getActivity());
                                     listingItem.setOrientation(LinearLayout.VERTICAL);
                                     //creates views for stuff shown on preview
-                                    TextView TV_name=new TextView(getActivity());
-                                    TextView TV_email=new TextView(getActivity());
-                                    TextView TV_workOffered=new TextView(getActivity());
+                                    TextView TV_name = new TextView(getActivity());
+                                    TextView TV_email = new TextView(getActivity());
+                                    TextView TV_workOffered = new TextView(getActivity());
                                     //index the json based on the value in x. all the stuff in the json is technically a string, so you have to convert the integer to string to get the xth object
                                     //everything from 0 to n-1 can be stored as a jsonobject
-                                    JSONObject currentWorker=jsonResponse.getJSONObject(String.valueOf(x));
+                                    JSONObject currentWorker = jsonResponse.getJSONObject(String.valueOf(x));
 
                                     //get the fields i want to show in the views and format the strings how i want them to appear
-                                    String name = currentWorker.getString("firstName")+" "+currentWorker.getString("lastName");
+                                    String name = currentWorker.getString("firstName") + " " + currentWorker.getString("lastName");
                                     String email = currentWorker.getString("workerEmail");
                                     String workOffered = currentWorker.getString("workOffered");
-                                    workOffered=workOffered.replace("[","");
-                                    workOffered=workOffered.replace("]","");
-                                    workOffered=workOffered.replace("\"","");
+                                    workOffered = workOffered.replace("[", "");
+                                    workOffered = workOffered.replace("]", "");
+                                    workOffered = workOffered.replace("\"", "");
 
                                     //set the view texts
                                     TV_name.setText(name);
@@ -146,6 +157,20 @@ public class HomeFragment extends Fragment {
                                     TV_workOffered.setEllipsize(TextUtils.TruncateAt.END);
                                     TV_workOffered.setTextColor(Color.BLACK);
 
+                                    if (localUserInfo.getUserType().equals("admin")) {
+                                        Button BTN_adminDelete = new Button(getActivity());
+                                        listingItem.addView(BTN_adminDelete);
+                                        BTN_adminDelete.setText("Delete User");
+                                        BTN_adminDelete.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                deleteUser(email);
+                                                searchWorkers();
+                                                Toast.makeText(getActivity(), "Deleted User", Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                                    }
+
                                     //add the views to the current linear layout
                                     listingItem.addView(TV_name);
                                     listingItem.addView(TV_email);
@@ -158,7 +183,7 @@ public class HomeFragment extends Fragment {
                                         public void onClick(View v) {
                                             //PLACEHOLDER
                                             //TODO: SEND THEM TO THE PROFILE PAGE
-                                            Intent intent= new Intent(getActivity(),dash.class);
+                                            Intent intent = new Intent(getActivity(), dash.class);
                                             getActivity().startActivity(intent);
                                         }
                                     });
@@ -167,7 +192,7 @@ public class HomeFragment extends Fragment {
                                     linearLayout.addView(listingItem);
 
                                     //add line between items
-                                    V_line=new View(getActivity());
+                                    V_line = new View(getActivity());
                                     V_line.setBackgroundResource(R.color.BLACK);
                                     V_line.setMinimumHeight(2);
                                     linearLayout.addView(V_line);
@@ -192,29 +217,29 @@ public class HomeFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setMessage("Connection Failed")
-                                .setNegativeButton("Try Again",null)
+                                .setNegativeButton("Try Again", null)
                                 .create()
                                 .show();
                         error.printStackTrace();
                         Log.e("VOLLEY", error.getMessage());
                         //requestQueue.stop();
                     }
-                }){
+                }) {
             @Override
             //this function is written to get the parameters for posting
-            protected Map<String,String> getParams(){
-                Map<String,String> params= new HashMap<String, String>();
-                params.put("query",query);
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("query", query);
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
 
     }
 
     private void searchProperties() {
-        final String query=ET_searchPropertiesQuery.getText().toString();
+        final String query = ET_searchPropertiesQuery.getText().toString();
 
         //get list of workers from database
 
@@ -222,44 +247,43 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Finding Properties....");
         progressDialog.show();
 
-        final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/viewAllProperties.php";
+        final String signin_url = "http://lawn-care.us-east-1.elasticbeanstalk.com/viewAllProperties.php";
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, signin_url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, signin_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         JSONObject jsonResponse;
                         try {
-                            jsonResponse=new JSONObject(response);
-                            if(jsonResponse.getString("success")!="false"){
+                            jsonResponse = new JSONObject(response);
+                            if (jsonResponse.getString("success") != "false") {
                                 //gets linear layout from screen
-                                LinearLayout linearLayout=getActivity().findViewById(R.id.LL_searchPropertiesList);
+                                LinearLayout linearLayout = getActivity().findViewById(R.id.LL_searchPropertiesList);
                                 linearLayout.removeAllViews();
                                 //line between items
-                                View V_line=new View(getActivity());
+                                View V_line = new View(getActivity());
                                 V_line.setBackgroundResource(R.color.BLACK);
                                 V_line.setMinimumHeight(2);
                                 linearLayout.addView(V_line);
                                 //0 to len-1, the first index is the success check, the rest are listings, but the first address starts at 0, so listings go from 0 to n-1
-                                for(int x = 0; x < jsonResponse.length()-1; x++){
+                                for (int x = 0; x < jsonResponse.length() - 1; x++) {
                                     //create a new linear layout so each listing can be in a view, easier to do stuff with
                                     LinearLayout listingItem = new LinearLayout(getActivity());
                                     listingItem.setOrientation(LinearLayout.VERTICAL);
                                     //creates views for stuff shown on preview
-                                    TextView TV_address=new TextView(getActivity());
-                                    TextView TV_propertySize=new TextView(getActivity());
-                                    TextView TV_workNeeded=new TextView(getActivity());
+                                    TextView TV_address = new TextView(getActivity());
+                                    TextView TV_propertySize = new TextView(getActivity());
+                                    TextView TV_workNeeded = new TextView(getActivity());
                                     //index the json based on the value in x. all the stuff in the json is technically a string, so you have to convert the integer to string to get the xth object
                                     //everything from 0 to n-1 can be stored as a jsonobject
-                                    JSONObject currentWorker=jsonResponse.getJSONObject(String.valueOf(x));
+                                    JSONObject currentWorker = jsonResponse.getJSONObject(String.valueOf(x));
 
-                                    //get the fields i want to show in the views and format the strings how i want them to appear
-                                    String address = currentWorker.getString("street")+", "+currentWorker.getString("city")+", "+currentWorker.getString("state");
-                                    String propertySize = currentWorker.getString("lawnSize")+" sq. ft.";
+                                    //get the fields i want to show in                                     workNeeded=workNeeded.replace("[","");the views and format the strings how i want them to appear
+                                    String address = currentWorker.getString("street") + ", " + currentWorker.getString("city") + ", " + currentWorker.getString("state");
+                                    String propertySize = currentWorker.getString("lawnSize") + " sq. ft.";
                                     String workNeeded = currentWorker.getString("workNeeded");
-                                    workNeeded=workNeeded.replace("[","");
-                                    workNeeded=workNeeded.replace("]","");
-                                    workNeeded=workNeeded.replace("\"","");
+                                    workNeeded = workNeeded.replace("]", "");
+                                    workNeeded = workNeeded.replace("\"", "");
 
                                     //set the view texts
                                     TV_address.setText(address);
@@ -289,7 +313,7 @@ public class HomeFragment extends Fragment {
                                         public void onClick(View v) {
                                             //PLACEHOLDER
                                             //TODO: SEND THEM TO THE PROFILE PAGE
-                                            Intent intent= new Intent(getActivity(),dash.class);
+                                            Intent intent = new Intent(getActivity(), dash.class);
                                             getActivity().startActivity(intent);
                                         }
                                     });
@@ -298,7 +322,7 @@ public class HomeFragment extends Fragment {
                                     linearLayout.addView(listingItem);
 
                                     //add line between items
-                                    V_line=new View(getActivity());
+                                    V_line = new View(getActivity());
                                     V_line.setBackgroundResource(R.color.BLACK);
                                     V_line.setMinimumHeight(2);
                                     linearLayout.addView(V_line);
@@ -323,24 +347,71 @@ public class HomeFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setMessage("Connection Failed")
-                                .setNegativeButton("Try Again",null)
+                                .setNegativeButton("Try Again", null)
                                 .create()
                                 .show();
                         error.printStackTrace();
                         Log.e("VOLLEY", error.getMessage());
                         //requestQueue.stop();
                     }
-                }){
+                }) {
             @Override
             //this function is written to get the parameters for posting
-            protected Map<String,String> getParams(){
-                Map<String,String> params= new HashMap<String, String>();
-                params.put("query",query);
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("query", query);
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
 
+    }
+
+
+    private void deleteUser(String email) {
+        final String signin_url = "http://lawn-care.us-east-1.elasticbeanstalk.com/deleteWorkerProfile.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, signin_url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonResponse;
+                        try {
+                            jsonResponse = new JSONObject(response);
+                            if (jsonResponse.getString("success") != "false") {
+                                searchWorkers();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("Connection Failed")
+                                .setNegativeButton("Try Again", null)
+                                .create()
+                                .show();
+                        error.printStackTrace();
+                        Log.e("VOLLEY", error.getMessage());
+                        //requestQueue.stop();
+                    }
+                    }){
+                    @Override
+            protected Map<String, String> getParams() {
+
+                // Creating Map String Params.
+                Map<String, String> params = new HashMap<>();
+
+                // Adding All values to Params.
+                // The firs argument should be same sa your MySQL database table columns.
+                params.put("email", email);
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
     }
 }

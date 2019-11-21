@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.lawn_care.ui.dashboard.DashboardState;
+import com.example.lawn_care.ui.dashboard.DashboardStateAdmin;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class dash extends AppCompatActivity {
 
@@ -70,26 +72,55 @@ public class dash extends AppCompatActivity {
         }
     }
 
-    DashboardState ownerDash = new ownerDash();
-    DashboardState workerDash = new workerDash();
-    DashboardState currentDash = ownerDash;
+    class adminDash implements DashboardStateAdmin{
+        @Override
+        public void viewListings(){
+            Intent intent = new Intent (dash.this, adminViewProperties.class);
+            dash.this.startActivity(intent);
+        }
+        public void viewWorkers(){
+            Intent intent = new Intent(dash.this, viewUserList.class);
+            dash.this.startActivity(intent);
+        }
+    }
 
-    public void selectState(){
-        if(dashState.equals("owner")){
+    DashboardStateAdmin currentAdminDash;
+    DashboardState currentDash;
+
+    public String selectState(){
+        if (dashState.equals("admin"))
+        {
+            DashboardStateAdmin adminDashboard = new adminDash();
+            currentAdminDash = adminDashboard;
+            return "admin";
+        }
+        else if(dashState.equals("owner")){
+            DashboardState ownerDash = new ownerDash();
             currentDash = ownerDash;
+            return "owner";
         }
         else if(dashState.equals("worker")){
+            DashboardState workerDash = new workerDash();
             currentDash = workerDash;
+            return "worker";
         }
+        return "Error";
     }
 
     public void addYourData(View view) {
-            selectState();
-            currentDash.addData();
+            String state = selectState();
+            if (state.equals("admin"))
+                currentAdminDash.viewListings();
+            else
+                currentDash.addData();
         }
 
     public void viewYourData(View view) {
-            selectState();
+            String state = selectState();
+        if (state.equals("admin"))
+            currentAdminDash.viewWorkers();
+        else
             currentDash.viewData();
     }
+
 }

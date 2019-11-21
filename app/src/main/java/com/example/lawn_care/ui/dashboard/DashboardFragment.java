@@ -30,7 +30,7 @@ public class DashboardFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
                 ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+            View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboard);
         dashboardViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -47,44 +47,71 @@ public class DashboardFragment extends Fragment {
         btn_viewYourData=root.findViewById(R.id.btn_viewYourData);
         //set button text accordingly
 
-        //Create the OwnerDash class for the correct button inputs for an owner
-        class ownerDash implements DashboardState {
-            @Override
-            public void addData(){
-                btn_addYourData.setText("Add a property");
+        if(localUserInfo.getUserType().equals("admin"))
+        {
+            class adminDash implements DashboardStateAdmin{
+                @Override
+                public void viewListings(){
+                    btn_addYourData.setText("View All Listings");
+                }
+
+                public void viewWorkers(){
+                    btn_viewYourData.setText("View All users");
+                    btn_viewYourData.setVisibility(View.GONE);
+                }
+
+                public void viewPropertyOwners(){
+                }
             }
-            public void viewData(){
-                btn_viewYourData.setText("View your properties");
+
+            DashboardStateAdmin adminState = new adminDash();
+            DashboardStateAdmin currentAdminState = adminState;
+
+            currentAdminState.viewListings();
+            //currentAdminState.viewPropertyOwners();
+            currentAdminState.viewWorkers();
+
+        }
+        else
+        {
+            //Create the OwnerDash class for the correct button inputs for an owner
+            class ownerDash implements DashboardState {
+                @Override
+                public void addData(){
+                    btn_addYourData.setText("Add a property");
+                }
+                public void viewData(){
+                    btn_viewYourData.setText("View your properties");
+                }
+            }
+
+            //Create the workerDash class for the correct button inputs for a worker
+            class workerDash implements DashboardState {
+                @Override
+                public void addData() {
+                    btn_addYourData.setText("Add your worker profile");
+                }
+
+                public void viewData() {
+                    btn_viewYourData.setText("View your worker profile");
+                }
+            }
+
+            DashboardState ownerState = new ownerDash();
+            DashboardState workerState = new workerDash();
+            DashboardState currentState = ownerState;
+
+            if(dashboardState.equals("owner")){
+                currentState = ownerState;
+                currentState.addData();
+                currentState.viewData();
+            }
+            else if(dashboardState.equals("worker")){
+                currentState = workerState;
+                currentState.addData();
+                currentState.viewData();
             }
         }
-
-        //Create the workerDash class for the correct button inputs for a worker
-        class workerDash implements DashboardState {
-            @Override
-            public void addData() {
-                btn_addYourData.setText("Add your worker profile");
-            }
-
-            public void viewData() {
-                btn_viewYourData.setText("View your worker profile");
-            }
-        }
-
-        DashboardState ownerState = new ownerDash();
-        DashboardState workerState = new workerDash();
-        DashboardState currentState = ownerState;
-
-        if(dashboardState.equals("owner")){
-            currentState = ownerState;
-            currentState.addData();
-            currentState.viewData();
-        }
-        else if(dashboardState.equals("worker")){
-            currentState = workerState;
-            currentState.addData();
-            currentState.viewData();
-        }
-
 
         return root;
     }
