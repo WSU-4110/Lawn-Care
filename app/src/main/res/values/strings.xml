@@ -10,6 +10,7 @@
     <string name="Types_of_Work_Offered">Types of Work Offered</string>
     <string name="Do_not_have_an_Account">Don\'t have an Account</string>
     <string name="Login">Login</string>
+    <string name="Logout">Logout</string>
     <string name="Enter_Password">Enter Password</string>
     <string name="Enter_Email">Enter Email</string>
     <string name="Submit">Submit</string>
@@ -62,4 +63,11 @@
     <string name="this_is_the_scroll_area">This is the Scroll Area</string>
     <string name="enter_query">Enter Query</string>
     <string name="lawn_care">Lawn-Care</string>
+    <string name="defaulttext">DefaultText</string>
+    <string name="address">Address:</string>
+    <string name="property_size">Property Size:</string>
+    <string name="work_needed">Work Needed:</string>
+    <string name="equipment_available">Equipment Available?:</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
 </resources>
