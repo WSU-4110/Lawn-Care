@@ -64,7 +64,7 @@ public class NotificationsFragment extends Fragment implements OnMapReadyCallbac
         });
 
         //this should find the map on the xml
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.MAP);
         mapFragment.getMapAsync(this);
 
 
