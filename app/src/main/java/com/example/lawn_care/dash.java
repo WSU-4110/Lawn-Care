@@ -68,4 +68,11 @@ public class dash extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
+    public void AboutUs(View view){
+        //TODO: USER VIEW ABOUT US PAGE
+        Intent intent = new Intent(dash.this, AboutUs.class);
+        dash.this.startActivity(intent);
+
+    }
 }
