@@ -53,7 +53,7 @@ public class NotificationsFragment extends Fragment implements OnMapReadyCallbac
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
+        ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         final TextView textView = root.findViewById(R.id.text_notifications);
         notificationsViewModel.getText().observe(this, new Observer<String>() {
@@ -63,6 +63,7 @@ public class NotificationsFragment extends Fragment implements OnMapReadyCallbac
             }
         });
 
+        //this should find the map on the xml
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -71,11 +72,11 @@ public class NotificationsFragment extends Fragment implements OnMapReadyCallbac
     }
 
     @Override
-    public <stringRequest> void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap) {
 
-        final String signin_url="http://lawn-care.us-east-1.elasticbeanstalk.com/login.php";
+        final String signin_url = "http://lawn-care.us-east-1.elasticbeanstalk.com/MAP.php";
         //stringRequest is an object that contains the request method, the url, and the parameters and the response
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, signin_url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, signin_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -83,56 +84,36 @@ public class NotificationsFragment extends Fragment implements OnMapReadyCallbac
                         try {
                             jsonResponse = new JSONObject(response);
                             if (jsonResponse.getString("success") != "false") {
-                                //save the data from the json into local variables
-
-                                LinearLayout linearLayout = getActivity().findViewById(R.id.LL_searchPropertiesList);
-                                linearLayout.removeAllViews();
-                                //line between items
-                                View V_line = new View(getActivity());
-                                V_line.setBackgroundResource(R.color.BLACK);
-                                V_line.setMinimumHeight(2);
-                                linearLayout.addView(V_line);
                                 //0 to len-1, the first index is the success check, the rest are listings, but the first address starts at 0, so listings go from 0 to n-1
+                                //THIS LOOPS THROUGH THE JSON RESPONSE TO GET THE ADDRESSES
                                 for (int x = 0; x < jsonResponse.length() - 1; x++) {
-                                    //create a new linear layout so each listing can be in a view, easier to do stuff with
-                                    LinearLayout listingItem = new LinearLayout(getActivity());
-                                    listingItem.setOrientation(LinearLayout.VERTICAL);
-                                    //creates views for stuff shown on preview
-                                    TextView TV_address = new TextView(getActivity());
                                     JSONObject currentProp = jsonResponse.getJSONObject(String.valueOf(x));
 
                                     //get the fields i want to show in the views and format the strings how i want them to appear
-
+                                    //FOR EACH INDEX IN THE JSONRESPONSE, SAVE THE VALUES AND MAKE THE ADDRESS STRING
                                     String street = currentProp.getString("street");
                                     String city = currentProp.getString("city");
                                     String state = currentProp.getString("state");
                                     String zip = currentProp.getString("zip");
-                                    PropertyInfo currentProperty = new PropertyInfo(street, city, state, zip);
-                                    ArrayList<PropertyInfo> propertyInfoList = null;
-                                    propertyInfoList.add(currentProperty);
-                                    //add as a linearlayout
-                                    LinearLayout currentPropertyListing = buildListingProperty(currentProperty);
-                                    linearLayout.addView(currentPropertyListing);
-                                    //add dividing line
-                                    linearLayout.addView(buildDividerLine());
+
+                                    //THIS STRING CONTAINS THE ADDRESS OF JSONRESPONSE(x)
+                                    String fullAddress = street + " " + city + " " + state + " " + zip;
+
+                                    //NOW WE ADD THE ADDRESS TO THE MAP
+                                    List<Address> list = new ArrayList<>();
+                                    Geocoder geocoder = new Geocoder(getActivity());
+                                    try {
+                                        //use the full address we got from this row in the json
+                                        list = geocoder.getFromLocationName(fullAddress, 1);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    Address address = list.get(0);
+                                    //add this geocoded fullAddress to the map
+                                    googleMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title("my house"));
+                                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(address.getLatitude(), address.getLongitude())));
                                 }
-                                //here
-                                LatLng sydney = new LatLng(42.3314, -83.0458);
-                                List<Address> list = new ArrayList<>();
-                                Geocoder geocoder = new Geocoder(getActivity());
-                                try {
-                                    list = geocoder.getFromLocationName("2533 Solace Drive, Commerce Township 48382", 1);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-
-                                Address address = list.get(0);
-
-                                googleMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title("my house"));
-
-
-                                //googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                                googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
                             } else {
                                 //message for incorrect password
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -142,45 +123,29 @@ public class NotificationsFragment extends Fragment implements OnMapReadyCallbac
                                         .show();
                             }
 
-                        }
-                        catch (JSONException  e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    };
-
-
+                    }
+                },
                 new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError Throwable error;
-                        error) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setMessage("Connection Failed")
-                                    .setNegativeButton("Try Again",null)
-                                    .create()
-                                    .show();
-                            error.printStackTrace();
-                            Log.e("VOLLEY", error.getMessage());
-                            //requestQueue.stop();
-                        }
-                    })
-                    {
-                        @Override
-                        //this function is written to get the parameters for posting
-                        protected Map<String,String> getParams(){
-                            Map<String,String> params= new HashMap<String, String>();
-                            params.put("query",query);
-                            return params;
-                        }
-                    };
-                    RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
-        requestQueue.add(stringRequest)
-                }
-
-
-
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        Log.e("VOLLEY", error.getMessage());
+                        //requestQueue.stop();
+                    }
+                }) {
+            @Override
+            //this function is written to get the parameters for posting
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
+    }
 
 
 }
