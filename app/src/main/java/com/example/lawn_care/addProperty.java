@@ -1,8 +1,5 @@
 package com.example.lawn_care;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,17 +9,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,6 +50,8 @@ public class addProperty extends AppCompatActivity {
 
         private Button btn_submit;
 
+    private Button btn_reset;
+    private Button btn_cancel;
 
         private Boolean isValid;
 
@@ -72,7 +69,8 @@ public class addProperty extends AppCompatActivity {
             ET_Tools = findViewById(R.id.ET_Tools);
             spinnerState = findViewById(R.id.spinner2);
             btn_submit = findViewById(R.id.btn_submit);
-
+            btn_reset= findViewById(R.id.btn_reset);
+            btn_cancel= findViewById(R.id.btn_cancel);
             CB_clippings = findViewById(R.id.CB_clippings);
             CB_trimming = findViewById(R.id.CB_trimming);
             CB_mowing = findViewById(R.id.CB_mowing);
@@ -83,7 +81,6 @@ public class addProperty extends AppCompatActivity {
             CB_aeration = findViewById(R.id.CB_aeration);
             CB_Yes = findViewById(R.id.CB_Yes);
             CB_No = findViewById(R.id.CB_No);
-            btn_submit = findViewById(R.id.BTN_submit);
 
 
             spinnerState = findViewById(R.id.spinner2);

@@ -29,7 +29,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".adminViewProperties"></activity>
+        <activity android:name=".adminViewProperties">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".viewUserList" />
         <activity android:name=".editYourProperty"></activity>
         <uses-library android:required="true" android:name="com.google.android.maps" />
@@ -52,7 +58,13 @@
 
         </activity>
         <activity android:name=".SignUp" />
-        <activity android:name=".dash" />
+        <activity android:name=".dash" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
 
         <activity android:name=".AboutUs" />
 
