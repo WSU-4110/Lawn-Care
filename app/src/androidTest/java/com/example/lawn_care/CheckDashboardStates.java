@@ -1,5 +1,6 @@
 package com.example.lawn_care;
 
+import android.app.Instrumentation;
 import android.os.SystemClock;
 
 import androidx.test.rule.ActivityTestRule;
@@ -17,10 +18,13 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
 public class CheckDashboardStates {
+
     @Rule
     public ActivityTestRule<SignIn> mActivityRule = new ActivityTestRule<>(SignIn.class);
 
@@ -32,7 +36,7 @@ public class CheckDashboardStates {
     }
 
     @Test
-    public void dashOwnerStateTest(){
+    public void dashOwnerStateTest() {
         loginOwner();
         onView(withId(R.id.btn_addYourData)).check(matches(withText("Add a property")));
         onView(withId(R.id.btn_viewYourData)).check(matches(withText("View your properties")));
@@ -43,6 +47,26 @@ public class CheckDashboardStates {
         onView(withId(R.id.BTN_submitSearchWorkerQuery)).perform(click());
         SystemClock.sleep(1200);
         onView(allOf(withText("Delete User"))).check(doesNotExist());
+    }
+
+    @Test
+    public void ownerAddDataTest(){
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(addProperty.class.getName(), null, false);
+        loginOwner();
+        onView(withId(R.id.btn_addYourData)).perform(click());
+        SystemClock.sleep(1200);
+        addProperty propertyAdd = (addProperty) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 2000);
+        assertNotNull("Add Data Page not loaded",propertyAdd);
+    }
+
+    @Test
+    public void ownerViewDataTest(){
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(viewYourProperties.class.getName(), null, false);
+        loginOwner();
+        onView(withId(R.id.btn_viewYourData)).perform(click());
+        SystemClock.sleep(1200);
+        viewYourProperties propertyView = (viewYourProperties) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 2000);
+        assertNotNull("View Data Page not loaded",propertyView);
     }
 
     private void loginWorker(){
@@ -61,6 +85,26 @@ public class CheckDashboardStates {
         SystemClock.sleep(1200);
         onView(withId(R.id.text_jobText)).check(matches(withText("Search Jobs")));
         onView((withId(R.id.BTN_submitSearchWorkerQuery))).check(doesNotExist());
+    }
+
+    @Test
+    public void workerAddDataTest(){
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(addWorkerProfile.class.getName(), null, false);
+        loginWorker();
+        onView(withId(R.id.btn_addYourData)).perform(click());
+        SystemClock.sleep(1200);
+        addWorkerProfile workerAdd = (addWorkerProfile) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 2000);
+        assertNotNull("Add Data Page not loaded",workerAdd);
+    }
+
+    @Test
+    public void workerViewDataTest(){
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(viewYourWorkerProfile.class.getName(), null, false);
+        loginWorker();
+        onView(withId(R.id.btn_viewYourData)).perform(click());
+        SystemClock.sleep(1200);
+        viewYourWorkerProfile workerView = (viewYourWorkerProfile) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 2000);
+        assertNotNull("View Data Page not loaded",workerView);
     }
 
     private void loginAdmin(){
@@ -82,5 +126,15 @@ public class CheckDashboardStates {
         onView(withId(R.id.BTN_submitSearchWorkerQuery)).perform(click());
         SystemClock.sleep(1200);
         onView(allOf(withText("Delete User") ,isDisplayed()));
+    }
+
+    @Test
+    public void adminViewDataTest(){
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(adminViewProperties.class.getName(), null, false);
+        loginAdmin();
+        onView(withId(R.id.btn_addYourData)).perform(click());
+        SystemClock.sleep(1200);
+        adminViewProperties adminView = (adminViewProperties) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 2000);
+        assertNotNull("Add Data Page not loaded",adminView);
     }
 }
