@@ -54,7 +54,7 @@ public class addProperty extends AppCompatActivity {
     CheckBox CB_No;
 
         private Button btn_submit;
-
+private Button btn_reset;
 
         private Boolean isValid;
 
@@ -72,7 +72,7 @@ public class addProperty extends AppCompatActivity {
             ET_Tools = findViewById(R.id.ET_Tools);
             spinnerState = findViewById(R.id.spinner2);
             btn_submit = findViewById(R.id.btn_submit);
-
+            btn_reset = findViewById(R.id.btn_reset);
             CB_clippings = findViewById(R.id.CB_clippings);
             CB_trimming = findViewById(R.id.CB_trimming);
             CB_mowing = findViewById(R.id.CB_mowing);
@@ -110,7 +110,7 @@ public class addProperty extends AppCompatActivity {
             if (ET_city.getText().toString().length() == 0)
                 return false;
 
-            if (ET_zipcode.getText().toString().length()!= 5)
+            if (ET_zipcode.getText().toString().length()!= 7)
                 return false;
 
             if (ET_PropertySize.getText().toString().length() == 0)
