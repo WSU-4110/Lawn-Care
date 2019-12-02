@@ -2,9 +2,21 @@ language: android
 dist: trusty
 android:
   components:
+    - tools
+    - platform-tools
     - build-tools-26.0.2
     - android-26
     - sys-img-x86-android-26
+    
+    licenses:
+    - '.+'
+    
+sudo: required
+
+jdk:
+    -oraclejdk8
+    
+install: true
     
 before_install:
 - chmod +x gradlew
