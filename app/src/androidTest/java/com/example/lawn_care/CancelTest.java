@@ -1,6 +1,6 @@
 package com.example.lawn_care;
 
-import android.app.Instrumentation;
+import android.os.SystemClock;
 
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
@@ -12,25 +12,34 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static junit.framework.TestCase.assertNotNull;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 
 @RunWith(AndroidJUnit4.class)
 public class CancelTest {
+    private String owner_email = "a@a.com";
+    private String owner_password = "a";
+    private String worker_email = "g@g.com";
+    private String worker_password = "g";
 
     @Rule
-    public ActivityTestRule<addProperty> mActivityRule = new ActivityTestRule<>(addProperty.class);
-    private Instrumentation.ActivityMonitor activityMonitor;
+    public ActivityTestRule<SignIn> mActivityRule = new ActivityTestRule<>(SignIn.class);
 
+    private void owner_sign_in(){
+        onView(withId(R.id.ET_loginEmail)).perform(typeText(owner_email));
+        onView(withId(R.id.ET_loginPassword)).perform(typeText(owner_password));
+        onView(withId(R.id.BTN_login)).perform(click());
+        SystemClock.sleep(1000);
+    }
     @Test
-    public void onCreateTest(){
+    public void CancelTest(){
 
+owner_sign_in();
+        onView(withText("ADD A PROPERTY")).perform(click());
+        onView(withText("CANCEL")).perform(scrollTo(), click());
 
-        onView(withId(R.id.btn_reset)).perform(scrollTo(), click());
-       dash dashActivity = (dash) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 2000);
-        assertNotNull("attempt succsesful",dashActivity);
     }
 
 }
