@@ -8,15 +8,5 @@ android:
     - android-29
     - sys-img-x86-android-29
     
-    licenses:
-    - '.+'
-    
-sudo: required
-
-jdk:
-    -oraclejdk8
-    
-install: true
-    
 before_install:
 - chmod +x gradlew
