@@ -4,9 +4,9 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-26.0.2
-    - android-26
-    - sys-img-x86-android-26
+    - build-tools-29.0.2
+    - android-29
+    - sys-img-x86-android-29
     
     licenses:
     - '.+'
