@@ -21,10 +21,16 @@ android:
     - android-$ANDROID_API_LEVEL
     - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMU_API_LEVEL
     #- sys-img-x86-android-29
+
+  licenses:
+    - 'android-sdk-license-.+'
     
 before_install:
-- yes | sdkmanager "platforms;android-29"
+# - yes | sdkmanager "platforms;android-29"
 - chmod +x gradlew
+- android list target
+
+
 
 before_script:
   - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi google_apis/$ANDROID_ABI -c 100M
@@ -33,5 +39,6 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-  - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace --warning-mode all
+  # - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace --warning-mode all
   # - ./gradlew build
+  - ./gradlew connectedCheck
