@@ -27,7 +27,7 @@ public class viewYourWorkerProfileTest {
         onView(withId(R.id.ET_loginEmail)).perform(typeText(worker_email));
         onView(withId(R.id.ET_loginPassword)).perform(typeText(worker_password));
         onView(withId(R.id.BTN_login)).perform(click());
-        SystemClock.sleep(10000);
+        SystemClock.sleep(9000);
     }
 
     @Test
@@ -41,4 +41,30 @@ public class viewYourWorkerProfileTest {
         worker_sign_in();
         onView(withText("VIEW YOUR WORKER PROFILE")).perform(click());
     }
+
+    @Test
+    public void workerLastNameTest(){
+        worker_sign_in();
+        onView(withText("VIEW YOUR WORKER PROFILE")).perform(click());
+    }
+
+    @Test
+    public void workerPhoneNumberTest(){
+        worker_sign_in();
+        onView(withText("VIEW YOUR WORKER PROFILE")).perform(click());
+    }
+
+    @Test
+    public void workerDescriptionTest(){
+        worker_sign_in();
+        onView(withText("VIEW YOUR WORKER PROFILE")).perform(click());
+    }
+
+    @Test
+    public void workerWebsiteTest(){
+        worker_sign_in();
+        onView(withText("VIEW YOUR WORKER PROFILE")).perform(click());
+    }
+
+
 }
