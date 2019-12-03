@@ -12,6 +12,8 @@ android:
     - tools
     - tools
     - platform-tools
+    - extra
+    - addon
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
     - android-$ANDROID_API_LEVEL
     - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMU_API_LEVEL
