@@ -26,12 +26,12 @@ before_install:
 - yes | sdkmanager "platforms;android-29"
 - chmod +x gradlew
 
-# before_script:
-  # - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi google_apis/$ANDROID_ABI
-  # - emulator -avd test -no-window &
-  # - android-wait-for-emulator
-  # - adb shell input keyevent 82 &
+before_script:
+  - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi google_apis/$ANDROID_ABI -c 100M
+  - emulator -avd test -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
 
 script:
-  # - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace --warning-mode all
-  - ./gradlew build
+  - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace --warning-mode all
+  # - ./gradlew build
