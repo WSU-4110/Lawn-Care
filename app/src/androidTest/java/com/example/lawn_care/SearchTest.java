@@ -116,7 +116,6 @@ public class SearchTest {
         workerSignInSearch();
 
         onView(withId(R.id.BTN_submitSearchPropertiesQuery)).perform(click());
-        onView(withText(containsString("Lima Avenue"))).check(matches(isDisplayed()));
         onView(withText(containsString("Moonlight"))).check(matches(isDisplayed()));
 
         onView(withId(R.id.ET_searchPropertiesQuery)).perform(typeText("Kalamazoo"));
@@ -133,7 +132,7 @@ public class SearchTest {
         SystemClock.sleep(300);
         onView(withId(R.id.SW_SearchFilterJobs)).perform(click());
         onView(withId(R.id.SP_JobFilters)).perform(click());
-        onView(withText("Mowing")).perform(click());
+        onView(withText("Aeration")).perform(click());
         onView(withId(R.id.BTN_submitSearchPropertiesQuery)).perform(click());
         SystemClock.sleep(300);
         onView(withText(containsString("Moonlight"))).check(matches(isDisplayed()));

@@ -12,4 +12,4 @@ before_install:
 - chmod +x gradlew
 
 script:
-  - ./gradlew build --warning-mode all
+  - ./gradlew build connectedAndroidTest --warning-mode all
