@@ -3,8 +3,8 @@ dist: trusty
 
 env:
   global:
-  - ANDROID_API_LEVEL=26
-  - ANDROID_BUILD_TOOLS_VERSION=26.0.1
+  - ANDROID_API_LEVEL=28
+  - ANDROID_BUILD_TOOLS_VERSION=28.0.1
   - ANDROID_EMU_API_LEVEL=22
   - ANDROID_ABI=armeabi-v7a
 android:
@@ -23,7 +23,7 @@ android:
     #- sys-img-x86-android-29
     
 before_install:
-- yes | sdkmanager "platforms;android-26"
+- yes | sdkmanager "platforms;android-28"
 - chmod +x gradlew
 
 # before_script:
