@@ -13,5 +13,11 @@ before_install:
 - yes | sdkmanager "platforms;android-29"
 - chmod +x gradlew
 
+before_script:
+  - echo no | android create avd --force -n test -t android-29 --abi x86
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+
 script:
   - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace --warning-mode all
