@@ -7,14 +7,15 @@ android:
     - platform-tools
     - build-tools-29.0.2
     - android-29
-    - sys-img-x86-android-29
+    - sys-img-armeabi-v7a-android-21
+    #- sys-img-x86-android-29
     
 before_install:
 - yes | sdkmanager "platforms;android-29"
 - chmod +x gradlew
 
 before_script:
-  - echo no | android create avd --force -n test -t android-29 --abi x86
+  - echo no | android create avd --force -n test -t android-29 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
