@@ -24,9 +24,9 @@ android:
     - extra-android-support
     - addon-google_apis-google-$ANDROID_API_LEVEL
     - addon-google_apis-google-$EMULATOR_API_LEVE
-    - sys-img-$ANDROID_ABI-addon-google_apis-google-$ANDROID_API_LEVEL
-    - sys-img-$ANDROID_ABI-addon-google_apis-google-$EMULATOR_API_LEVEL
-    # - sys-img-$ANDROID_ABI-$ANDROID_EMU_API_LEVEL
+    # - sys-img-$ANDROID_ABI-addon-google_apis-google-$ANDROID_API_LEVEL
+    # - sys-img-$ANDROID_ABI-addon-google_apis-google-$EMULATOR_API_LEVEL
+    - sys-img-$ANDROID_ABI-$ANDROID_EMU_API_LEVEL
     #- sys-img-x86-android-ANDROID_API_LEVEL
 
   licenses:
@@ -40,8 +40,8 @@ before_install:
 
 
 before_script:
-  - echo no | android create avd --force -n test -t android-$EMULATOR_API_LEVEL --abi addon-google_apis-$ANDROID_ABI
-  # - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi $ANDROID_ABI -c 100M
+  # - echo no | android create avd --force -n test -t android-$EMULATOR_API_LEVEL --abi addon-google_apis-$ANDROID_ABI
+  - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi $ANDROID_ABI -c 100M
   # - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi google_apis/$ANDROID_ABI -c 100M
   - emulator -avd test -no-window &
   - android-wait-for-emulator
