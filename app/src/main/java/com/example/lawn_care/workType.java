@@ -1,6 +1,7 @@
 package com.example.lawn_care;
 
 import android.os.Build;
+import android.text.TextUtils;
 
 import androidx.annotation.RequiresApi;
 
@@ -65,9 +66,8 @@ public class workType {
         return work_type_list.toString();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public String toString(){
-        return String.join(",", this.work_type_list );
+        return TextUtils.join(",", this.work_type_list );
     }
 
     public void setWorkTypeList(String workTypeList){
