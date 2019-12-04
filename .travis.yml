@@ -49,5 +49,5 @@ before_script:
 
 script:
   # - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace --warning-mode all
-  - ./gradlew build
-  # - ./gradlew connectedCheck
+  # - ./gradlew build
+  - ./gradlew connectedCheck --stacktrace --warning-mode all
