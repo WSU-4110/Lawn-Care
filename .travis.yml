@@ -33,7 +33,7 @@ android:
     - 'android-sdk-license-.+'
     
 before_install:
-- yes | sdkmanager -licenses
+- yes | sdkmanager --licenses
 - chmod +x gradlew
 - android list target
 
