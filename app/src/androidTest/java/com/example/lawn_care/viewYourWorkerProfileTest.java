@@ -1,4 +1,3 @@
-.travis.yml
 package com.example.lawn_care;
 
 import android.os.SystemClock;
