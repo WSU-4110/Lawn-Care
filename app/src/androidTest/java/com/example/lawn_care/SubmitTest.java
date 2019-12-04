@@ -21,10 +21,10 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 
 @RunWith(AndroidJUnit4.class)
 public class SubmitTest {
-    private static String A="12 has ave";
-    private static String B="Livonia";
-    private static String F= "12";
-    private static String C="98756";
+    private static String A="44 Sto ct";
+    private static String B="Can";
+    private static String F= "480";
+    private static String C="48189";
     private String owner_email = "a@a.com";
     private String owner_password = "a";
     private String worker_email = "g@g.com";
@@ -41,7 +41,7 @@ public class SubmitTest {
     }
 
     @Test
-    public void onCreateTest(){
+    public void submitTest(){
 
 
         owner_sign_in();
@@ -69,7 +69,6 @@ public class SubmitTest {
                 .perform(scrollTo(),click());
 
         onView(withId(R.id.btn_submit)).perform(scrollTo(), click());
-
 
     }
 }
