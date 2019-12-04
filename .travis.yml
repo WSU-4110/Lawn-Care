@@ -40,7 +40,7 @@ before_install:
 
 
 before_script:
-  - echo no | android create avd --force -n test -t android-$EMULATOR_API_LEVEL --abi $ANDROID_ABI
+  - echo no | android create avd --force -n test -t android-$EMULATOR_API_LEVEL --abi addon-google_apis-$ANDROID_ABI
   # - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi $ANDROID_ABI -c 100M
   # - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi google_apis/$ANDROID_ABI -c 100M
   - emulator -avd test -no-window &
