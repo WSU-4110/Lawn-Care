@@ -8,7 +8,7 @@ env:
   - ANDROID_EMU_API_LEVEL=22
   - ANDROID_ABI=armeabi-v7a
   # - ANDROID_ABI=x86_64
-  - ADB_INSTALL_TIMEOUT=10
+  - ADB_INSTALL_TIMEOUT=30
 android:
   components:
     - tools
