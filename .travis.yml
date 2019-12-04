@@ -20,8 +20,8 @@ android:
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
     - android-$ANDROID_API_LEVEL
     # - android-$ANDROID_EMU_API_LEVEL
-    # - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMU_API_LEVEL
-    - sys-img-$ANDROID_ABI-$ANDROID_API_LEVEL
+    - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMU_API_LEVEL
+    # - sys-img-$ANDROID_ABI-$ANDROID_API_LEVEL
     #- sys-img-x86-android-29
 
   licenses:
@@ -35,13 +35,13 @@ before_install:
 
 
 before_script:
-  - echo no | android create avd --force -n test -t android-$ANDROID_API_LEVEL --abi $ANDROID_ABI -c 100M
-  # - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi google_apis/$ANDROID_ABI -c 100M
+  # - echo no | android create avd --force -n test -t android-$ANDROID_API_LEVEL --abi $ANDROID_ABI -c 100M
+  - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi google_apis/$ANDROID_ABI -c 100M
   - emulator -avd test -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 
 script:
-  - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace --warning-mode all
+  # - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace --warning-mode all
   # - ./gradlew build
-  # - ./gradlew connectedCheck
+  - ./gradlew connectedCheck
