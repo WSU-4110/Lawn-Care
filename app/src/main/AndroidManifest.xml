@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lawn_care"
     >
-
-    <uses-permission android:name="android.permission.INTERNET" />
     <!--Permissions-->
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -29,19 +27,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".adminViewProperties"></activity>
+        <activity android:name=".adminViewProperties" />
         <activity android:name=".viewUserList" />
-        <activity android:name=".editYourProperty"></activity>
+        <activity android:name=".editYourProperty" />
         <uses-library android:required="true" android:name="com.google.android.maps" />
-        <activity android:name=".PropertyPage"></activity>
-        <activity
-            android:name=".workOffered"
-
+        <activity android:name=".PropertyPage"/>
+        <activity android:name=".workOffered"
             android:theme="@style/AppTheme.CustomTheme"></activity>
         <activity android:name=".viewYourWorkerProfile" />
         <activity android:name=".viewYourProperties" />
         <activity android:name=".addWorkerProfile" />
-        <activity android:name=".addProperty" />
+        <activity android:name=".addProperty" >
+        </activity>
         <activity android:name=".SignIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,7 +47,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUp" />
-        <activity android:name=".dash" />
+        <activity android:name=".dash" >
+        </activity>
 
         <activity android:name=".AboutUs" />
 
