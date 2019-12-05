@@ -28,8 +28,22 @@ public class AdminTests {
         SystemClock.sleep(1200);
     }
 
+    private void createDeleteUser(){
+        onView(withId(R.id.textView)).perform(click());
+        onView(withId(R.id.ET_signupFirstName)).perform(typeText("Delete"));
+        onView(withId(R.id.ET_signupLastName)).perform(typeText("Me"));
+        onView(withId(R.id.ET_signupEmail)).perform(typeText("deleteme@gmail.com"));
+        onView(withId(R.id.ET_signupPass)).perform(typeText("delete"));
+        onView(withId(R.id.ET_signupPass2)).perform(typeText("delete"));
+        onView(withId(R.id.ET_signupPass)).perform(typeText("1231231234"));
+        onView(withId(R.id.ET_loginEmail)).perform(typeText("admin@lawncare.com"));
+        onView(withId(R.id.jobSeekerRB)).perform(click());
+        onView(withId(R.id.btn_Submit)).perform(click());
+    }
+
     @Test
     public void deleteWorker(){
+        createDeleteUser();
         logInAdmin();
         onView(withId(R.id.navigation_jobList)).perform(click());
         onView(withId(R.id.ET_searchWorkerQuery)).perform(typeText("Delete"));
