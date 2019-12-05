@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "com.example.lawn_care"
         minSdkVersion 22
-        targetSdkVersion 29
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -21,6 +21,9 @@ android {
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
+    }
+    adbOptions {
+        timeOutInMs 60000*10 // set timeout to 1 minute * n
     }
 }
 

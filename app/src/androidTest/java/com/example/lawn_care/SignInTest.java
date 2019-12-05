@@ -18,6 +18,7 @@ import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -79,7 +80,7 @@ public class SignInTest {
     public void SignUpRedirectTest(){
         Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(SignUp.class.getName(), null, false);
 
-        onView(withId(R.id.textView)).perform(click());
+        onView(withId(R.id.textView)).inRoot(isPlatformPopup()).perform(click());
 
         SignUp signUp= (SignUp) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 500);
         assertNotNull("Login Failed",signUp);
