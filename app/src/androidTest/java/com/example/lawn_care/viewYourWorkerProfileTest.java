@@ -64,7 +64,8 @@ public class viewYourWorkerProfileTest {
     public void workerDescriptionTest(){
         worker_sign_in();
         onView(withText("VIEW YOUR WORKER PROFILE")).perform(click());
-        onView(withId(R.id.TV_description)).check(matches(withText(containsString("I have been a self-employed lawn Care specialist forI have been a self-employed lawI have been a self-employed lawn Care specialist for the past 20 years. I have to of the line lawn mowing equipment a"))));
+        onView(withId(R.id.TV_description)).check(matches(withText(containsString("I have been a self-employed lawn Care specialist forI have been a self-employed lawI hI have been a self-employed lawn Care specialist for the past 20 years. I have to of the line lawn mowing equipmen"
+        ))));
     }
 
     @Test
