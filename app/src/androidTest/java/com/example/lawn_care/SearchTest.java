@@ -19,6 +19,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
@@ -48,7 +49,7 @@ public class SearchTest {
     @Test
     public void OwnerSearchCreate(){
         ownerSignInSearch();
-        onView(withId(R.id.ET_searchWorkerQuery)).check(matches(isDisplayed()));
+        onView(withId(R.id.ET_searchWorkerQuery)).inRoot(isPlatformPopup()).check(matches(isDisplayed()));
         onView(withId(R.id.BTN_submitSearchWorkerQuery)).check(matches(isDisplayed()));
         onView(withId(R.id.SP_WorkerFilter)).check(matches(not(isDisplayed())));
 
