@@ -49,6 +49,6 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-  # - ./gradlew clean build connectedAndroidTest -PdisablePreDex --stacktrace --warning-mode all
+  - ./gradlew clean build connectedAndroidTest -PdisablePreDex --stacktrace --warning-mode all --info
   # - ./gradlew build --stacktrace --warning-mode all
-  - ./gradlew build connectedCheck --stacktrace --warning-mode all
+  # - ./gradlew build connectedCheck --stacktrace --warning-mode all
