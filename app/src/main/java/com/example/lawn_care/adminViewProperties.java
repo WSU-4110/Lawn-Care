@@ -7,14 +7,13 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,8 +23,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -111,6 +108,7 @@ public class adminViewProperties extends AppCompatActivity {
                                     //IDEA: try changing some other attributes to make it look better
  */
                                     BTN_deleteButton.setText("Delete");
+                                    BTN_deleteButton.setId(x+12000);
                                     //BTN_editButton.setText("Edit");
                                     // Set click listener for delete listing function
                                     BTN_deleteButton.setOnClickListener(new View.OnClickListener() {
