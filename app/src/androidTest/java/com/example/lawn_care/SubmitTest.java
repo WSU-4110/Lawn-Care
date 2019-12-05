@@ -8,6 +8,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Random;
+
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -21,14 +23,14 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 
 @RunWith(AndroidJUnit4.class)
 public class SubmitTest {
-    private static String A="44 Sto ct";
+    Random random = new Random();
+    int randomInteger = random.nextInt(100);
+    private String A= randomInteger + " Sto ct";
     private static String B="Can";
     private static String F= "480";
     private static String C="48189";
     private String owner_email = "a@a.com";
     private String owner_password = "a";
-    private String worker_email = "g@g.com";
-    private String worker_password = "g";
 
     @Rule
     public ActivityTestRule<SignIn> mActivityRule = new ActivityTestRule<>(SignIn.class);
