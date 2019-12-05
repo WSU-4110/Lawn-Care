@@ -87,7 +87,7 @@ public class workOffered extends AppCompatActivity {
                     //getting the json object of the particular index inside the array
                     JSONObject workObject = workArray.getJSONObject(i);
                     User user = new User(workObject);
-                    if (user_Data.contains(user.getName()))
+                    if (user_Data!=null && user_Data.contains(user.getName()))
                         user.setSelected(true);
                     arrayOfUsers.add(user);
                 }
