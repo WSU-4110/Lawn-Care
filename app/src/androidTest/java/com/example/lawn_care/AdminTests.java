@@ -35,8 +35,7 @@ public class AdminTests {
         onView(withId(R.id.ET_signupEmail)).perform(typeText("deleteme@gmail.com"));
         onView(withId(R.id.ET_signupPass)).perform(typeText("delete"));
         onView(withId(R.id.ET_signupPass2)).perform(typeText("delete"));
-        onView(withId(R.id.ET_signupPass)).perform(typeText("1231231234"));
-        onView(withId(R.id.ET_loginEmail)).perform(typeText("admin@lawncare.com"));
+        onView(withId(R.id.ET_signupPhone)).perform(typeText("1231231234"));
         onView(withId(R.id.jobSeekerRB)).perform(click());
         onView(withId(R.id.btn_Submit)).perform(click());
     }
