@@ -51,5 +51,5 @@ before_script:
 
 script:
   # - ./gradlew clean build connectedAndroidTest -PdisablePreDex --stacktrace --warning-mode all
-  - ./gradlew build installDebug connectedCheck --stacktrace --warning-mode all
-  # - ./gradlew connectedCheck -x lint --stacktrace
+  # - ./gradlew build installDebug connectedCheck --stacktrace --warning-mode all
+  - ./gradlew build --stacktrace --warning-mode all
