@@ -41,7 +41,7 @@ public class SearchTest {
         onView(withId(R.id.ET_loginEmail)).perform(typeText("johnsmith@gmail.com"));
         onView(withId(R.id.ET_loginPassword)).perform(typeText("password"), closeSoftKeyboard());
         onView(withId(R.id.BTN_login)).perform(click());
-        SystemClock.sleep(1000);
+        SystemClock.sleep(1500);
         onView(withId(R.id.navigation_jobList)).perform(click());
     }
 
@@ -107,7 +107,7 @@ public class SearchTest {
         onView(withId(R.id.ET_loginEmail)).perform(typeText("jhooper@yahoo.com"));
         onView(withId(R.id.ET_loginPassword)).perform(typeText("jhooper313"),closeSoftKeyboard());
         onView(withId(R.id.BTN_login)).perform(click());
-        SystemClock.sleep(1000);
+        SystemClock.sleep(1500);
         onView(withId(R.id.navigation_jobList)).perform(click());
     }
 
